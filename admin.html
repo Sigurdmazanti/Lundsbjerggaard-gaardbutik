@@ -34,9 +34,18 @@
           <label for="cut">
             <select id="cut">
               <option value="" selected disabled>Udskæringer</option>
-              <option value="Bovsteg/Klump"></option>
-              <option value=""></option>
-              <option value=""></option>
+              <option value="Bov">Bov</option>
+              <option value="Bryst">Bryst</option>
+              <option value="Hale">Hale</option>
+              <option value="Hals">Hals</option>
+              <option value="Højreb">Højreb</option>
+              <option value="Lår">Lår</option>
+              <option value="Mørbrad">Mørbrad</option>
+              <option value="Skank">Skank</option>
+              <option value="Tværreb">Tværreb</option>
+              <option value="Tykkam">Tykkam</option>
+              <option value="Tyksteg">Tyksteg</option>
+              <option value="Tyndsteg">Tyndsteg</option>
             </select>
           </label>
 
@@ -63,6 +72,17 @@
           <input type="text" id="price" placeholder="Pris" required />
           <input type="text" id="weight" placeholder="Vægt" required />
           <input type="number" id="kgprice" placeholder="Kilopris" required />
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)</p>
+<div class="radio_forside">
+              <input type="radio" id="ja_forside"
+               name="forslag" value="Ja">
+              <label for="ja_forside">Ja</label>
+          
+              <input type="radio" id="nej_forside"
+               name="forslag" value="Nej" checked>
+              <label for="nej_forside">Nej</label>
+            </div>
+
           <input
             type="file"
             id="img"
@@ -86,9 +106,18 @@
           <label for="cut-update">
             <select id="cut-update">
               <option value="" selected disabled>Udskæringer</option>
-              <option value="Rib">rib</option>
-              <option value="Bøf">bøf</option>
-              <option value="Den bedste bøf">bedste bøf</option>
+              <option value="Bov">Bov</option>
+              <option value="Bryst">Bryst</option>
+              <option value="Hale">Hale</option>
+              <option value="Hals">Hals</option>
+              <option value="Højreb">Højreb</option>
+              <option value="Lår">Lår</option>
+              <option value="Mørbrad">Mørbrad</option>
+              <option value="Skank">Skank</option>
+              <option value="Tværreb">Tværreb</option>
+              <option value="Tykkam">Tykkam</option>
+              <option value="Tyksteg">Tyksteg</option>
+              <option value="Tyndsteg">Tyndsteg</option>
             </select>
           </label>
 
@@ -115,6 +144,16 @@
           <input type="text" id="price-update" placeholder="Pris" required />
           <input type="text" id="weight-update" placeholder="Vægt" required />
           <input type="number" id="kgprice-update" placeholder="Kilopris" required />
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)</p>
+<div class="radio_forside">
+              <input type="radio" id="ja-forside-update"
+               name="forslag-update" value="Ja">
+              <label for="ja-forside-update">Ja</label>
+          
+              <input type="radio" id="nej-forside_update"
+               name="forslag-update" value="Nej" checked>
+              <label for="nej-forside-update">Nej</label>
+            </div>
           <input
             type="file"
             id="img"

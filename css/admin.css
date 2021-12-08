@@ -35,6 +35,7 @@ img {
   width: 100%;
   height: auto;
 }
+
 /* ---------- topbar styling ---------- */
 .topbar {
   background-color: var(--green);
@@ -198,6 +199,26 @@ img {
 .dashboard_lagerstatus p {
   margin-right: 5px;
 }
+
+.radio_forside_p {
+  margin: 1em auto;
+  max-width: 350px;
+  font-weight: bold;
+}
+
+.radio_forside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em auto;
+  max-width: 350px;
+}
+
+.radio_forside input {
+  width: auto !important;
+  margin: 10px !important;
+}
+
 
 form {
   margin: 2em auto 0;

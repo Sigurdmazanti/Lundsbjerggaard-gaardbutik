@@ -69,6 +69,8 @@ function optionalList(lager) {
 // append users to the DOM
 function appendUsers(users) {
   let htmlTemplate = "";
+  let count = "";
+  console.log(count);
   for (const user of users) {
     htmlTemplate += /*html*/ `
     <article class="dashboard_products">
@@ -80,6 +82,7 @@ function appendUsers(users) {
 	  <p><span>Vægt:</span> ${user.weight}</p>
     <p><span>Kilopris:</span> ${user.kgprice}</p>
 	  <p><span>Cut:</span> ${user.cut}</p>
+    <p><span>Vist på forsiden?</span> ${user.forsideForslag}</p>
     <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
       user
     )} ${user.stock}</div>
@@ -115,6 +118,7 @@ function createUser() {
   let imageInput = document.querySelector("#imagePreview");
   let stockInput = document.querySelector("#lagerstatus");
   let kgpriceInput = document.querySelector("#kgprice");
+  let forsideInput = document.querySelector('input[name="forslag"]:checked');
 
   const newUser = {
     name: nameInput.value,
@@ -126,6 +130,7 @@ function createUser() {
     img: imageInput.src,
     stock: stockInput.value,
     kgprice: kgpriceInput.value,
+    forsideforslag: forsideInput.value
   };
 
   addDoc(_usersRef, newUser);
@@ -140,6 +145,7 @@ function createUser() {
   imageInput.src = "";
   stockInput.value = "";
   kgpriceInput.value = "";
+  forsideInput.value = "";
 }
 
 // ========== UPDATE ==========
@@ -171,9 +177,21 @@ function updateUser() {
     img: document.querySelector("#imagePreviewUpdate").src,
     stock: document.querySelector("#lagerstatus-update").value,
     kgprice: document.querySelector("#kgprice-update").value,
+    forsideForslag: document.querySelector('input[name="forslag-update"]:checked').value,
   };
   const userRef = doc(_usersRef, _selectedUserId);
   updateDoc(userRef, userToUpdate);
+
+  // reset
+  document.querySelector("#name-update").value = ""; 
+  document.querySelector("#description-update").value = ""; 
+  document.querySelector("#cut-update").value = ""; 
+  document.querySelector("#category-update").value = ""; 
+  document.querySelector("#price-update").value = ""; 
+  document.querySelector("#weight-update").value = ""; 
+  document.querySelector("#imagePreviewUpdate").src = ""; 
+  document.querySelector("#lagerstatus-update").value = ""; 
+  document.querySelector("#kgprice-update").value = ""; 
 }
 
 // ========== DELETE ==========
