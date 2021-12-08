@@ -1,4 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -30,7 +32,6 @@ const _usersRef = collection(_db, "produkter");
 let _users = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
-
 // ========== READ ==========
 
 // onSnapshot: listen for realtime updates
@@ -41,10 +42,11 @@ onSnapshot(_usersRef, (snapshot) => {
     user.id = doc.id;
     return user;
   });
+  /* Sorterer array alfabetisk */
+  _users.sort((a, b) => a.name.localeCompare(b.name));
   appendUsers(_users);
   // showLoader(false);
 });
-
 //option
 function optionalList(lager) {
   let htmlOptional = "";
@@ -66,15 +68,21 @@ function optionalList(lager) {
   return htmlOptional;
 }
 
+
 // append users to the DOM
 function appendUsers(users) {
   let htmlTemplate = "";
-  let count = "";
-  console.log(count);
+
+    // let userCount = users;
+    // userCount.sort((a, b) => a.name.localeCompare(b.name));
+    // console.log(userCount);
+    // console.log(userLength);
+
   for (const user of users) {
     htmlTemplate += /*html*/ `
     <article class="dashboard_products">
       <h3><span>${user.name}</span></h3>
+      <img src="${user.img}">
       <div class="dashboard_products_info">
 	  <p><span>Beskrivelse:</span> ${user.description}</p>
 	  <p><span>Kategori:</span> ${user.category}</p>
@@ -87,12 +95,14 @@ function appendUsers(users) {
       user
     )} ${user.stock}</div>
     </div>
-    <img src="${user.img}">
-      <button class="btn-update-user" data-id="${user.id}">Update</button>
-      <button class="btn-delete-user" data-id="${user.id}">Delete</button>
+    <div class="dashboard_buttons">
+      <button class="btn-update-user" data-id="${user.id}">Opdater</button>
+      <button class="btn-delete-user" data-id="${user.id}">Fjern</button>
+    </div>
     </article>
     `;
   }
+
   document.querySelector("#content").innerHTML = htmlTemplate;
 
   //attach events to update and delete btns
@@ -104,6 +114,7 @@ function appendUsers(users) {
     btn.onclick = () => deleteUser(btn.getAttribute("data-id"));
   });
 }
+
 
 // ========== CREATE ==========
 // add a new user to firestore (database)
@@ -119,10 +130,11 @@ function createUser() {
   let stockInput = document.querySelector("#lagerstatus");
   let kgpriceInput = document.querySelector("#kgprice");
   let forsideInput = document.querySelector('input[name="forslag"]:checked');
-
   const newUser = {
-    name: nameInput.value,
-    description: descriptionInput.value,
+    // Gør det første bogstav i hvert ord stort
+    name: nameInput.value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' '),
+    // Gør det første bogstav i sætningen stort
+    description: descriptionInput.value[0].toUpperCase() + descriptionInput.value.slice(1),
     cut: cutInput.value,
     category: categoryInput.value,
     price: priceInput.value,
@@ -130,7 +142,7 @@ function createUser() {
     img: imageInput.src,
     stock: stockInput.value,
     kgprice: kgpriceInput.value,
-    forsideforslag: forsideInput.value
+    forsideForslag: forsideInput.value
   };
 
   addDoc(_usersRef, newUser);
@@ -154,7 +166,7 @@ function selectUser(id) {
   const user = _users.find((user) => user.id == _selectedUserId);
   // references to the input fields
   document.querySelector("#name-update").value = user.name;
-  document.querySelector("#description-update").value = user.description;
+  document.querySelector("#descriptionUpdate").value = user.description;
   document.querySelector("#cut-update").value = user.cut;
   document.querySelector("#category-update").value = user.category;
   document.querySelector("#price-update").value = user.price;
@@ -163,13 +175,17 @@ function selectUser(id) {
   document.querySelector("#lagerstatus-update").value = user.stock;
   document.querySelector("#kgprice-update").value = user.kgprice;
   //scroll to update form
-  document.querySelector("#form-update").scrollIntoView({ behavior: "smooth" });
+  document.querySelector("#form-update").scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 function updateUser() {
   const userToUpdate = {
-    name: document.querySelector("#name-update").value,
-    description: document.querySelector("#description-update").value,
+    // Gør det første bogstav i hvert ord stort
+    name: document.querySelector("#name-update").value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' '),
+    // Gør det første bogstav i sætningen stort
+    description: document.querySelector("#descriptionUpdate").value[0].toUpperCase() + descriptionUpdate.value.slice(1),
     cut: document.querySelector("#cut-update").value,
     category: document.querySelector("#category-update").value,
     price: document.querySelector("#price-update").value,
@@ -183,22 +199,60 @@ function updateUser() {
   updateDoc(userRef, userToUpdate);
 
   // reset
-  document.querySelector("#name-update").value = ""; 
-  document.querySelector("#description-update").value = ""; 
-  document.querySelector("#cut-update").value = ""; 
-  document.querySelector("#category-update").value = ""; 
-  document.querySelector("#price-update").value = ""; 
-  document.querySelector("#weight-update").value = ""; 
-  document.querySelector("#imagePreviewUpdate").src = ""; 
-  document.querySelector("#lagerstatus-update").value = ""; 
-  document.querySelector("#kgprice-update").value = ""; 
+  document.querySelector("#name-update").value = "";
+  document.querySelector("#descriptionUpdate").value = "";
+  document.querySelector("#cut-update").value = "";
+  document.querySelector("#category-update").value = "";
+  document.querySelector("#price-update").value = "";
+  document.querySelector("#weight-update").value = "";
+  document.querySelector("#imagePreviewUpdate").src = "";
+  document.querySelector("#lagerstatus-update").value = "";
+  document.querySelector("#kgprice-update").value = "";
 }
 
 // ========== DELETE ==========
 function deleteUser(id) {
   const docRef = doc(_usersRef, id);
-  deleteDoc(docRef);
+  Swal.fire({
+    title: 'Er du sikker på at du vil slette dette produkt?',
+    text: "Produktet kan ikke genoprettes.",
+    icon: 'warning',
+    iconColor: 'red',
+    showCancelButton: true,
+    showCloseButton: true,
+    returnFocus: false,
+    focusConfirm: false,
+    allowEnterKey: false,
+    cancelButtonText: 'Annuller',
+    confirmButtonColor: 'green',
+    cancelButtonColor: 'red',
+    confirmButtonText: 'Bekræft'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Produktet er nu slettet.',
+        '',
+        'success'
+      ), deleteDoc(docRef);
+    } else {
+      Swal.fire(
+        'Produktet blev beholdt.',
+        '',
+        'success',
+      )
+    }
+  })
 }
+
+// confirmButtonColor: 'rgb(38, 76, 89)',
+//   let deleteKeep = confirm("Want to delete?");
+
+//   if (deleteKeep) {
+//     deleteDoc(docRef);
+//   }
+// }
+
+
 function previewImage(file, previewId) {
   if (file) {
     _selectedImgFile = file;
@@ -237,6 +291,7 @@ textAreaNews();
 // }
 
 // =========== attach events =========== //
+
 document.querySelector("#btn-update").onclick = () => updateUser();
 document.querySelector("#btn-create").onclick = () => createUser();
 window.previewImage = (file, previewId) => previewImage(file, previewId);

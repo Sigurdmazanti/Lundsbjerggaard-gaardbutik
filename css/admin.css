@@ -154,23 +154,18 @@ img {
   margin-top: 50px;
 }
 
-.grid-container > article:hover {
-  box-shadow: 0 8px 16px 0 var(--green-opacity);
-}
-
 .grid-container > article img {
-  width: 100%;
-  max-width: 250px;
-  height: auto;
+  width: 250px;
+  height: 187.5px;
   display: block;
   margin: 0 auto;
 }
 
 /* ---------- form styling ---------- */
 /* input form stryling */
-.form_dashboard {
+.dashboard_products {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .dashboard_products p span,
@@ -181,6 +176,7 @@ img {
 
 .dashboard_products p {
   word-break: break-all;
+  text-align: left;
 }
 
 .dashboard_products_info {
@@ -198,6 +194,12 @@ img {
 
 .dashboard_lagerstatus p {
   margin-right: 5px;
+}
+
+.dashboard_buttons {
+  display: block;
+  margin: 0 auto;
+  margin-top: auto;
 }
 
 .radio_forside_p {
@@ -219,6 +221,10 @@ img {
   margin: 10px !important;
 }
 
+.form_dashboard {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 form {
   margin: 2em auto 0;
@@ -227,25 +233,75 @@ form {
   width: 45%;
 }
 
-form button {
+#btn-create, #btn-update {
   padding: 12px 15px;
   font-size: 1em;
   width: 100%;
   max-width: 350px;
+  color: var(--text-color-light);
+  background-color: var(--green);
 }
 
-button {
+.swal2-styled.swal2-cancel:focus, .swal2-confirm.swal2-styled:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-update-user, #btn-create, #btn-update, .btn-delete-user {
   font-weight: 300;
   text-align: center;
   cursor: pointer;
   border: none;
   border-radius: 0;
-  color: var(--text-color-light);
-  background-color: var(--green);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.btn-update-user, .btn-delete-user {
   padding: 0.5em 1em;
   font-size: 0.8em;
+  margin-top: 1em;
+}
+
+.btn-update-user:hover, .btn-delete-user:hover {
+  box-shadow: 0 8px 16px 0 var(--green-opacity);
+}
+
+.btn-update-user {
+  color: var(--text-color-light);
+  background-color: var(--green);
+}
+
+.btn-delete-user {
+  color: var(--text-color-light);
+  background-color: red;
+}
+
+/* SweetAlert styling */
+.swal2-styled.swal2-cancel, .swal2-styled.swal2-confirm {
+  border-radius: 0px !important;
+}
+
+.swal2-confirm.swal2-styled.swal2-default-outline {
+  background-color: green !important;
+}
+
+.swal2-confirm.swal2-styled {
+  background-color: rgb(38, 76, 89) !important; 
+}
+
+
+.swal2-close {
+  color: black !important;
+}
+
+
+#btn-create:hover, #btn-update:hover, .swal2-styled.swal2-cancel:hover, .swal2-styled.swal2-confirm:hover, .swal2-confirm.swal2-styled:hover  {
+  box-shadow: 0 8px 16px 0 var(--green-opacity) !important;
+}
+
+.swal2-close:hover {
+  opacity: 0.5;
 }
 
 input,
@@ -354,4 +410,25 @@ form select {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 0.4s, opacity 0.4s linear;
+}
+
+@media screen and (max-width: 640px) {
+  form {
+    width: 100%;
+  }
+
+  .nyheder_text_output {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  #textContent {
+    display: block;
+    margin: 0 auto;
+  }
+
+  #showText {
+    width: auto;
+    margin-top: 40px;
+  }
 }
