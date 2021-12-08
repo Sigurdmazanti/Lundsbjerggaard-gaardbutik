@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Lundsbjerggaard</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
 
-  <body onhashchange="pageChange()">
+<head>
+  <meta charset="utf-8" />
+  <title>Lundsbjerggaard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body onhashchange="pageChange()">
   <header>
     <div class="mobile-nav">
       <a href="#home"><img src="./img/Logo.svg" /></a>
-      <a href="#" class="icon burger" onclick="burgerMenu()">
+
+      <button class="burger icon" id="burger">
         <img src="./img/burger.svg" /></i>
-      </a>
+      </button>
     </div>
-    <nav class="tabbar">
+    <nav class="tabbar" id="tabbar">
       </div>
       <div class="product-nav">
         <a href="#products">Produkter</a>
@@ -33,47 +32,50 @@
     </nav>
   </header>
 
-    <section id="home" class="page">
-      <section class="hero">
-        <div class="content">
-          <div class="content-all">
-            <h1>Velkommen til <br />Lundsbjerggaard</h1>
-            <p>
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna.
-            </p>
-            <button type="button" class="cta-btn" onclick="location.href='#'">
-              Se vores udvalg
-            </button>
-          </div>
+  <section id="home" class="page">
+    <section class="hero">
+      <div class="content">
+        <div class="content-all">
+          <h1>Velkommen til <br />Lundsbjerggaard</h1>
+          <p>
+            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna.
+          </p>
+          <button type="button" class="cta-btn" onclick="location.href='#'">
+            Se vores udvalg
+          </button>
         </div>
-      </section>
-
-      <section id="info-kort">
-        <div class="info-kort-bg">
-          <div class="info-kort-img">
-            <img src="img/imagestack.png" />
-          </div>
-          <div class="info-kort-text">
-            <h2>Jerseykoen</h2>
-            <p>
-              Jerseykoen er en smule udskilt på grund af dens størrelse. Men trods af det er den yderst effektiv til at producere mælk. Mælken er meget koncentreret i forhold til de andre store racer, som Rød dansk malkerace og Dansk holstein. Vores køer levere mælk med 6,2% fedt og 4,3% protein. <br> <br>
-              Ud over dens evne til at producere mælk har Jerseykoen og en evne til at levere en fantastisk kvalitet kød. Jerseykød er kendt for deres kraftfulde smag, og flotte fedtmarmorering
-
-            </p>
-            <button type="button" class="cta-btn" onclick="location.href='#'">
-              Læs mere
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <div class="forslag-header">
-        <h2>Forslag</h2>
-        <div class="linje"></div>
       </div>
+    </section>
 
-      <section class="produkt-kort"></section>
+    <section id="info-kort">
+      <div class="info-kort-bg">
+        <div class="info-kort-img">
+          <img src="img/imagestack.png" />
+        </div>
+        <div class="info-kort-text">
+          <h2>Jerseykoen</h2>
+          <p>
+            Jerseykoen er en smule udskilt på grund af dens størrelse. Men trods af det er den yderst effektiv til at
+            producere mælk. Mælken er meget koncentreret i forhold til de andre store racer, som Rød dansk malkerace og
+            Dansk holstein. Vores køer levere mælk med 6,2% fedt og 4,3% protein. <br> <br>
+            Ud over dens evne til at producere mælk har Jerseykoen og en evne til at levere en fantastisk kvalitet kød.
+            Jerseykød er kendt for deres kraftfulde smag, og flotte fedtmarmorering
+
+          </p>
+          <button type="button" class="cta-btn" onclick="location.href='#'">
+            Læs mere
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="forslag-header">
+      <h2>Forslag</h2>
+      <div class="linje"></div>
+    </div>
+
+    <section class="produkt-kort"></section>
 
 
     <section id="kategorier-forside">
@@ -82,12 +84,12 @@
         <div class="top-box">
           <h3>Kød</h3>
         </div>
-         <div class="bund-box-venstre">
-            <h3>Dansk Jersey</h3>
-         </div>
-          <div class="bund-box-højre">
-            <h3>Om Gården</h3>
-          </div>
+        <div class="bund-box-venstre">
+          <h3>Dansk Jersey</h3>
+        </div>
+        <div class="bund-box-højre">
+          <h3>Om Gården</h3>
+        </div>
       </div>
     </section>
 
@@ -95,178 +97,146 @@
 
 
 
+  </section>
+
+
+  <section id="products" class="page">
+    <section class="hero-produkter">
+      <div class="content">
+        <div class="content-all">
+          <h1>Produkter</h1>
+          <p>
+            Dansk jersey-kød af den fineste kvalitet
+          </p>
+        </div>
+      </div>
     </section>
 
-
-    <section id="products" class="page">
-      <section class="hero-produkter">
-        <div class="content">
-          <div class="content-all">
-            <h1>Produkter</h1>
-            <p>
-              Dansk jersey-kød af den fineste kvalitet
-            </p>
+    <div class="center-content">
+      <div class="product-content">
+        <div class="desktop-nav">
+          <div class="nav-container">
+            <ul>
+              <li class="boffer1"><a href="#bofferSteaks">Bøffer/Steaks</a></li>
+              <li class="boffer2"><a href="#stege">Hele stege</a></li>
+              <li class="boffer3"><a href="#hakket">Hakket oksekød</a></li>
+              <li class="boffer4"><a href="#spegepolse">Spegepølse</a></li>
+              <li class="boffer5"><a href="#vin">Vin</a></li>
+            </ul>
           </div>
         </div>
-      </section>
 
-         <div class="center-content">
-           <div class="product-content">
-             <div class="desktop-nav">
-               <div class="nav-container">
-                 <ul>
-                   <li class="boffer1"><a href="#bofferSteaks">Bøffer/Steaks</a></li>
-                   <li class="boffer2"><a href="#stege">Hele stege</a></li>
-                   <li class="boffer3"><a href="#hakekt">Hakket oksekød</a></li>
-                   <li class="boffer4"><a href="#spegepolse">Spegepølse</a></li>
-                   <li class="boffer5"><a href="#vin">Vin</a></li>
-                 </ul>
-               </div>
-             </div>
-             <div class="produkter">
-               <section class="kategori boffer" id="bofferSteaks">
-                 <div id="piece" class="piece">
-                   <h1>Bøffer/Steaks</h1>
-                 </div>
-                 <div id="all-bofferSteaks">
+        <div class="mobile-produkt-nav">
+          <h2>Produkter</h2>
+          <div class="mobile-nav-container">
+            <ul>
+              <li class="boffer1"><a href="#all-bofferSteaks">Bøffer/Steaks</a></li>
+              <li class="boffer2"><a href="#stege">Hele stege</a></li>
+              <li class="boffer3"><a href="#hakket">Hakket oksekød</a></li>
+              <li class="boffer4"><a href="#spegepolse">Spegepølse</a></li>
+              <li class="boffer5"><a href="#vin">Vin</a></li>
+            </ul>
+          </div>
+        </div>
 
-                 </div>
+        <div class="produkter">
+          <section class="kategori boffer" id="bofferSteaks">
+            <div id="piece" class="piece">
+              <h1>Bøffer/Steaks</h1>
+            </div>
+            <div id="all-bofferSteaks">
 
-               </section>
+            </div>
 
-               <section class="kategori stege" id="stege">
-                 <div class="piece">
-                   <h1>Hele stege</h1>
-                 </div>
-                 <div id="all-stege">
-                 </div>
+          </section>
 
-               </section>
+          <section class="kategori stege" id="stege">
+            <div class="piece">
+              <h1>Hele stege</h1>
+            </div>
+            <div id="all-stege">
+            </div>
 
-               <section class="kategori stege" id="hakket">
-                 <div class="piece">
-                   <h1>Hakket oksekød</h1>
-                 </div>
-                 <div class="all-articles">
+          </section>
 
-                 </div>
-               </section>
+          <section class="kategori stege" id="hakket">
+            <div class="piece">
+              <h1>Hakket oksekød</h1>
+            </div>
+            <div class="all-hakket">
 
-               <section class="kategori stege" id="spegepolse">
-                 <div class="piece">
-                   <h1>Spegepølse</h1>
-                 </div>
+            </div>
+          </section>
 
-               </section>
+          <section class="kategori stege" id="spegepolse">
+            <div class="piece">
+              <h1>Spegepølse</h1>
+            </div>
+            <div class="all-spegepolse">
 
-               <section class="kategori stege" id="vin">
-                 <div class="piece">
-                   <h1>Vin</h1>
-                 </div>
+            </div>
+          </section>
 
-               </section>
+          <section class="kategori stege" id="vin">
+            <div class="piece">
+              <h1>Vin</h1>
+            </div>
+            <div class="all-vin">
 
-             </div>
+            </div>
+          </section>
 
-           </div>
-         </div>
-      <div id="product-section"></div>
-    </section>
-    <section id="jersey" class="page">
-      <img src="img/LundsbjerggaardLogo.png" usemap="#image-map" />
+        </div>
 
-      <map name="image-map">
-        <area
-          target="_self"
-          alt="neck"
-          title="neck"
-          href=""
-          coords="486,676,449,690,329,539,308,490,331,464,363,431,392,384,419,306,447,241,474,184,606,174,606,349,598,453,584,543,561,598,547,631,525,654,512,666"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt="chuck"
-          title="chuck"
-          href=""
-          coords="463,701,482,737,500,792,590,803,729,809,892,811,1011,813,1143,792,1178,782,1164,637,1117,549,1078,486,1043,388,990,276,906,174,855,104,810,96,723,120,629,139,604,135,616,249,616,366,610,443,592,525,580,578,551,627"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="brisket"
-          href=""
-          coords="498,797,521,846,541,895,574,940,602,972,645,1001,678,1009,700,1007,1096,968,1127,903,1143,850,1151,799,1031,809,859,809,721,809,572,805,508,799"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="rib"
-          href=""
-          coords="1162,662,1184,774,1251,737,1294,717,1345,703,1384,692,1433,676,1458,676,1458,613,1423,523,1378,433,1333,351,1286,272,1247,202,1223,167,1209,137,1119,133,1035,121,968,114,913,106,866,102,898,163,949,210,1000,284,1033,357,1064,447,1102,517,1145,596"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="plate"
-          href=""
-          coords="1107,966,1158,984,1194,997,1243,1003,1286,1007,1339,1005,1388,1005,1443,993,1486,989,1511,982,1523,935,1488,817,1462,680,1421,682,1309,713,1251,741,1207,764,1151,786,1139,864"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="shortloin"
-          href=""
-          coords="1211,135,1372,131,1486,131,1515,176,1558,253,1586,337,1607,441,1607,517,1613,582,1617,645,1631,705,1578,703,1531,690,1482,676,1466,674,1462,625,1458,594,1435,545,1421,513,1386,449,1349,390,1313,317,1284,268,1256,212"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="round"
-          href=""
-          coords="1770,96,1839,80,1919,76,2019,71,2072,88,2095,227,2107,333,2111,425,2119,507,2125,592,2123,692,2121,776,2121,854,2072,864,2009,862,1954,858,1913,848,1890,842,1868,833,1844,813,1823,799,1819,782,1831,696,1831,619,1831,547,1831,480,1827,374,1807,268,1792,176"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="flank"
-          href=""
-          coords="1464,674,1513,688,1558,703,1599,711,1648,715,1684,719,1723,729,1756,741,1780,750,1801,772,1819,805,1848,825,1886,844,1923,854,1978,868,1988,878,1946,895,1909,915,1880,942,1852,966,1837,999,1562,946,1525,944,1503,872,1492,815,1476,754"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="bottom-sirloin"
-          href=""
-          coords="1629,703,1619,609,1609,564,1611,504,1607,458,1605,421,1817,421,1821,484,1827,541,1825,596,1827,658,1821,707,1821,743,1821,768,1805,778,1782,748,1748,727,1701,715,1658,709"
-          shape="poly"
-        />
-        <area
-          target="_self"
-          alt=""
-          title="top-sirloin"
-          href=""
-          coords="1494,131,1539,125,1584,121,1615,118,1652,112,1688,104,1729,94,1766,90,1797,188,1799,255,1813,298,1819,349,1821,394,1823,421,1607,417,1590,362,1578,325,1560,274,1547,241,1525,196,1503,163"
-          shape="poly"
-        />
-      </map>
-    </section>
-
-<section id="about" class="page">
-  <section class="hero">
-    <div class="content">
-      <div class="about-content-hero">
-        <h1>Lundsbjerggaard</h1>
       </div>
     </div>
+    <div id="product-section"></div>
   </section>
+  <section id="jersey" class="page">
+    <img src="img/LundsbjerggaardLogo.png" usemap="#image-map" />
+
+    <map name="image-map">
+      <area target="_self" alt="neck" title="neck" href=""
+        coords="486,676,449,690,329,539,308,490,331,464,363,431,392,384,419,306,447,241,474,184,606,174,606,349,598,453,584,543,561,598,547,631,525,654,512,666"
+        shape="poly" />
+      <area target="_self" alt="chuck" title="chuck" href=""
+        coords="463,701,482,737,500,792,590,803,729,809,892,811,1011,813,1143,792,1178,782,1164,637,1117,549,1078,486,1043,388,990,276,906,174,855,104,810,96,723,120,629,139,604,135,616,249,616,366,610,443,592,525,580,578,551,627"
+        shape="poly" />
+      <area target="_self" alt="" title="brisket" href=""
+        coords="498,797,521,846,541,895,574,940,602,972,645,1001,678,1009,700,1007,1096,968,1127,903,1143,850,1151,799,1031,809,859,809,721,809,572,805,508,799"
+        shape="poly" />
+      <area target="_self" alt="" title="rib" href=""
+        coords="1162,662,1184,774,1251,737,1294,717,1345,703,1384,692,1433,676,1458,676,1458,613,1423,523,1378,433,1333,351,1286,272,1247,202,1223,167,1209,137,1119,133,1035,121,968,114,913,106,866,102,898,163,949,210,1000,284,1033,357,1064,447,1102,517,1145,596"
+        shape="poly" />
+      <area target="_self" alt="" title="plate" href=""
+        coords="1107,966,1158,984,1194,997,1243,1003,1286,1007,1339,1005,1388,1005,1443,993,1486,989,1511,982,1523,935,1488,817,1462,680,1421,682,1309,713,1251,741,1207,764,1151,786,1139,864"
+        shape="poly" />
+      <area target="_self" alt="" title="shortloin" href=""
+        coords="1211,135,1372,131,1486,131,1515,176,1558,253,1586,337,1607,441,1607,517,1613,582,1617,645,1631,705,1578,703,1531,690,1482,676,1466,674,1462,625,1458,594,1435,545,1421,513,1386,449,1349,390,1313,317,1284,268,1256,212"
+        shape="poly" />
+      <area target="_self" alt="" title="round" href=""
+        coords="1770,96,1839,80,1919,76,2019,71,2072,88,2095,227,2107,333,2111,425,2119,507,2125,592,2123,692,2121,776,2121,854,2072,864,2009,862,1954,858,1913,848,1890,842,1868,833,1844,813,1823,799,1819,782,1831,696,1831,619,1831,547,1831,480,1827,374,1807,268,1792,176"
+        shape="poly" />
+      <area target="_self" alt="" title="flank" href=""
+        coords="1464,674,1513,688,1558,703,1599,711,1648,715,1684,719,1723,729,1756,741,1780,750,1801,772,1819,805,1848,825,1886,844,1923,854,1978,868,1988,878,1946,895,1909,915,1880,942,1852,966,1837,999,1562,946,1525,944,1503,872,1492,815,1476,754"
+        shape="poly" />
+      <area target="_self" alt="" title="bottom-sirloin" href=""
+        coords="1629,703,1619,609,1609,564,1611,504,1607,458,1605,421,1817,421,1821,484,1827,541,1825,596,1827,658,1821,707,1821,743,1821,768,1805,778,1782,748,1748,727,1701,715,1658,709"
+        shape="poly" />
+      <area target="_self" alt="" title="top-sirloin" href=""
+        coords="1494,131,1539,125,1584,121,1615,118,1652,112,1688,104,1729,94,1766,90,1797,188,1799,255,1813,298,1819,349,1821,394,1823,421,1607,417,1590,362,1578,325,1560,274,1547,241,1525,196,1503,163"
+        shape="poly" />
+    </map>
+  </section>
+
+  <section id="about" class="page">
+    <section class="hero">
+      <div class="content">
+        <div class="about-content-hero">
+          <h1>Lundsbjerggaard</h1>
+        </div>
+      </div>
+    </section>
     <div class="forslag-header margin-top">
       <h2>Familieejet landbrug</h2>
       <div class="linje margin-bottom"></div>
@@ -281,45 +251,46 @@
       </div>
     </div>
 
-</section>
+  </section>
 
-    <footer>
-      <div class="left-footer">
-        <div class="address">
-          <h2>Lundsbjerggaard</h2>
-          <p>Stormarken 47 <br />5471 Søndersø</p>
-        </div>
-        <div class="contact-info">
-          <p>+45 99999999 <br />indsætmail@gmail.com</p>
-        </div>
+  <footer>
+    <div class="left-footer">
+      <div class="address">
+        <h2>Lundsbjerggaard</h2>
+        <p>Stormarken 47 <br />5471 Søndersø</p>
       </div>
-      <div class="middle-footer">
-        <h2>Oversigt</h2>
-        <ul>
-          <li>Produkter</li>
-          <li>Dansk Jersey</li>
-          <li>Om gården</li>
-          <li>Kontakt os</li>
-        </ul>
+      <div class="contact-info">
+        <p>+45 99999999 <br />indsætmail@gmail.com</p>
       </div>
-      <div class="right-footer">
-        <div class="find-us">
-          <h2>Find os</h2>
-          <a href="www.facebook.com" class="fab fa-facebook"></a>
-        </div>
-        <div class="smiley">
-          <h2>Kontrolrapport</h2>
-          <img src="img/Logo.svg" />
-        </div>
+    </div>
+    <div class="middle-footer">
+      <h2>Oversigt</h2>
+      <ul>
+        <li>Produkter</li>
+        <li>Dansk Jersey</li>
+        <li>Om gården</li>
+        <li>Kontakt os</li>
+      </ul>
+    </div>
+    <div class="right-footer">
+      <div class="find-us">
+        <h2>Find os</h2>
+        <a href="www.facebook.com" class="fab fa-facebook"></a>
       </div>
-    </footer>
+      <div class="smiley">
+        <h2>Kontrolrapport</h2>
+        <img src="img/Logo.svg" />
+      </div>
+    </div>
+  </footer>
 
-    <!-- loader  -->
-    <!-- <section id="loader">
+  <!-- loader  -->
+  <!-- <section id="loader">
     <section class="spinner"></section>
   </section> -->
-    <!-- main js file -->
-    <script src="js/main.js" type="module"></script>
-    <script src="js/spa.js"></script>
-  </body>
+  <!-- main js file -->
+  <script src="js/main.js" type="module"></script>
+  <script src="js/spa.js"></script>
+</body>
+
 </html>
