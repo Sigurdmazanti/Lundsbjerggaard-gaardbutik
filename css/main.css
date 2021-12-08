@@ -2,7 +2,7 @@
   --green: rgb(38, 76, 89);
   --green-opacity: rgba(38, 76, 89, 0.2);
   --light-green: rgb(172, 198, 201);
-  --light-grey: #f1f1f4;
+  --light-grey: #ffffff;
   --text-color-light: #f1f1f1;
   --text-color-dark: #333;
   --white: #fff;
@@ -53,6 +53,10 @@ img {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.mobile-nav {
+  display: none;
+}
+
 .product-nav {
   width: 40%;
   text-align: right;
@@ -77,25 +81,13 @@ img {
   text-decoration: none;
   color: black;
   padding: 8px;
+  font-family: var(--font-family);
 }
 
 .tabbar a:hover {
   background-color: orange;
   color: white;
   border-radius: 3px;
-}
-
-.burger {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 20px;
-  cursor: pointer;
-  display: none;
-  color: black;
-}
-
-.burger:focus {
-  outline: none;
 }
 
 /* ---------- Call to action btn ---------- */
@@ -158,7 +150,7 @@ img {
 
 .info-kort-bg {
   background-color: #ffeede;
-  margin: 0 10%;
+  margin: 0 5%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -167,21 +159,27 @@ img {
 }
 
 .info-kort-img {
-  width: 50%;
+  width: 40%;
 }
 
 .info-kort-text {
   font-family: var(--font-family);
+  font-size: .9rem;
   width: 46%;
   min-width: 350px;
   text-align: left;
   margin: 0 2%;
 }
 
+.info-kort-text button {
+  margin: 20px 0;
+}
+
 /* ---------- Forslag header styling forside ---------- */
 .forslag-header {
   font-family: var(--font-family);
   display: block;
+  margin-bottom: 20px;
 }
 
 .linje {
@@ -219,18 +217,177 @@ img {
   background-color: orange;
 }
 
+
+
+/* -------- Produkt kort -------- */
+#product-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+article {
+}
+
+.kort {
+  background: #FCFCFC;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 380px;
+  height: 500px;
+  border-radius: 3px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.kort-indhold button:hover {
+  cursor: pointer;
+  color: white;
+  
+}
+
+.kort-img, .kort-indhold {
+  max-height: 50%;
+}
+
+.kort-img img {
+  max-height: 50%;
+}
+
+.kort-indhold {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 16px;
+  height: 100%;
+}
+
+.kort-indhold button {
+  background-color: transparent;
+  border: none;
+}
+
+.kort-indhold h3 {
+  font-size: 40px;
+}
+
+.kgpris {
+  font-size: 24px;
+  color: rgb(196, 196, 196);
+}
+
+.vaegt {
+  font-size: 16px;
+  color: grey;
+}
+
+.pris {
+  font-size: 24px;
+  padding: 16px 0;
+}
+
+.justify-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* -------- kategorier forside -------- */
+.kategori-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 5%;
+  color: white;
+  text-align: center;
+}
+
+.top-box {
+  width: 100%;
+  height: 360px;
+  background-image: url("/img/kategori1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 46%;
+  margin-bottom: 2%;
+  -webkit-filter: brightness(100%);
+}
+
+.bund-box-venstre {
+  width: 49%;
+  min-width: 360px;
+  height: 360px;
+  background-image: url("/img/kategori2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 46%;
+  -webkit-filter: brightness(100%);
+}
+
+.bund-box-højre {
+  width: 49%;
+  min-width: 360px;
+  height: 360px;
+  background-image: url("/img/kategori3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 46%;
+  -webkit-filter: brightness(100%);
+}
+
+.top-box:hover, .bund-box-højre:hover, .bund-box-venstre:hover {
+    -webkit-filter: brightness(60%);
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease;
+    -o-transition: all 0.75s ease;
+    -ms-transition: all 0.75s ease;
+    transition: all 0.75s ease;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .bund-box-højre {
+    width: 100%;
+    height: 360px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 46%;
+    margin-bottom: 2%;
+  }
+
+    .bund-box-venstre {
+    width: 100%;
+    height: 360px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 46%;
+    margin-bottom: 2%;
+  }
+}
+
+
+
 /* ---------- Footer ---------- */
 footer {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 0 5% 0 10%;
+  padding: 75px 10% 75px 10%;
+  background-color: #F6F6F6;
 }
 
 footer h2 {
   font-size: 16px;
   color: orange;
+  padding: 10px 0;
+}
+
+footer p, footer ul {
+  font-size: 14px;
 }
 
 .left-footer,
@@ -239,4 +396,82 @@ footer h2 {
   justify-content: center;
   text-align: start;
   width: 20%;
+  padding-left: 6%;
+}
+
+.fa-facebook {
+  color:orange;
+  
+}
+
+.middle-footer li {
+  list-style-type: none;
+}
+
+.middle-footer li:not(:first-child) {
+    padding-top: 4px;
+}
+
+.middle-footer ul {
+  text-align: start;
+    padding-inline-start: 0;
+}
+
+.contact-info {
+  padding-top: 10px;
+}
+
+.right-footer h2 {
+  padding-bottom: 0;
+}
+
+
+
+@media screen and (max-width: 767px) {
+  /* Navigation */
+  .tabbar {
+    flex-direction: column;
+    height: auto;
+    padding: 48px 0;
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    padding: 10px;
+    background-color: white;
+  }
+
+  .logo-nav {
+    display: none;
+  }
+
+  .product-nav,
+  .right-nav {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jersey-nav {
+    margin: 48px 0 0 0;
+  }
+
+  .burger {
+    background-color: white;
+    padding: 10px;
+    right: 40px;
+    top: 40px;
+  }
+
+
+  /* Footer */
+    footer {
+    flex-direction: column;
+  }
+}
+
+
+.split {
+  height: 1000px;
 }

@@ -70,14 +70,17 @@ function optionalList(lager) {
     for (const user of users) {
       htmlTemplate += /*html*/ `
       <article class="kort" onclick="showDetailView('${user.Id}')">
+      <div class="kort-img">
         <img src="${user.img}">
+        </div>
         <div class="kort-indhold">
           <h3>${user.name}</h3>
-          <p>${user.kgprice} kr/kg</p>
-          <p>Ca. ${user.weight} g</p>
-          <p>${user.price} kr,-</p>
+          <p class="kgpris">${user.kgprice} kr/kg</p>
+          <p class="vaegt">Ca. ${user.weight} g</p>
+          <p class="pris">Fra ${user.price} kr,-</p>
           <div class="justify-content">
-          <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(user)} ${user.stock}</div>
+          <div class="dashboard_lagerstatus">${optionalList(user)} ${user.stock}</div>
+          <button onclick="productDetail(id)"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -85,7 +88,7 @@ function optionalList(lager) {
       `;
       console.log(user.name);
     }
-    document.querySelector("#forside-kort").innerHTML = htmlTemplate;
+    document.querySelector("#product-section").innerHTML = htmlTemplate;
   }
 appendProdukter();
   //detailview

@@ -11,23 +11,27 @@
   </head>
 
   <body onhashchange="pageChange()">
-    <header>
-      <nav class="tabbar">
-        <div class="product-nav">
-          <a href="#products">Produkter</a>
-        </div>
-        <div class="logo-nav">
-          <a href="#home"><img src="./img/Logo.svg" /></a>
-        </div>
-        <div class="right-nav">
-          <a href="#about">Om gården</a>
-          <a href="#jersey" class="jersey-nav">Jersey</a>
-        </div>
-        <button class="burger" id="burger">
-          <i class="fas fa-bars"></i>
-        </button>
-      </nav>
-    </header>
+  <header>
+    <div class="mobile-nav">
+      <a href="#home"><img src="./img/Logo.svg" /></a>
+      <a href="#" class="icon burger" onclick="burgerMenu()">
+        <img src="./img/Vector.svg" /></i>
+      </a>
+    </div>
+    <nav class="tabbar">
+      </div>
+      <div class="product-nav">
+        <a href="#products">Produkter</a>
+      </div>
+      <div class="logo-nav">
+        <a href="#home"><img src="./img/Logo.svg" /></a>
+      </div>
+      <div class="right-nav">
+        <a href="#about">Om gården</a>
+        <a href="#jersey" class="jersey-nav">Jersey</a>
+      </div>
+    </nav>
+  </header>
 
     <section id="home" class="page">
       <section class="hero">
@@ -81,10 +85,32 @@
       </div>
 
       <section class="produkt-kort"></section>
+
+
+    <section id="kategorier-forside">
+      <div class="kategori-container">
+        <div class="top-box">
+          <h3>Kød</h3>
+        </div>
+         <div class="bund-box-venstre">
+            <h3>Dansk Jersey</h3>
+         </div>
+          <div class="bund-box-højre">
+            <h3>Om Gården</h3>
+          </div>
+      </div>
     </section>
 
+
+
+
+
+    </section>
+
+
     <section id="products" class="page">
-      <div id="forside-kort"></div>
+      <div id="product-section"></div>
+      <div class="split">234234</div>
     </section>
     <section id="jersey" class="page">
       <img src="img/LundsbjerggaardLogo.png" usemap="#image-map" />
