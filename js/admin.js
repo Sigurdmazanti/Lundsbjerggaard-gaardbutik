@@ -30,6 +30,7 @@ const _db = getFirestore();
 const _usersRef = collection(_db, "produkter");
 // global variable: users array & selectedUserId
 let _users = [];
+let _productsForside = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
 // ========== READ ==========
@@ -42,11 +43,13 @@ onSnapshot(_usersRef, (snapshot) => {
     user.id = doc.id;
     return user;
   });
+
   /* Sorterer array alfabetisk */
   _users.sort((a, b) => a.name.localeCompare(b.name));
   appendUsers(_users);
   // showLoader(false);
 });
+
 //option
 function optionalList(lager) {
   let htmlOptional = "";
@@ -68,15 +71,66 @@ function optionalList(lager) {
   return htmlOptional;
 }
 
+// function forsideAntal(forside) {
+//   let htmlOptional = "";
+//   if (forside.forsideForslag == "Ja". ) {
+//     htmlOptional += /*html*/ `
+//     <div class="">0/3</div>
+//       `;
+//   }
 
+//   else if (forside.forsideForslag.length === 1) {
+//     htmlOptional += /*html*/ `
+//     <div class="">1/3</div>
+//       `;
+//   }
+
+//   else if (forside.forsideForslag.length === 2) {
+//     htmlOptional += /*html*/ `
+//     <div class="">2/3</div>
+//       `;
+//   }
+
+//   else if (forside.forsideForslag.length === 3) {
+//     htmlOptional += /*html*/ `
+//     <div class="">3/3</div>
+//       `;
+//   }
+
+//   else if (forside.forsideForslag.length > 3) {
+//     htmlOptional += /*html*/ `
+//     <div class="">4/3</div>
+//       `;
+//   }
+//   return htmlOptional;
+// }
+
+// function forsideAntal(forside) {
+//   let antalJa = "";
+//   for (let antal of forside.forsideForslag) {
+//     if (antal.forsideForslag == "Ja") {
+//       antalJa++;
+//       if (antalJa.sum == 3) {
+//         console.log(antalJa);
+//       }
+//     }
+//   }
+//   return antalJa;
+// }
+
+function forsideAntal(forside) {
+  for (let value of forside.values(user)) {
+    alert(value); // John, then 30
+  }
+}
+
+
+// function forsideAntal(forside) {
+//   console.log(forside.forEach());
+// }
 // append users to the DOM
 function appendUsers(users) {
   let htmlTemplate = "";
-
-    // let userCount = users;
-    // userCount.sort((a, b) => a.name.localeCompare(b.name));
-    // console.log(userCount);
-    // console.log(userLength);
 
   for (const user of users) {
     htmlTemplate += /*html*/ `

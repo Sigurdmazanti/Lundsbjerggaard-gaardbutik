@@ -104,7 +104,7 @@ function appendProdukter(users, containerId) {
   let htmlTemplate = "";
   for (const user of users) {
     htmlTemplate += /*html*/ `
-      <article class="kort" onclick="showDetailView('${user.Id}')">
+      <article class="kort">
       <div class="kort-img">
         <img src="${user.img}">
         </div>
@@ -116,28 +116,46 @@ function appendProdukter(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-    }</div>
-          <button onclick="productDetail(id)"><img src="./img/arrow-right-solid_1.svg"></button>
+      }</div>
+          <button onclick="showUser('${user.id}')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
       </article>
       `;
-    console.log(user.name);
   }
 
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
 
 appendProdukter();
-//detailview
-// function showDetailView(id) {
-//     let html = "";
-//     const event = _visitDenmarkData.find((event) => event.Id == id);
-//     html += `
-//     <h1>${event.name}</h1>
-//     `;
 
-//     document.querySelector("#detailViewContainer").innerHTML = html;
-//     navigateTo("detailView");
-//   }
+function showUser(id) {
+  const user = _users.find((user) => user.id == id);
+  document.querySelector("#chosen-product").innerHTML = /*html*/ `
+  <article class="product-card ${user.name}-color">
+        <div class="produkt-img">
+          <img src="${user.img}">
+        </div>
+        <div class="produkt-indhold">
+        <div class="produkt-navigation"></div>
+        <img src="./img/arrow-right-solid_1.svg">
+        <h2>${user.category}</h2>
+        </div>
+        <div class="produkt-names">
+          <h3>${user.name}</h3>
+          <p class="description">${user.description}</p>
+          </div>
+<div class="produkt-information">
+          <p class="kgpris">${user.kgprice} kr/kg</p>
+          <p class="vaegt">Ca. ${user.weight} g</p>
+          <p class="pris">Fra ${user.price} kr,-</p>
+          <div class="dashboard_lagerstatus">${optionalList(user)} ${
+    user.stock}
+    </div></div>
+          </div>
+        </div>
+  </article>
+    `;
+  navigateTo("#/specific-product");
+}
