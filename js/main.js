@@ -30,6 +30,33 @@ let _selectedUserId = "";
 let _selectedImgFile = "";
 
 window.showUser = (id) => showUser(id);
+window.goBack = (id) => goBack(id);
+
+// lave en ny scroll funktion, der tager brugeren ned på den sektion der klikkes på
+function scrollToProductSection(id) {
+  const productContainer = document.querySelector(id);
+  const offset = 100;
+  const bodyRect = document.body.getBoundingClientRect().top;
+  const elementRect = productContainer.getBoundingClientRect().top;
+  const elementPosition = elementRect - bodyRect;
+  const offsetPosition = elementPosition - offset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+}
+
+document
+  .querySelectorAll(".nav-container a, .mobile-nav-container a")
+  .forEach((navElement) => {
+    navElement.onclick = (element) => {
+      element.preventDefault();
+      const containerId = navElement.getAttribute("href");
+      scrollToProductSection(containerId);
+    };
+  });
+
 // ========== READ ==========
 
 // onSnapshot: listen for realtime updates
@@ -39,11 +66,10 @@ onSnapshot(_usersRef, (snapshot) => {
     const user = doc.data();
     user.id = doc.id;
     return user;
-    console.log(user);
   });
-  console.log(_users);
+
   filterProdukter(_users);
-  console.log(_users);
+
   // showLoader(false);
 });
 
@@ -81,7 +107,6 @@ function filterProdukter(users) {
   let spegePolse = [];
   let vin = [];
   for (const user of users) {
-    console.log(user);
     if (user.category === "Bøffer/Steaks") {
       bofferSteaks.push(user);
     } else if (user.category === "Hele stege") {
@@ -117,8 +142,10 @@ function appendProdukter(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-      }</div>
-          <button onclick="showUser('${user.id}')"><img src="./img/arrow-right-solid_1.svg"></button>
+    }</div>
+          <button onclick="showUser('${
+            user.id
+          }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -131,36 +158,52 @@ function appendProdukter(users, containerId) {
 
 appendProdukter();
 
-
-
 function showUser(id) {
   const user = _users.find((user) => user.id == id);
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
   <article class="product-card ${user.name}-color">
+  <div class="produkt-navigation mobile-produkt">
+  <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
+  <h2>${user.category}</h2>
+  </div>
         <div class="produkt-img">
           <img src="${user.img}">
         </div>
         <div class="produkt-indhold">
-        <div class="produkt-navigation"></div>
-        <img src="./img/arrow-right-solid_1.svg">
+        <div class="produkt-navigation desktop-produkt">
+        <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
         <h2>${user.category}</h2>
         </div>
+        
         <div class="produkt-names">
           <h3>${user.name}</h3>
           <p class="description">${user.description}</p>
           </div>
 <div class="produkt-information">
-          <p class="kgpris">${user.kgprice} kr/kg</p>
-          <p class="vaegt">Ca. ${user.weight} g</p>
-          <p class="pris">Fra ${user.price} kr,-</p>
-          <div class="dashboard_lagerstatus">${optionalList(user)} ${
-    user.stock}
+<div class="specifik-info">
+<p class="specifik-info-top">Kilopris</p>
+          <p class="specifik-info-bottom">${user.kgprice} kr/kg</p>
+          </div>
+          <div class="specifik-info">
+          <p class="specifik-info-top">Generel vægt</p>
+          <p class="specifik-info-bottom">Ca. ${user.weight} g</p>
+          </div>
+          <div class="specifik-info">
+          <p class="specifik-info-top">Fra</p>
+          <p class="specifik-info-bottom">${user.price} kr,-</p>
+          </div>
+          <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
+            user
+          )} ${user.stock}
     </div></div>
           </div>
+        </div>
         </div>
   </article>
     `;
   navigateTo("specific-product");
 }
 
-
+function goBack() {
+  window.history.back();
+}

@@ -45,7 +45,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 48px;
-  position: fixed;
+  position: static;
   width: 100%;
   top: 0;
   height: 80px;
@@ -93,6 +93,10 @@ img {
   background-color: orange;
   color: white;
   border-radius: 3px;
+}
+
+.desktop-nav {
+  margin: 0 5vw;
 }
 
 /* ---------- Call to action btn ---------- */
@@ -222,6 +226,11 @@ img {
   justify-content: center;
 }
 
+.dashboard_lagerstatus-specifik {
+  display: flex;
+  align-items: center;
+}
+
 .greendot,
 .reddot,
 .orangedot {
@@ -258,6 +267,7 @@ img {
 .product-content {
   display: flex;
   flex-direction: row;
+  margin: 0 5vw;
 }
 
 .kort {
@@ -327,7 +337,8 @@ img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 40px;
+  max-width: 800px;
 }
 
 /* -------- kategorier forside -------- */
@@ -428,6 +439,7 @@ img {
 
   .product-content {
     flex-direction: column;
+    margin: 0;
   }
 }
 
@@ -500,8 +512,6 @@ img {
   padding: 3.6%;
   box-shadow: 25px 25px 0px lightyellow;
 }
-
-
 
 /* ---------- Footer ---------- */
 footer {
@@ -715,6 +725,7 @@ footer ul {
   left: 3em;
   top: 5em;
   font-size: 40px;
+  margin-bottom: 8px;
 }
 
 .all-articles {
@@ -753,6 +764,82 @@ footer ul {
 
 .mobile-produkt-nav {
   display: none;
+}
+
+/* -------- Specifikt produkt-kort -------- */
+.product-card {
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.produkt-indhold {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  margin: auto;
+}
+
+.produkt-img {
+  max-width: 50%;
+}
+
+.produkt-navigation {
+  display: flex;
+  flex-direction: row;
+  margin: 3vh 0 3vh -60px;
+}
+
+.desktop-produkt {
+  display: flex;
+}
+
+.mobile-produkt {
+  display: none;
+}
+
+.produkt-navigation h2 {
+  align-items: center;
+  margin: auto auto auto 28px;
+}
+
+.produkt-navigation img {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  cursor: pointer;
+}
+
+.produkt-names h3 {
+  font-size: 64px;
+}
+
+.description {
+  max-width: 400px;
+}
+
+.produkt-information {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+
+.specifik-info,
+.dashboard_lagerstatus-specifik {
+  flex: 0 50%;
+  width: 50%;
+  margin-top: 28px;
+}
+
+.specifik-info-top {
+  font-size: 16px;
+  color: #777777;
+}
+
+.specifik-info-bottom {
+  font-size: 24px;
+  color: black;
 }
 
 /* -------- Produkter mobil-navigation -------- */
@@ -802,7 +889,8 @@ footer ul {
     font-weight: bold;
   }
 
-  .mobile-produkt-nav h2, .mobile-nav-container {
+  .mobile-produkt-nav h2,
+  .mobile-nav-container {
     padding-left: 5vh;
   }
 
@@ -825,5 +913,43 @@ footer ul {
 
   .boffer5 {
     padding-right: 64px;
+  }
+
+  /* -------- Specifik produkt side -------- */
+  .product-card {
+    flex-direction: column;
+  }
+
+  .produkt-img {
+    max-width: 100%;
+  }
+
+  .produkt-indhold {
+    max-width: 90%;
+  }
+
+  .produkt-navigation {
+    margin: 3vh 0;
+  }
+
+  .desktop-produkt {
+    display: none;
+  }
+
+  .mobile-produkt {
+    display: flex;
+    margin-left: 56px;
+  }
+
+  /* -------- Footer ------- */
+  .left-footer,
+  .middle-footer,
+  .right-footer {
+    width: 100%;
+    margin-bottom: 5vh;
+  }
+
+  .find-us {
+    margin-bottom: 2.5vh;
   }
 }
