@@ -30,7 +30,6 @@ const _db = getFirestore();
 const _usersRef = collection(_db, "produkter");
 // global variable: users array & selectedUserId
 let _users = [];
-let _productsForside = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
 // ========== READ ==========
@@ -44,84 +43,103 @@ onSnapshot(_usersRef, (snapshot) => {
     return user;
   });
 
-  /* Sorterer array alfabetisk */
+  /* Sorterer array af objects alfabetisk */
   _users.sort((a, b) => a.name.localeCompare(b.name));
   appendUsers(_users);
   // showLoader(false);
 });
 
 function forsideAntal() {
+  // Finder antal af objects der har property "forsideForslag" med værdien "Ja"
   let count = _users.filter(x => x.forsideForslag == "Ja").length;
+
+  // Tager det samlede antal af properties med "Ja"-værdi og minusser med det ønskede antal for at vise forskellen i sidste statement i forsideAntal()
   let desiredCount = 3;
   let countDifference = count - desiredCount;
   let htmlCount = "";
+
+  // If/elseif/else statement ud fra hvilken værdi variablen "count" har
   if (count === 0) {
     htmlCount += `
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
-  }
-
-  else if (count === 1) {
+  } else if (count === 1) {
     htmlCount += `
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
-  }
-
-  else if (count === 2) {
+  } else if (count === 2) {
     htmlCount += `
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
-  }
-
-  else if (count === 3) {
+  } else if (count === 3) {
     htmlCount += `
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
-  }
-
-  else {
+  } 
+    // Bruger vores formular countDifference
+    else {
     htmlCount += `
-    <span class="forside_vist for_mange">(${count}/3 vist)</span><span data-tooltip="Der vises lige nu ${count}/3 produkter på forsiden. Fjern ${countDifference}." data-flow="top"><img src="img/erroricon.svg"></span>
+    <span class="forside_vist for_mange">(${count}/3 vist)</span><span data-tooltip="Der er lige nu sat ${count}/3 produkter på forsiden. Fjern ${countDifference}." data-flow="top"><img src="img/erroricon.svg"></span>
     `;
   }
   return htmlCount;
 }
 
+// Viser en advarsel, hvis admin er i gang med at sætte et ekstra object over på forsiden når max kapacitet (3) er nået
+function godkendtForside() {
+  // Finder antal af objects der har property "forsideForslag" med værdien "Ja"
+  let count = _users.filter(x => x.forsideForslag == "Ja").length;
 
-// function godkendtForside() {
-//   let count = _users.filter(x => x.forsideForslag == "Ja").length;
-//   Swal.fire({
-//     title: 'Er du sikker på at du vil slette dette produkt?',
-//     text: "Produktet kan ikke genoprettes.",
-//     icon: 'warning',
-//     iconColor: 'red',
-//     showCancelButton: true,
-//     showCloseButton: true,
-//     returnFocus: false,
-//     focusConfirm: false,
-//     allowEnterKey: false,
-//     cancelButtonText: 'Annuller',
-//     confirmButtonColor: 'green',
-//     cancelButtonColor: '#D72828',
-//     confirmButtonText: 'Bekræft'
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       Swal.fire(
-//         'Produktet er nu slettet.',
-//         '',
-//         'success'
-//       )
-//     } else {
-//       Swal.fire(
-//         'Produktet blev beholdt.',
-//         '',
-//         'success',
-//       )
-//     }
-//   })
-// }
+  // Modal er triggered når max kapacitet er nået
+  if (count === 3 || count > 3) {
+    Swal.fire({
+        title: 'Er du sikker på at du vil tilføje dette produkt?',
+        text: "Du har allerede " + count + " produkter sat til at blive vist på forsiden.",
+        icon: 'warning',
+        iconColor: 'red',
+        showCancelButton: true,
+        showCloseButton: true,
+        returnFocus: false,
+        focusConfirm: false,
+        allowEnterKey: false,
+        cancelButtonText: 'Annuller',
+        confirmButtonColor: 'green',
+        cancelButtonColor: '#D72828',
+        confirmButtonText: 'Bekræft'
+      })
 
-//option
+      // Triggered når admin vælger "bekræft"
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Produktet er sat til at komme på forsiden.',
+            '',
+            'success'
+          ), 
+          // Skifter radio button værdi til "ja"
+          document.querySelector('#ja_forside').checked = true;
+          document.querySelector('#ja-forside-update').checked = true;
+        } 
+        // Triggered når brugeren vælger "annuller"
+        else {
+          Swal.fire(
+            'Produktet er ikke sat til at komme på forsiden.',
+            '',
+            'warning',
+          ), 
+          // Skifter radio button værdi til "nej"
+          document.querySelector('#nej_forside').checked = true;
+          document.querySelector('#nej-forside-update').checked = true;
+        }
+      })
+  }
+}
+
+/* Kalder godkendtForside() når der trykkes */
+document.getElementById("ja_forside").addEventListener("click", godkendtForside);
+document.getElementById("ja-forside-update").addEventListener("click", godkendtForside);
+
+// Funktion der viser en prik tilsvarende lagerstatus, som bruges i appendUsers()
 function optionalList(lager) {
   let htmlOptional = "";
   if (lager.stock == "På lager") {
@@ -142,10 +160,9 @@ function optionalList(lager) {
   return htmlOptional;
 }
 
-// append users to the DOM
+// Appender produkterne 
 function appendUsers(users) {
   let htmlTemplate = "";
-
   for (const user of users) {
     htmlTemplate += /*html*/ `
     <article class="dashboard_products">
@@ -163,6 +180,8 @@ function appendUsers(users) {
       user
     )} ${user.stock}</div>
     </div>
+
+    <!-- Opdater/slet knapper -->
     <div class="dashboard_buttons">
       <button class="btn-update-user" data-id="${user.id}">Opdater</button>
       <button class="btn-delete-user" data-id="${user.id}">Fjern</button>
@@ -332,6 +351,7 @@ function textAreaNews() {
   let textContent = document.getElementById("textContent");
   let textContentPreset = document.getElementById("textContent").value;
 
+  /* Hvert tast der skrives i textContent opdateres i showText i realtime */
   document.getElementById("showText").innerHTML = textContentPreset;
   textContent.onkeyup = textContent.onkeydown = function () {
     document.getElementById("showText").innerHTML = this.value;
@@ -351,7 +371,6 @@ textAreaNews();
 // }
 
 // =========== attach events =========== //
-
 document.querySelector("#btn-update").onclick = () => updateUser();
 document.querySelector("#btn-create").onclick = () => createUser();
 window.previewImage = (file, previewId) => previewImage(file, previewId);
