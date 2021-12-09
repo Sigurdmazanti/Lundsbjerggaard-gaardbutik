@@ -50,6 +50,77 @@ onSnapshot(_usersRef, (snapshot) => {
   // showLoader(false);
 });
 
+function forsideAntal() {
+  let count = _users.filter(x => x.forsideForslag == "Ja").length;
+  let desiredCount = 3;
+  let countDifference = count - desiredCount;
+  let htmlCount = "";
+  if (count === 0) {
+    htmlCount += `
+    <span class="forside_vist">(${count}/3 vist)</span>
+    `;
+  }
+
+  else if (count === 1) {
+    htmlCount += `
+    <span class="forside_vist">(${count}/3 vist)</span>
+    `;
+  }
+
+  else if (count === 2) {
+    htmlCount += `
+    <span class="forside_vist">(${count}/3 vist)</span>
+    `;
+  }
+
+  else if (count === 3) {
+    htmlCount += `
+    <span class="forside_vist">(${count}/3 vist)</span>
+    `;
+  }
+
+  else {
+    htmlCount += `
+    <span class="forside_vist for_mange">(${count}/3 vist)</span><span data-tooltip="Der vises lige nu ${count}/3 produkter på forsiden. Fjern ${countDifference}." data-flow="top"><img src="img/erroricon.svg"></span>
+    `;
+  }
+  return htmlCount;
+}
+
+
+// function godkendtForside() {
+//   let count = _users.filter(x => x.forsideForslag == "Ja").length;
+//   Swal.fire({
+//     title: 'Er du sikker på at du vil slette dette produkt?',
+//     text: "Produktet kan ikke genoprettes.",
+//     icon: 'warning',
+//     iconColor: 'red',
+//     showCancelButton: true,
+//     showCloseButton: true,
+//     returnFocus: false,
+//     focusConfirm: false,
+//     allowEnterKey: false,
+//     cancelButtonText: 'Annuller',
+//     confirmButtonColor: 'green',
+//     cancelButtonColor: '#D72828',
+//     confirmButtonText: 'Bekræft'
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       Swal.fire(
+//         'Produktet er nu slettet.',
+//         '',
+//         'success'
+//       )
+//     } else {
+//       Swal.fire(
+//         'Produktet blev beholdt.',
+//         '',
+//         'success',
+//       )
+//     }
+//   })
+// }
+
 //option
 function optionalList(lager) {
   let htmlOptional = "";
@@ -71,63 +142,6 @@ function optionalList(lager) {
   return htmlOptional;
 }
 
-// function forsideAntal(forside) {
-//   let htmlOptional = "";
-//   if (forside.forsideForslag == "Ja". ) {
-//     htmlOptional += /*html*/ `
-//     <div class="">0/3</div>
-//       `;
-//   }
-
-//   else if (forside.forsideForslag.length === 1) {
-//     htmlOptional += /*html*/ `
-//     <div class="">1/3</div>
-//       `;
-//   }
-
-//   else if (forside.forsideForslag.length === 2) {
-//     htmlOptional += /*html*/ `
-//     <div class="">2/3</div>
-//       `;
-//   }
-
-//   else if (forside.forsideForslag.length === 3) {
-//     htmlOptional += /*html*/ `
-//     <div class="">3/3</div>
-//       `;
-//   }
-
-//   else if (forside.forsideForslag.length > 3) {
-//     htmlOptional += /*html*/ `
-//     <div class="">4/3</div>
-//       `;
-//   }
-//   return htmlOptional;
-// }
-
-// function forsideAntal(forside) {
-//   let antalJa = "";
-//   for (let antal of forside.forsideForslag) {
-//     if (antal.forsideForslag == "Ja") {
-//       antalJa++;
-//       if (antalJa.sum == 3) {
-//         console.log(antalJa);
-//       }
-//     }
-//   }
-//   return antalJa;
-// }
-
-function forsideAntal(forside) {
-  for (let value of forside.values(user)) {
-    alert(value); // John, then 30
-  }
-}
-
-
-// function forsideAntal(forside) {
-//   console.log(forside.forEach());
-// }
 // append users to the DOM
 function appendUsers(users) {
   let htmlTemplate = "";
@@ -136,15 +150,15 @@ function appendUsers(users) {
     htmlTemplate += /*html*/ `
     <article class="dashboard_products">
       <h3><span>${user.name}</span></h3>
-      <img src="${user.img}">
+      <img src="${user.img}" class="dashboard_product_img">
       <div class="dashboard_products_info">
-	  <p><span>Beskrivelse:</span> ${user.description}</p>
-	  <p><span>Kategori:</span> ${user.category}</p>
-	  <p><span>Pris:</span> ${user.price}</p>
-	  <p><span>Vægt:</span> ${user.weight}</p>
-    <p><span>Kilopris:</span> ${user.kgprice}</p>
-	  <p><span>Cut:</span> ${user.cut}</p>
-    <p><span>Vist på forsiden?</span> ${user.forsideForslag}</p>
+	  <p><span class="nyheder_span">Beskrivelse:</span> ${user.description}</p>
+	  <p><span class="nyheder_span">Kategori:</span> ${user.category}</p>
+	  <p><span class="nyheder_span">Pris:</span> ${user.price}</p>
+	  <p><span class="nyheder_span">Vægt:</span> ${user.weight}</p>
+    <p><span class="nyheder_span">Kilopris:</span> ${user.kgprice}</p>
+	  <p><span class="nyheder_span">Cut:</span> ${user.cut}</p>
+    <p><span class="nyheder_span">Vist på forsiden?</span> ${user.forsideForslag}${forsideAntal()}</p>
     <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
       user
     )} ${user.stock}</div>
@@ -279,7 +293,7 @@ function deleteUser(id) {
     allowEnterKey: false,
     cancelButtonText: 'Annuller',
     confirmButtonColor: 'green',
-    cancelButtonColor: 'red',
+    cancelButtonColor: '#D72828',
     confirmButtonText: 'Bekræft'
   }).then((result) => {
     if (result.isConfirmed) {
@@ -297,14 +311,6 @@ function deleteUser(id) {
     }
   })
 }
-
-// confirmButtonColor: 'rgb(38, 76, 89)',
-//   let deleteKeep = confirm("Want to delete?");
-
-//   if (deleteKeep) {
-//     deleteDoc(docRef);
-//   }
-// }
 
 
 function previewImage(file, previewId) {

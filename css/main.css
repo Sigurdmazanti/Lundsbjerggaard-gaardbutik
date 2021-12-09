@@ -449,18 +449,59 @@ img {
 }
 
 .about-us {
-  width: 90%;
+  width: 80%;
   margin: auto;
   background-color: #ffeede;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: 25px 25px 0px lightyellow;
+}
+
+.about-us-img {
+  width: 40%;
+}
+
+.about-us-text {
+  width: 60%;
+  text-align: left;
+  margin: 5%;
+}
+
+.about-us-img img {
+  width: 90%;
+  margin: 5% 0;
+}
+
+.visitnordfyn {
+  width: 80%;
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
 }
 
-.about-us-text,
-.about-us-img {
-  max-width: 50%;
-  width: 50%;
+.visitnordfyn-img {
+  width: 40%;
 }
+
+.visitnordfyn-img img {
+  width: 90%;
+  margin: 5% 0;
+}
+
+.visitnordfyn-text {
+  width: 60%;
+  text-align: left;
+  margin: 5%;
+  background-color: #ffeede;
+  padding: 3.6%;
+  box-shadow: 25px 25px 0px lightyellow;
+}
+
+
 
 /* ---------- Footer ---------- */
 footer {
@@ -673,7 +714,6 @@ footer ul {
   text-align: start;
   left: 3em;
   top: 5em;
-  font-family: "Georama", sans-serif;
   font-size: 40px;
 }
 
@@ -684,7 +724,7 @@ footer ul {
 
 .nav-container {
   position: sticky;
-  top: 50%;
+  top: 40%;
 }
 
 .nav-container ul li {
@@ -721,7 +761,7 @@ footer ul {
     display: block;
     width: 100%;
     background-color: white;
-    z-index: 999;
+    z-index: 777;
   }
 
   .mobile-nav-container ul {
@@ -741,7 +781,7 @@ footer ul {
   .mobile-nav-container ul li a {
     text-decoration: none;
     list-style-type: none;
-    font-size: 24px;
+    font-size: 16px;
     color: black;
   }
 
@@ -752,17 +792,22 @@ footer ul {
   .mobile-produkt-nav {
     position: sticky;
     top: 0;
-    padding: 10vh 0 5vh 5vh;
+    padding: 7.5vh 0 5vh 0;
   }
 
   .mobile-produkt-nav h2 {
-    font-size: 48px;
+    font-size: 32px;
     text-align: start;
     padding-bottom: 16px;
+    font-weight: bold;
+  }
+
+  .mobile-produkt-nav h2, .mobile-nav-container {
+    padding-left: 5vh;
   }
 
   .center-content {
-    padding-top: 7em;
+    padding-top: 0;
     width: 100%;
     margin: auto;
   }
@@ -776,5 +821,9 @@ footer ul {
   .content-all {
     text-align: center;
     margin: 0;
+  }
+
+  .boffer5 {
+    padding-right: 64px;
   }
 }

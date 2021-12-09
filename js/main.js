@@ -29,6 +29,7 @@ let _users = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
 
+window.showUser = (id) => showUser(id);
 // ========== READ ==========
 
 // onSnapshot: listen for realtime updates
@@ -95,8 +96,8 @@ function filterProdukter(users) {
   }
   appendProdukter(bofferSteaks, "all-bofferSteaks");
   appendProdukter(stege, "all-stege");
-  appendProdukter(hakketOkse, "all-all-hakket");
-  appendProdukter(spegePolse, "all-spege");
+  appendProdukter(hakketOkse, "all-hakket");
+  appendProdukter(spegePolse, "all-spegepolse");
   appendProdukter(vin, "all-vin");
 }
 
@@ -130,6 +131,8 @@ function appendProdukter(users, containerId) {
 
 appendProdukter();
 
+
+
 function showUser(id) {
   const user = _users.find((user) => user.id == id);
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
@@ -157,5 +160,7 @@ function showUser(id) {
         </div>
   </article>
     `;
-  navigateTo("#/specific-product");
+  navigateTo("specific-product");
 }
+
+

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="css/admin.css" />
-  </head>
 
-  <body onhashchange="pageChange()">
-    <nav class="tabbar">
-      <a href="#home">Home</a>
-      <a href="#products">Produkter</a>
-      <a href="#login">Login</a>
-    </nav>
-    <main id="appRoot">
+<head>
+  <meta charset="utf-8" />
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body onhashchange="pageChange()">
+  <nav class="tabbar">
+    <a href="#home">Home</a>
+    <a href="#products">Produkter</a>
+    <a href="#login">Login</a>
+  </nav>
+  <main id="appRoot">
     <section id="home" class="page"></section>
 
     <section id="products" class="page"></section>
@@ -24,12 +25,7 @@
         <form id="userForm">
           <h2>Tilføj nyt produkt</h2>
           <input type="text" id="name" placeholder="Navn på produkt" required />
-          <textarea
-            type="text"
-            id="description"
-            placeholder="Beskriv produktet (ca. 5 linjer).."
-            required
-          ></textarea>
+          <textarea type="text" id="description" placeholder="Beskriv produktet (ca. 5 linjer).." required></textarea>
 
           <label for="cut">
             <select id="cut">
@@ -72,23 +68,17 @@
           <input type="text" id="price" placeholder="Pris" required />
           <input type="text" id="weight" placeholder="Vægt" required />
           <input type="number" id="kgprice" placeholder="Kilopris" required />
-          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)</p>
-<div class="radio_forside">
-              <input type="radio" id="ja_forside"
-               name="forslag" value="Ja">
-              <label for="ja_forside">Ja</label>
-          
-              <input type="radio" id="nej_forside"
-               name="forslag" value="Nej" checked>
-              <label for="nej_forside">Nej</label>
-            </div>
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
+          </p>
+          <div class="radio_forside">
+            <input type="radio" id="ja_forside" name="forslag" value="Ja">
+            <label for="ja_forside">Ja</label>
 
-          <input
-            type="file"
-            id="img"
-            accept="image/*"
-            onchange="previewImage(this.files[0], 'imagePreview')"
-          />
+            <input type="radio" id="nej_forside" name="forslag" value="Nej" checked>
+            <label for="nej_forside">Nej</label>
+          </div>
+
+          <input type="file" id="img" accept="image/*" onchange="previewImage(this.files[0], 'imagePreview')" />
           <img id="imagePreview" class="image-preview" />
           <button type="button" name="button" id="btn-create">Tilføj produkt</button>
         </form>
@@ -96,12 +86,8 @@
         <form id="form-update">
           <h2>Opdater produkt</h2>
           <input type="text" id="name-update" placeholder="Navn på produkt" required />
-          <textarea
-            type="text"
-            id="descriptionUpdate"
-            placeholder="Beskriv produktet (ca. 5 linjer).."
-            required
-          ></textarea>
+          <textarea type="text" id="descriptionUpdate" placeholder="Beskriv produktet (ca. 5 linjer).."
+            required></textarea>
 
           <label for="cut-update">
             <select id="cut-update">
@@ -144,51 +130,46 @@
           <input type="text" id="price-update" placeholder="Pris" required />
           <input type="text" id="weight-update" placeholder="Vægt" required />
           <input type="number" id="kgprice-update" placeholder="Kilopris" required />
-          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)</p>
-<div class="radio_forside">
-              <input type="radio" id="ja-forside-update"
-               name="forslag-update" value="Ja">
-              <label for="ja-forside-update">Ja</label>
-          
-              <input type="radio" id="nej-forside_update"
-               name="forslag-update" value="Nej" checked>
-              <label for="nej-forside-update">Nej</label>
-            </div>
-          <input
-            type="file"
-            id="img"
-            accept="image/*"
-            onchange="previewImage(this.files[0], 'imagePreviewUpdate')"
-          />
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
+          </p>
+          <div class="radio_forside">
+            <input type="radio" id="ja-forside-update" name="forslag-update" value="Ja">
+            <label for="ja-forside-update">Ja</label>
+
+            <input type="radio" id="nej-forside_update" name="forslag-update" value="Nej" checked>
+            <label for="nej-forside-update">Nej</label>
+          </div>
+          <input type="file" id="img" accept="image/*" onchange="previewImage(this.files[0], 'imagePreviewUpdate')" />
           <img id="imagePreviewUpdate" class="image-preview" />
           <button type="button" name="button" id="btn-update">Opdater produkt</button>
       </div>
       <section class="nyheder">
-      <h3>Nyhed til produktside</h3>
-      <div class="nyheder_guide">
-        <h3><span>&lt;h3&gt;</span>Er til titler<span>&lt;/h3&gt;</span></h3>
-        <p><span>&lt;p&gt;</span>Er til brødtekst<span>&lt;/p&gt;</span></p>
-        <p><span>&lt;i&gt;</span><i>Er til italic/skråskrift</i><span>&lt;/i&gt;</span></p>
-        <p><span>&lt;b&gt;</span><b>Er til tyk skrift</b><span>&lt;/b&gt;</span></p>
-        <p><span>&lt;u&gt;</span><u>Er til understreget skrift</u><span>&lt;/u&gt;</span></p>
-        <p><span>&lt;br&gt;</span>Bruges til at bryde<br>linjer (flere kan anvendes i streg)</p>
-      </div>
-      <div class="nyheder_text_output">
-        <textarea id="textContent" rows="20" cols="50"><h3>Nyhed</h3>
+        <h3>Nyhed til produktside</h3>
+        <div class="nyheder_guide">
+          <h3><span>&lt;h3&gt;</span>Er til titler<span>&lt;/h3&gt;</span></h3>
+          <p><span>&lt;p&gt;</span>Er til brødtekst<span>&lt;/p&gt;</span></p>
+          <p><span>&lt;i&gt;</span><i>Er til italic/skråskrift</i><span>&lt;/i&gt;</span></p>
+          <p><span>&lt;b&gt;</span><b>Er til tyk skrift</b><span>&lt;/b&gt;</span></p>
+          <p><span>&lt;u&gt;</span><u>Er til understreget skrift</u><span>&lt;/u&gt;</span></p>
+          <p><span>&lt;br&gt;</span>Bruges til at bryde<br>linjer (flere kan anvendes i streg)</p>
+        </div>
+        <div class="nyheder_text_output">
+          <textarea id="textContent" rows="20" cols="50"><h3>Nyhed</h3>
 <p>Vi har fået lækre bøffer på lager. Det er <b>vigtigt</b> at marinere dem!<br><br>
 Vi har også fået nye vin!</p></textarea>
-        <div id="showText"></div>
-    </div>
+          <div id="showText"></div>
+        </div>
       </section>
     </section>
   </main>
-    <!-- loader  -->
-    <!-- <section id="loader">
+  <!-- loader  -->
+  <!-- <section id="loader">
     <section class="spinner"></section>
   </section> -->
-    <!-- main js file -->
-    <script src="js/admin.js" type="module"></script>
-    <script src="js/spa.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </body>
+  <!-- main js file -->
+  <script src="js/admin.js" type="module"></script>
+  <script src="js/spa.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
 </html>

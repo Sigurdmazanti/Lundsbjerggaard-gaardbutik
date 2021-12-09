@@ -6,6 +6,7 @@
   <title>Lundsbjerggaard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="css/main.css" />
+  <script src="https://kit.fontawesome.com/491b6e8995.js" crossorigin="anonymous"></script>
 </head>
 
 <body onhashchange="pageChange()">
@@ -127,7 +128,7 @@
         </div>
 
         <div class="mobile-produkt-nav">
-          <h2>Produkter</h2>
+          <h2>Kategorier</h2>
           <div class="mobile-nav-container">
             <ul>
               <li class="boffer1"><a href="#all-bofferSteaks">Bøffer/Steaks</a></li>
@@ -163,7 +164,7 @@
             <div class="piece">
               <h1>Hakket oksekød</h1>
             </div>
-            <div class="all-hakket">
+            <div id="all-hakket">
 
             </div>
           </section>
@@ -172,7 +173,7 @@
             <div class="piece">
               <h1>Spegepølse</h1>
             </div>
-            <div class="all-spegepolse">
+            <div id="all-spegepolse">
 
             </div>
           </section>
@@ -181,7 +182,7 @@
             <div class="piece">
               <h1>Vin</h1>
             </div>
-            <div class="all-vin">
+            <div id="all-vin">
 
             </div>
           </section>
@@ -249,13 +250,44 @@
     <div class="about-us">
       <div class="about-us-text">
         <h2>Om os</h2>
+        <p>"Lundsbjerggaard er ejet af Mie & Otto Pedersen og består af en konventionel mælkeproduktion, og
+          planteavlsejendom. <br>
+          Gården har været i familens eje siden 1928, og Otto er 3. generation.
+          I mange år har vi på Lundsbjerggard søgt andre veje end den traditionelle produktionsform
+          Vi vil rigtig gerne tættere på forbrugerne, og vise hvad dansk landbrug rent faktisk kan præstere.
+          Derfor har vi valgt at opdrætte noget af det - der efter vores mening, er det bedste oksekød af renracede
+          Jersey tyre. <br>
+          Jersey tyre har en naturlig og flot fedtmarmorering som giver ekstra saft og smag til kødet.
+          Den gode smag kommer også fordi dyret krogmodner i 3 uger hos vores lokale slagter inden det bliver skåret op
+          og pakket. <br>
+          Så kig forbi vores gårdbutik, og smag forskellen .
+          "</p>
       </div>
       <div class="about-us-img">
         <img src="/img/cheferne.jpg" alt="De to landmænd">
       </div>
     </div>
 
+    <section class="visitnordfyn">
+      <div class="visitnordfyn-img">
+        <img src="/img/cheferne.jpg" alt="De to landmænd">
+      </div>
+      <div class="visitnordfyn-text">
+        <h2>VisitNordfyn skriver</h2>
+        <p>“Lundsbjerggard sælger lækkert kød fra jerseykalve. Du kan købe mange forskellige udskæringer lige fra
+          grillkød til osso buco, gammeldags oksesteg, steaks og altid hakket oksekød. Det varierer fra uge til uge, om
+          der er fersk eller frosset kød, og hvilke specifikke udskæringer man kan købe. I kan også købe god vin i
+          gårdbutikken, så I har noget der passer til kødet.
+
+          Kalvene opdrættes lokalt, og de får lokalt produceret grovfoder uden tilsætningsstoffer. Der er kort vej til
+          slagteren og kort vej tilbage til gårdbutikken, så der er ikke lang transport. Dyrene har det godt i stalden,
+          hvor der er store båse til dem, hvor de kan gå frit.
+
+          Kalvene er tyrekalve, der ikke kan bruges i mælkeproduktionen på gården.”</p>
+      </div>
+    </section>
   </section>
+
 
   <footer>
     <div class="left-footer">
@@ -278,12 +310,13 @@
     </div>
     <div class="right-footer">
       <div class="find-us">
-        <h2>Find os</h2>
-        <a href="www.facebook.com" class="fab fa-facebook"></a>
+        <h2>Følg os</h2>
+        <a href="https://www.facebook.com/Lundsbjerggaard" target="_blank"> <i
+            class="fab fa-facebook fa-2x"></i></i></a>
       </div>
       <div class="smiley">
         <h2>Kontrolrapport</h2>
-        <img src="img/Logo.svg" />
+        <a href="http://www.findsmiley.dk/923078" target="_blank"><img src="./img/banner_gul.gif"></a>
       </div>
     </div>
   </footer>
