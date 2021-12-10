@@ -460,6 +460,36 @@ img {
   cursor: pointer;
 }
 
+/*Jersey ko siden */
+#imagemapping-sektion {
+  margin-top: 50px;
+}
+
+#jersey img {
+  max-width: 1000px;
+}
+
+#brisket-product, #plate-product, #rib-product, #flank-product, #topsirloin-product, #round-product {
+  display: none;
+}
+
+#hero-jersey {
+background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
+url(../img/jersey-hero.jpg);
+background-position: 50% 50%;
+background-repeat: no-repeat;
+background-size: cover;
+right: 0;
+bottom: 0;
+font-size: 2em;
+padding: 15% 0 12%;
+font-family: var(--font-family-header);
+color: white;
+}
+#hero-jersey h1{
+  font-size: 2.2em;
+}
+
 @media screen and (max-width: 900px) {
   .bund-box-højre {
     width: 100%;
@@ -666,6 +696,7 @@ footer ul {
 .right-footer h2 {
   padding-bottom: 0;
 }
+
 
 @media screen and (max-width: 767px) {
   /* Navigation */
@@ -945,6 +976,8 @@ footer ul {
   font-size: 24px;
   color: black;
 }
+
+
 
 /* -------- Produkter mobil-navigation -------- */
 @media screen and (max-width: 900px) {
