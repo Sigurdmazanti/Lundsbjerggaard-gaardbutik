@@ -31,6 +31,7 @@ let _selectedImgFile = "";
 
 window.showUser = (id) => showUser(id);
 window.goBack = (id) => goBack(id);
+window.appendProdukterForside = (users) => appendProdukterForside(users);
 
 // lave en ny scroll funktion, der tager brugeren ned på den sektion der klikkes på
 function scrollToProductSection(id) {
@@ -56,7 +57,6 @@ document
     };
   });
 
-
 // Burger menu
 const burger = document.getElementById("burger");
 const tabbar = document.getElementById("tabbar");
@@ -64,7 +64,6 @@ const tabbar = document.getElementById("tabbar");
 burger.addEventListener("click", () => {
   tabbar.classList.toggle("display");
 });
-
 
 // Vis og fjern navigation on scroll
 var scrollStart = 0;
@@ -80,8 +79,6 @@ function scrollShowNav(event) {
   scrollStart = document.documentElement.scrollTop;
 }
 
-
-
 // ========== READ ==========
 
 // onSnapshot: listen for realtime updates
@@ -95,6 +92,7 @@ onSnapshot(_usersRef, (snapshot) => {
 
   filterProdukter(_users);
   filterCuts(_users);
+  appendProdukterForside(_users);
 
   // showLoader(false);
 });
@@ -109,7 +107,6 @@ onSnapshot(_nyhedRef, (snapshot) => {
   appendNyhed(_nyhed);
   // showLoader(false);
 });
-
 
 function optionalList(lager) {
   let htmlOptional = "";
@@ -173,10 +170,10 @@ function appendProdukter(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-      }</div>
+    }</div>
           <button onclick="showUser('${
-      user.id
-      }')"><img src="./img/arrow-right-solid_1.svg"></button>
+            user.id
+          }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -187,7 +184,37 @@ function appendProdukter(users, containerId) {
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
 
+function appendProdukterForside(users) {
+  let htmlTemplate = "";
+  for (let user of users) {
+    if (user.forsideForslag === "Ja") {
+      htmlTemplate += /*html*/ `
+      <article class="kort">
+      <div class="kort-img">
+        <img src="${user.img}">
+        </div>
+        <div class="kort-indhold">
+          <h3>${user.name}</h3>
+          <p class="kgpris">${user.kgprice} kr/kg</p>
+          <p class="vaegt">Ca. ${user.weight} g</p>
+          <p class="pris">Fra ${user.price} kr,-</p>
+          <div class="justify-content">
+          <div class="dashboard_lagerstatus">${optionalList(user)} ${
+        user.stock
+      }</div>
+          <button onclick="showUser('${
+            user.id
+          }')"><img src="./img/arrow-right-solid_1.svg"></button>
+          </div>
+          </div>
+        </div>
+      </article>
+      `;
+    }
+  }
 
+  document.querySelector(".produkt-kort").innerHTML = htmlTemplate;
+}
 
 function appendNyhed(nyheder) {
   let htmlTemplate = "";
@@ -198,7 +225,7 @@ function appendNyhed(nyheder) {
       </article>
       `;
   }
-  document.querySelector('#nyheder').innerHTML = htmlTemplate;
+  document.querySelector("#nyheder").innerHTML = htmlTemplate;
 }
 
 function showUser(id) {
@@ -236,8 +263,8 @@ function showUser(id) {
           <p class="specifik-info-bottom">${user.price} kr,-</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-    user
-  )} ${user.stock}
+            user
+          )} ${user.stock}
     </div></div>
           </div>
         </div>
@@ -252,7 +279,6 @@ function goBack() {
 }
 
 // Image mapping
-
 function filterCuts(users) {
   let chuck = [];
   let brisket = [];
@@ -264,20 +290,20 @@ function filterCuts(users) {
 
   for (const user of users) {
     console.log(user.cut);
-    if (user.cut === "Højreb"){
-      rib.push(user)
-    } else if (user.cut === "Bryst"){
-      plate.push(user)
-    } else if (user.cut === "Bov"){
-      brisket.push(user)
-    } else if (user.cut === "Skank"){
-      flank.push(user)
-    } else if (user.cut === "Tyksteg"){
-      round.push(user)
-    } else if (user.cut === "Tyndsteg"){
-      topsirloin.push(user)
-    } else if (user.cut === "Tykkam"){
-      chuck.push(user)
+    if (user.cut === "Højreb") {
+      rib.push(user);
+    } else if (user.cut === "Bryst") {
+      plate.push(user);
+    } else if (user.cut === "Bov") {
+      brisket.push(user);
+    } else if (user.cut === "Skank") {
+      flank.push(user);
+    } else if (user.cut === "Tyksteg") {
+      round.push(user);
+    } else if (user.cut === "Tyndsteg") {
+      topsirloin.push(user);
+    } else if (user.cut === "Tykkam") {
+      chuck.push(user);
     }
   }
   appendCuts(rib, "rib-product");
@@ -305,10 +331,10 @@ function appendCuts(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-      }</div>
+    }</div>
           <button onclick="showUser('${
-      user.id
-      }')"><img src="./img/arrow-right-solid_1.svg"></button>
+            user.id
+          }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -319,14 +345,14 @@ function appendCuts(users, containerId) {
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
 
-document.querySelector("#neck").addEventListener("click", function(e){
+document.querySelector("#neck").addEventListener("click", function (e) {
   e.preventDefault();
   let html = "";
   html += `
   <h1>Neck</h1>
   <p>Bla bla bla</p>
   
-  `
+  `;
   // for (user of _usersRef){
   //   if(user.cut === "Hals"){
   //     html += `${user.name}`
@@ -334,69 +360,72 @@ document.querySelector("#neck").addEventListener("click", function(e){
   // }
   document.querySelector("#image-beskrivelse").innerHTML = html;
 });
-document.querySelector("#chuck").addEventListener("click", function(e){
+document.querySelector("#chuck").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Chuck</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#brisket").addEventListener("click", function(e){
+document.querySelector("#brisket").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Briskett</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#plate").addEventListener("click", function(e){
+document.querySelector("#plate").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Plate</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#rib").addEventListener("click", function(e){
+document.querySelector("#rib").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Rib</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#shortloin").addEventListener("click", function(e){
+document.querySelector("#shortloin").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Shortloin</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#flank").addEventListener("click", function(e){
+document.querySelector("#flank").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Flank</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#top-sirloin").addEventListener("click", function(e){
+document.querySelector("#top-sirloin").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Top Sirloin</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
-document.querySelector("#bottom-sirloin").addEventListener("click", function(e){
-  e.preventDefault();
-  document.querySelector("#image-beskrivelse").innerHTML = `
+document
+  .querySelector("#bottom-sirloin")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Bottom Sirloin</h1>
   <p>Bla bla bla</p>
-  `
-});
-document.querySelector("#round").addEventListener("click", function(e){
+  `;
+  });
+document.querySelector("#round").addEventListener("click", function (e) {
   e.preventDefault();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Round</h1>
   <p>Bla bla bla</p>
-  `
+  `;
 });
+
 // $("#neck").on("click", function(e){
 //   e.preventDefault();
 //   document.querySelector("#image-beskrivelse").innerHTML = `

@@ -98,7 +98,7 @@ img {
 }
 
 .tabbar a:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
@@ -244,21 +244,29 @@ img {
 }
 
 /* ---------- Forslag header styling forside ---------- */
-.forslag-header {
+.forslag-header h2 {
   font-family: var(--font-family-header);
   display: block;
-  margin-bottom: 20px;
 }
 
-.forslag-header p {
-  font-family: var(--font-family);
+.forslag-header {
+  margin: 15vh 0;
 }
 
 .linje {
   background-color: orange;
   width: 40px;
   height: 5px;
-  margin: 0 auto;
+  margin: 0 auto 2.5vh auto;
+}
+
+.produkt-kort {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  max-width: 70%;
+  margin: auto;
+  gap: 40px;
 }
 
 /* ---------- Lagerstatus på produktside ---------- */
@@ -389,7 +397,8 @@ img {
 
 /* -------- kategorier forside -------- */
 #kategorier-forside h2 {
-  text-align: left;
+  text-align: center;
+  font-family: var(--font-family-header);
 }
 
 .kategori-container {
@@ -473,24 +482,29 @@ img {
   max-width: 1000px;
 }
 
-#brisket-product, #plate-product, #rib-product, #flank-product, #topsirloin-product, #round-product {
+#brisket-product,
+#plate-product,
+#rib-product,
+#flank-product,
+#topsirloin-product,
+#round-product {
   display: none;
 }
 
 #hero-jersey {
-background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
-url(../img/jersey-hero.jpg);
-background-position: 50% 50%;
-background-repeat: no-repeat;
-background-size: cover;
-right: 0;
-bottom: 0;
-font-size: 2em;
-padding: 15% 0 12%;
-font-family: var(--font-family-header);
-color: white;
+  background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
+    url(../img/jersey-hero.jpg);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+  padding: 15% 0 12%;
+  font-family: var(--font-family-header);
+  color: white;
 }
-#hero-jersey h1{
+#hero-jersey h1 {
   font-size: 2.2em;
 }
 
@@ -521,6 +535,11 @@ color: white;
     flex-direction: column;
     margin: 0;
   }
+
+  .produkt-kort {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* --------- Om gården -------- */
@@ -550,7 +569,6 @@ color: white;
 .margin-bottom {
   margin-bottom: 35px;
 }
-
 
 /* .about-us {
   margin: auto;
@@ -588,7 +606,6 @@ color: white;
   .grid-container {
     grid-template-columns: 1fr 1fr;
   }
-
 }
 
 .grid-container > article {
@@ -616,7 +633,6 @@ color: white;
   align-items: top;
 }
 
-
 .visitnordfyn {
   width: 80%;
   margin: 0 auto;
@@ -642,8 +658,8 @@ color: white;
 }
 
 .visitnordfyn-text h2 {
-    font-family: var(--font-family-header);
-    font-size: 2rem;
+  font-family: var(--font-family-header);
+  font-size: 2rem;
 }
 
 /* ---------- Footer ---------- */
@@ -700,7 +716,6 @@ footer ul {
 .right-footer h2 {
   padding-bottom: 0;
 }
-
 
 @media screen and (max-width: 767px) {
   /* Navigation */
@@ -980,8 +995,6 @@ footer ul {
   font-size: 24px;
   color: black;
 }
-
-
 
 /* -------- Produkter mobil-navigation -------- */
 @media screen and (max-width: 900px) {
