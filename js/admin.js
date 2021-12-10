@@ -28,13 +28,15 @@ initializeApp(firebaseConfig);
 const _db = getFirestore();
 // reference to users collection in database
 const _usersRef = collection(_db, "produkter");
+const _nyhederRef = collection(_db, "nyheder");
 // global variable: users array & selectedUserId
 let _users = [];
+let _nyheder = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
 // ========== READ ==========
 
-// onSnapshot: listen for realtime updates
+// Til at hente produkter data fra firebase
 onSnapshot(_usersRef, (snapshot) => {
   // mapping snapshot data from firebase in to user objects
   _users = snapshot.docs.map((doc) => {
@@ -46,8 +48,19 @@ onSnapshot(_usersRef, (snapshot) => {
   /* Sorterer array af objects alfabetisk */
   _users.sort((a, b) => a.name.localeCompare(b.name));
   appendUsers(_users);
-  // showLoader(false);
 });
+
+// Til at hente nyhed data fra firebase
+onSnapshot(_nyhederRef, (snapshot) => {
+  // mapping snapshot data from firebase in to user objects
+  _nyheder = snapshot.docs.map((doc) => {
+    const nyhed = doc.data();
+    nyhed.id = doc.id;
+    return nyhed;
+  });
+  appendNyheder(_nyheder);
+});
+
 
 function forsideAntal() {
   // Finder antal af objects der har property "forsideForslag" med værdien "Ja"
@@ -75,9 +88,9 @@ function forsideAntal() {
     htmlCount += `
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
-  } 
-    // Bruger vores formular countDifference
-    else {
+  }
+  // Bruger vores formular countDifference
+  else {
     htmlCount += `
     <span class="forside_vist for_mange">(${count}/3 vist)</span><span data-tooltip="Der er lige nu sat ${count}/3 produkter på forsiden. Fjern ${countDifference}." data-flow="top"><img src="img/erroricon.svg"></span>
     `;
@@ -93,20 +106,20 @@ function godkendtForside() {
   // Modal er triggered når max kapacitet er nået
   if (count === 3 || count > 3) {
     Swal.fire({
-        title: 'Er du sikker på at du vil tilføje dette produkt?',
-        text: "Du har allerede " + count + " produkter sat til at blive vist på forsiden.",
-        icon: 'warning',
-        iconColor: 'red',
-        showCancelButton: true,
-        showCloseButton: true,
-        returnFocus: false,
-        focusConfirm: false,
-        allowEnterKey: false,
-        cancelButtonText: 'Annuller',
-        confirmButtonColor: 'green',
-        cancelButtonColor: '#D72828',
-        confirmButtonText: 'Bekræft'
-      })
+      title: 'Er du sikker på at du vil tilføje dette produkt?',
+      text: "Du har allerede " + count + " produkter sat til at blive vist på forsiden.",
+      icon: 'warning',
+      iconColor: 'red',
+      showCancelButton: true,
+      showCloseButton: true,
+      returnFocus: false,
+      focusConfirm: false,
+      allowEnterKey: false,
+      cancelButtonText: 'Annuller',
+      confirmButtonColor: 'green',
+      cancelButtonColor: '#D72828',
+      confirmButtonText: 'Bekræft'
+    })
 
       // Triggered når admin vælger "bekræft"
       .then((result) => {
@@ -115,20 +128,20 @@ function godkendtForside() {
             'Produktet er sat til at komme på forsiden.',
             '',
             'success'
-          ), 
-          // Skifter radio button værdi til "ja"
-          document.querySelector('#ja_forside').checked = true;
+          ),
+            // Skifter radio button værdi til "ja"
+            document.querySelector('#ja_forside').checked = true;
           document.querySelector('#ja-forside-update').checked = true;
-        } 
+        }
         // Triggered når brugeren vælger "annuller"
         else {
           Swal.fire(
             'Produktet er ikke sat til at komme på forsiden.',
             '',
             'warning',
-          ), 
-          // Skifter radio button værdi til "nej"
-          document.querySelector('#nej_forside').checked = true;
+          ),
+            // Skifter radio button værdi til "nej"
+            document.querySelector('#nej_forside').checked = true;
           document.querySelector('#nej-forside-update').checked = true;
         }
       })
@@ -218,9 +231,8 @@ function createUser() {
   let kgpriceInput = document.querySelector("#kgprice");
   let forsideInput = document.querySelector('input[name="forslag"]:checked');
   const newUser = {
-    // Gør det første bogstav i hvert ord stort
-    name: nameInput.value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' '),
     // Gør det første bogstav i sætningen stort
+    name: nameInput.value[0].toUpperCase() + nameInput.value.slice(1),
     description: descriptionInput.value[0].toUpperCase() + descriptionInput.value.slice(1),
     cut: cutInput.value,
     category: categoryInput.value,
@@ -252,7 +264,7 @@ function selectUser(id) {
   _selectedUserId = id;
   const user = _users.find((user) => user.id == _selectedUserId);
   // references to the input fields
-  document.querySelector("#name-update").value = user.name;
+  document.querySelector("#nameUpdate").value = user.name;
   document.querySelector("#descriptionUpdate").value = user.description;
   document.querySelector("#cut-update").value = user.cut;
   document.querySelector("#category-update").value = user.category;
@@ -270,7 +282,7 @@ function selectUser(id) {
 function updateUser() {
   const userToUpdate = {
     // Gør det første bogstav i hvert ord stort
-    name: document.querySelector("#name-update").value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' '),
+    name: document.querySelector("#nameUpdate").value[0].toUpperCase() + nameUpdate.value.slice(1),
     // Gør det første bogstav i sætningen stort
     description: document.querySelector("#descriptionUpdate").value[0].toUpperCase() + descriptionUpdate.value.slice(1),
     cut: document.querySelector("#cut-update").value,
@@ -286,7 +298,7 @@ function updateUser() {
   updateDoc(userRef, userToUpdate);
 
   // reset
-  document.querySelector("#name-update").value = "";
+  document.querySelector("#nameUpdate").value = "";
   document.querySelector("#descriptionUpdate").value = "";
   document.querySelector("#cut-update").value = "";
   document.querySelector("#category-update").value = "";
@@ -331,7 +343,6 @@ function deleteUser(id) {
   })
 }
 
-
 function previewImage(file, previewId) {
   if (file) {
     _selectedImgFile = file;
@@ -346,7 +357,7 @@ function previewImage(file, previewId) {
 }
 
 // ========== TEXTAREA / NYHEDSEKSEMPEL + GUIDE ==========
-/* Finder værdien fra voes <textarea>, fylder vores tomme <div> med den værdi, og tillader samtidig at skrive mere */
+/* Finder værdien fra voes <textarea>, fylder vores tomme <div> #showText med den værdi, og tillader samtidig at skrive mere */
 function textAreaNews() {
   let textContent = document.getElementById("textContent");
   let textContentPreset = document.getElementById("textContent").value;
@@ -359,18 +370,111 @@ function textAreaNews() {
 }
 textAreaNews();
 
+// function nyhedsAntal() {
+//   let htmlAntal = "";
+//   let nyhedLength = _nyheder.length;
+//   if (_nyheder[0]) {
+//     htmlAntal += `
+//     <span>1</span>
+//     `;
+//   }
+
+//   else if (_nyheder[1]) {
+//     htmlAntal += `
+//     <span>2</span>
+//     `;
+//   }
+
+//   else if (_nyheder[2]) {
+//     htmlAntal += `
+//     <span>3</span>
+//     `;
+//   }
+
+//   else if (_nyheder[3]) {
+//     htmlAntal += `
+//     <span>4</span>
+//     `;
+//   }
+//   return htmlAntal;
+// }
+
+function appendNyheder(nyhed) {
+  let nyhedTemplate = "";
+  for (let nyheden of nyhed) {
+    nyhedTemplate += /*html*/ `
+    <article>
+    <p>${nyheden.nyNyhed}</p>
+    <div class="dashboard_buttons">
+    <button class="btn-delete-nyhed" data-id="${nyheden.id}">Fjern denne nyhed</button>
+    </div>
+    </article>
+    `;
+  }
+  document.querySelector("#lavet-nyheder").innerHTML = nyhedTemplate;
+
+  document.querySelectorAll(".btn-delete-nyhed").forEach((btn) => {
+    btn.onclick = () => fjernNyhed(btn.getAttribute("data-id"));
+  });
+}
+
+function lavNyhed() {
+  let nyhedInput = document.querySelector("#textContent");
+  const nyNyheder = {
+    nyNyhed: nyhedInput.value,
+  };
+
+  addDoc(_nyhederRef, nyNyheder);
+}
+
+function fjernNyhed(id) {
+  let nyhedRef = doc(_nyhederRef, id);
+  Swal.fire({
+    title: 'Er du sikker på at du vil fjerne nyheden?',
+    text: "Nyheden kan ikke genoprettes.",
+    icon: 'warning',
+    iconColor: 'red',
+    showCancelButton: true,
+    showCloseButton: true,
+    returnFocus: false,
+    focusConfirm: false,
+    allowEnterKey: false,
+    cancelButtonText: 'Annuller',
+    confirmButtonColor: 'green',
+    cancelButtonColor: '#D72828',
+    confirmButtonText: 'Bekræft'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Nyheden er nu slettet.',
+        '',
+        'success'
+      ), deleteDoc(nyhedRef);
+
+    } else {
+      Swal.fire(
+        'Nyheden blev beholdt.',
+        '',
+        'success',
+      )
+    }
+  })
+  console.log(_nyheder);
+}
+
 // =========== Loader functionality =========== //
 
-// function showLoader(show = true) {
-// 	const loader = document.querySelector("#loader");
-// 	if (show) {
-// 		loader.classList.remove("hide");
-// 	} else {
-// 		loader.classList.add("hide");
-// 	}
-// }
+function showLoader(show = true) {
+  const loader = document.querySelector("#loader");
+  if (show) {
+    loader.classList.remove("hide");
+  } else {
+    loader.classList.add("hide");
+  }
+}
 
 // =========== attach events =========== //
 document.querySelector("#btn-update").onclick = () => updateUser();
 document.querySelector("#btn-create").onclick = () => createUser();
+document.querySelector("#lav-nyhed").onclick = () => lavNyhed();
 window.previewImage = (file, previewId) => previewImage(file, previewId);

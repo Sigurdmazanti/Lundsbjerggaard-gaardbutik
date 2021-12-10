@@ -24,8 +24,8 @@
       <div class="form_dashboard">
         <form id="userForm">
           <h2>Tilføj nyt produkt</h2>
-          <input type="text" id="name" placeholder="Navn på produkt" required />
-          <textarea type="text" id="description" placeholder="Beskriv produktet (ca. 5 linjer).." required></textarea>
+          <input type="text" id="name" placeholder="Navn på produkt" />
+          <textarea type="text" id="description" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
 
           <label for="cut">
             <select id="cut">
@@ -65,9 +65,9 @@
             </select>
           </label>
 
-          <input type="text" id="price" placeholder="Pris" required />
-          <input type="text" id="weight" placeholder="Vægt" required />
-          <input type="number" id="kgprice" placeholder="Kilopris" required />
+          <input type="text" id="price" placeholder="Pris" />
+          <input type="text" id="weight" placeholder="Vægt" />
+          <input type="number" id="kgprice" placeholder="Kilopris" />
           <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
           </p>
           <div class="radio_forside">
@@ -85,9 +85,8 @@
 
         <form id="form-update">
           <h2>Opdater produkt</h2>
-          <input type="text" id="name-update" placeholder="Navn på produkt" required />
-          <textarea type="text" id="descriptionUpdate" placeholder="Beskriv produktet (ca. 5 linjer).."
-            required></textarea>
+          <input type="text" id="nameUpdate" placeholder="Navn på produkt" />
+          <textarea type="text" id="descriptionUpdate" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
 
           <label for="cut-update">
             <select id="cut-update">
@@ -127,9 +126,9 @@
             </select>
           </label>
 
-          <input type="text" id="price-update" placeholder="Pris" required />
-          <input type="text" id="weight-update" placeholder="Vægt" required />
-          <input type="number" id="kgprice-update" placeholder="Kilopris" required />
+          <input type="text" id="price-update" placeholder="Pris" />
+          <input type="text" id="weight-update" placeholder="Vægt" />
+          <input type="number" id="kgprice-update" placeholder="Kilopris" />
           <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
           </p>
           <div class="radio_forside">
@@ -143,8 +142,9 @@
           <img id="imagePreviewUpdate" class="image-preview" />
           <button type="button" name="button" id="btn-update">Opdater produkt</button>
       </div>
+      <div class="admin_lang_linje"></div>
       <section class="nyheder">
-        <h3>Nyhed til produktside</h3>
+        <h2>Nyhed til produktside</h2>
         <div class="nyheder_guide">
           <h3><span>&lt;h3&gt;</span>Er til titler<span>&lt;/h3&gt;</span></h3>
           <p><span>&lt;p&gt;</span>Er til brødtekst<span>&lt;/p&gt;</span></p>
@@ -159,13 +159,14 @@
 Vi har også fået nye vin!</p></textarea>
           <div id="showText"></div>
         </div>
+        <div class="dashboard_buttons">
+          <button id="lav-nyhed" class="add-nyhed">Tilføj nyhed</button>
+        </div>
+        <h2 class="nuvaerende">Nuværende nyhed</h2>
+        <div id="lavet-nyheder" class="grid-container news_grid">
       </section>
     </section>
   </main>
-  <!-- loader  -->
-  <!-- <section id="loader">
-    <section class="spinner"></section>
-  </section> -->
   <!-- main js file -->
   <script src="js/admin.js" type="module"></script>
   <script src="js/spa.js"></script>

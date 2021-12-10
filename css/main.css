@@ -1,3 +1,7 @@
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playball&display=swap");
+
 :root {
   --green: rgb(38, 76, 89);
   --green-opacity: rgba(38, 76, 89, 0.2);
@@ -7,12 +11,10 @@
   --text-color-dark: #333;
   --white: #fff;
   --font-family: "Montserrat", sans-serif;
+  --font-family-header: "Playball", sans-serif;
   --text-color-out-of-stock: rgb(89, 38, 38);
   --text-color-in-stock: rgb(172, 198, 201);
 }
-
-/* Montserrat font */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 *,
 *::before,
@@ -45,7 +47,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 48px;
-  position: static;
+  position: sticky;
   width: 100%;
   top: 0;
   height: 80px;
@@ -85,14 +87,32 @@ img {
   list-style-type: none;
   text-decoration: none;
   color: black;
-  padding: 8px;
+  padding: 4px;
   font-family: var(--font-family);
 }
 
-.tabbar a:hover {
+.tabbar a {
+  display: inline-block;
+  position: relative;
+  color: black;
+}
+
+.tabbar a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
   background-color: orange;
-  color: white;
-  border-radius: 3px;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.tabbar a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .desktop-nav {
@@ -123,9 +143,27 @@ img {
   min-height: 100%;
 }
 
+.hero-about {
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.about-video-hero {
+  position: absolute;
+  z-index: -1;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  margin-top: -80px;
+  overflow: hidden;
+  resize: none;
+}
+
 .hero-produkter {
   background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
-    url(../img/hero.jpg);
+    url(../img/butik.jpeg);
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -151,7 +189,7 @@ img {
 
 .content h1 {
   font-size: 4rem;
-  font-family: var(--font-family);
+  font-family: var(--font-family-header);
   margin: 0;
   text-shadow: 0px 0px 50px #000;
 }
@@ -207,9 +245,13 @@ img {
 
 /* ---------- Forslag header styling forside ---------- */
 .forslag-header {
-  font-family: var(--font-family);
+  font-family: var(--font-family-header);
   display: block;
   margin-bottom: 20px;
+}
+
+.forslag-header p {
+  font-family: var(--font-family);
 }
 
 .linje {
@@ -268,6 +310,10 @@ img {
   display: flex;
   flex-direction: row;
   margin: 0 5vw;
+}
+
+.produkt-img {
+  width: 50%;
 }
 
 .kort {
@@ -382,7 +428,7 @@ img {
   width: 49%;
   min-width: 360px;
   height: 360px;
-  background-image: url("/img/kategori2.jpg");
+  background-image: url("/img/jersey.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 46%;
@@ -446,6 +492,17 @@ img {
 /* --------- Om gården -------- */
 .about-content-hero h1 {
   color: white;
+  font-family: var(--font-family-header);
+  font-weight: 400;
+  text-shadow: 0px 0px 50px #000;
+}
+
+.about-us-subheader {
+  font-family: var(--font-family-header);
+  font-size: 1.5rem;
+  color: var(--text-color-light);
+  font-weight: 400;
+  text-shadow: 0px 0px 50px #000;
 }
 
 .about-content-hero p {
@@ -453,42 +510,82 @@ img {
 }
 
 .margin-top {
-  margin-top: 100px;
+  margin-top: 10px;
 }
 
 .margin-bottom {
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 
-.about-us {
-  width: 80%;
+
+/* .about-us {
   margin: auto;
-  background-color: #ffeede;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+}
+
+
+.about-us-text {
+  text-align: left;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  box-shadow: 25px 25px 0px lightyellow;
+  flex-direction: column;
 }
 
-.about-us-img {
-  width: 40%;
+.about-us img {
+  width: 50%;
+} */
+
+.grid-container {
+  display: grid;
+  width: 100%;
+  margin: auto;
+  grid-template-columns: 1fr;
+  line-height: 1.5;
 }
 
-.about-us-text {
-  width: 60%;
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+.grid-container > article {
+  padding: 5em 0em 0em 5em;
   text-align: left;
-  margin: 5%;
+  display: flex;
+  flex-direction: column;
 }
 
-.about-us-img img {
-  width: 90%;
-  margin: 5% 0;
+.img_box {
+  /* padding: 2em 3em; */
+  padding: 5em 5em 0em 0em;
+  display: flex;
+  justify-content: left;
 }
+
+.img_box img {
+  max-width: 400px;
+}
+
+.about-us-text h2 {
+  font-family: var(--font-family-header);
+  font-size: 2rem;
+  display: flex;
+  align-items: top;
+}
+
 
 .visitnordfyn {
   width: 80%;
-  margin: 5% auto;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -496,21 +593,23 @@ img {
 }
 
 .visitnordfyn-img {
-  width: 40%;
+  width: 50%;
 }
 
 .visitnordfyn-img img {
-  width: 90%;
-  margin: 5% 0;
+  width: 70%;
 }
 
 .visitnordfyn-text {
-  width: 60%;
+  width: 40%;
   text-align: left;
   margin: 5%;
-  background-color: #ffeede;
   padding: 3.6%;
-  box-shadow: 25px 25px 0px lightyellow;
+}
+
+.visitnordfyn-text h2 {
+    font-family: var(--font-family-header);
+    font-size: 2rem;
 }
 
 /* ---------- Footer ---------- */
@@ -575,7 +674,6 @@ footer ul {
     height: auto;
     padding: 48px 0;
     display: none;
-    position: static;
   }
 
   .mobile-nav {
@@ -625,6 +723,10 @@ footer ul {
 }
 
 /****************************************************** Produkt-side ******************************************************/
+#nyheder article {
+  padding: 16px;
+}
+
 .center-content {
   padding-top: 7em;
   width: 90%;
@@ -710,6 +812,10 @@ footer ul {
   align-items: center;
 }
 
+.nyheder {
+  width: 100%;
+}
+
 .kategori {
   display: flex;
   flex-direction: column;
@@ -736,6 +842,7 @@ footer ul {
 .nav-container {
   position: sticky;
   top: 40%;
+  text-align: start;
 }
 
 .nav-container ul li {
@@ -779,10 +886,7 @@ footer ul {
   flex-direction: column;
   max-width: 50%;
   margin: auto;
-}
-
-.produkt-img {
-  max-width: 50%;
+  padding: 10vh 0;
 }
 
 .produkt-navigation {
@@ -921,15 +1025,16 @@ footer ul {
   }
 
   .produkt-img {
-    max-width: 100%;
+    min-width: 100%;
   }
 
   .produkt-indhold {
     max-width: 90%;
+    margin: 24px auto;
   }
 
   .produkt-navigation {
-    margin: 3vh 0;
+    padding: 3vh 0;
   }
 
   .desktop-produkt {
@@ -938,7 +1043,11 @@ footer ul {
 
   .mobile-produkt {
     display: flex;
-    margin-left: 56px;
+    padding-left: 5vw;
+    position: sticky;
+    top: 0;
+    margin-left: 0;
+    background-color: white;
   }
 
   /* -------- Footer ------- */

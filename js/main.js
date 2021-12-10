@@ -3,7 +3,6 @@ import {
   getFirestore,
   collection,
   onSnapshot,
-  doc,
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -23,9 +22,10 @@ const _db = getFirestore();
 
 // reference to users collection in database
 const _usersRef = collection(_db, "produkter");
-
+const _nyhedRef = collection(_db, "nyheder");
 // global variable: users array & selectedUserId
 let _users = [];
+let _nyhed = [];
 let _selectedUserId = "";
 let _selectedImgFile = "";
 
@@ -40,7 +40,6 @@ function scrollToProductSection(id) {
   const elementRect = productContainer.getBoundingClientRect().top;
   const elementPosition = elementRect - bodyRect;
   const offsetPosition = elementPosition - offset;
-
   window.scrollTo({
     top: offsetPosition,
     behavior: "smooth",
@@ -56,6 +55,32 @@ document
       scrollToProductSection(containerId);
     };
   });
+
+
+// Burger menu
+const burger = document.getElementById("burger");
+const tabbar = document.getElementById("tabbar");
+
+burger.addEventListener("click", () => {
+  tabbar.classList.toggle("display");
+});
+
+
+// Vis og fjern navigation on scroll
+var scrollStart = 0;
+window.onscroll = scrollShowNav;
+function scrollShowNav(event) {
+  var currentScrollValue = document.documentElement.scrollTop;
+  if (currentScrollValue > scrollStart) {
+    document.getElementsByClassName("tabbar")[0].style.top = "-125px";
+    tabbar.classList.remove("display");
+  } else {
+    document.getElementsByClassName("tabbar")[0].style.top = "0px";
+  }
+  scrollStart = document.documentElement.scrollTop;
+}
+
+
 
 // ========== READ ==========
 
@@ -73,12 +98,17 @@ onSnapshot(_usersRef, (snapshot) => {
   // showLoader(false);
 });
 
-const burger = document.getElementById("burger");
-const tabbar = document.getElementById("tabbar");
-
-burger.addEventListener("click", () => {
-  tabbar.classList.toggle("display");
+onSnapshot(_nyhedRef, (snapshot) => {
+  // mapping snapshot data from firebase in to user objects
+  _nyhed = snapshot.docs.map((doc) => {
+    const nyhed = doc.data();
+    nyhed.id = doc.id;
+    return nyhed;
+  });
+  appendNyhed(_nyhed);
+  // showLoader(false);
 });
+
 
 function optionalList(lager) {
   let htmlOptional = "";
@@ -128,7 +158,7 @@ function filterProdukter(users) {
 
 function appendProdukter(users, containerId) {
   let htmlTemplate = "";
-  for (const user of users) {
+  for (let user of users) {
     htmlTemplate += /*html*/ `
       <article class="kort">
       <div class="kort-img">
@@ -142,10 +172,10 @@ function appendProdukter(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-    }</div>
+      }</div>
           <button onclick="showUser('${
-            user.id
-          }')"><img src="./img/arrow-right-solid_1.svg"></button>
+      user.id
+      }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -156,7 +186,19 @@ function appendProdukter(users, containerId) {
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
 
-appendProdukter();
+
+
+function appendNyhed(nyheder) {
+  let htmlTemplate = "";
+  for (let nyhed of nyheder) {
+    htmlTemplate += /*html*/ `
+      <article class="kort">
+      <p>${nyhed.nyNyhed}</p>
+      </article>
+      `;
+  }
+  document.querySelector('#nyheder').innerHTML = htmlTemplate;
+}
 
 function showUser(id) {
   const user = _users.find((user) => user.id == id);
@@ -174,7 +216,7 @@ function showUser(id) {
         <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
         <h2>${user.category}</h2>
         </div>
-        
+
         <div class="produkt-names">
           <h3>${user.name}</h3>
           <p class="description">${user.description}</p>
@@ -193,8 +235,8 @@ function showUser(id) {
           <p class="specifik-info-bottom">${user.price} kr,-</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-            user
-          )} ${user.stock}
+    user
+  )} ${user.stock}
     </div></div>
           </div>
         </div>

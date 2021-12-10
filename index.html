@@ -10,6 +10,10 @@
 </head>
 
 <body onhashchange="pageChange()">
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v12.0&appId=386916509852451&autoLogAppEvents=1"
+    nonce="HraLQt0x"></script>
   <header>
     <div class="mobile-nav">
       <a href="#home"><img src="./img/Logo.svg" /></a>
@@ -37,10 +41,10 @@
     <section class="hero">
       <div class="content">
         <div class="content-all">
-          <h1>Velkommen til <br />Lundsbjerggaard</h1>
+          <h1>Lundsbjerggaard</h1>
           <p>
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna.
+            Køb lækkert kød fra Jerseykalve! Oksebryst, hakket oksekød eller grillsteaks? Lundsbjerggaard byder på
+            velsmagende kød fra vores egne Jerseykvæg
           </p>
           <button type="button" class="cta-btn" onclick="location.href='#'">
             Se vores udvalg
@@ -112,17 +116,19 @@
         </div>
       </div>
     </section>
+    <div id="nyhed_container">
 
+    </div>
     <div class="center-content">
       <div class="product-content">
         <div class="desktop-nav">
           <div class="nav-container">
             <ul>
-              <li class="boffer1"><a href="#bofferSteaks">Bøffer/Steaks</a></li>
-              <li class="boffer2"><a href="#stege">Hele stege</a></li>
-              <li class="boffer3"><a href="#hakket">Hakket oksekød</a></li>
-              <li class="boffer4"><a href="#spegepolse">Spegepølse</a></li>
-              <li class="boffer5"><a href="#vin">Vin</a></li>
+              <li class="boffer"><a href="#bofferSteaks">Bøffer/Steaks</a></li>
+              <li class="boffer"><a href="#stege">Hele stege</a></li>
+              <li class="boffer"><a href="#hakket">Hakket oksekød</a></li>
+              <li class="boffer"><a href="#spegepolse">Spegepølse</a></li>
+              <li class="boffer"><a href="#vin">Vin</a></li>
             </ul>
           </div>
         </div>
@@ -131,24 +137,23 @@
           <h2>Kategorier</h2>
           <div class="mobile-nav-container">
             <ul>
-              <li class="boffer1"><a href="#all-bofferSteaks">Bøffer/Steaks</a></li>
-              <li class="boffer2"><a href="#stege">Hele stege</a></li>
-              <li class="boffer3"><a href="#hakket">Hakket oksekød</a></li>
-              <li class="boffer4"><a href="#spegepolse">Spegepølse</a></li>
-              <li class="boffer5"><a href="#vin">Vin</a></li>
+              <li class="boffer"><a href="#all-bofferteaks">Bøffer/Steaks</a></li>
+              <li class="boffer"><a href="#stege">Hele stege</a></li>
+              <li class="boffer"><a href="#hakket">Hakket oksekød</a></li>
+              <li class="boffer"><a href="#spegepolse">Spegepølse</a></li>
+              <li class="boffer"><a href="#vin">Vin</a></li>
             </ul>
           </div>
         </div>
 
         <div class="produkter">
+          <div id="nyheder"></div>
           <section class="kategori boffer" id="bofferSteaks">
             <div id="piece" class="piece">
               <h1>Bøffer/Steaks</h1>
             </div>
             <div id="all-bofferSteaks">
-
             </div>
-
           </section>
 
           <section class="kategori stege" id="stege">
@@ -157,7 +162,6 @@
             </div>
             <div id="all-stege">
             </div>
-
           </section>
 
           <section class="kategori stege" id="hakket">
@@ -165,7 +169,6 @@
               <h1>Hakket oksekød</h1>
             </div>
             <div id="all-hakket">
-
             </div>
           </section>
 
@@ -174,7 +177,6 @@
               <h1>Spegepølse</h1>
             </div>
             <div id="all-spegepolse">
-
             </div>
           </section>
 
@@ -183,12 +185,9 @@
               <h1>Vin</h1>
             </div>
             <div id="all-vin">
-
             </div>
           </section>
-
         </div>
-
       </div>
     </div>
   </section>
@@ -235,37 +234,41 @@
   </section>
 
   <section id="about" class="page">
-    <section class="hero">
+    <section class="hero-about">
       <div class="content">
         <div class="about-content-hero">
           <h1>Lundsbjerggaard</h1>
+          <div class="linje"></div>
+          <h4 class="about-us-subheader">Familieejet gård gennem fire generationer
         </div>
       </div>
+      <video class="about-video-hero" autoplay loop muted>
+        <source src="img/om-hero.mp4" type="video/mp4">
+      </video>
+
     </section>
     <div class="forslag-header margin-top">
       <h2>Familieejet landbrug</h2>
       <div class="linje margin-bottom"></div>
       <p>En familieejet gård, der går gennem fire forskellige generationer.</p>
     </div>
-    <div class="about-us">
-      <div class="about-us-text">
+    <div class="about-us grid-container">
+      <article class="about-us-text">
         <h2>Om os</h2>
-        <p>"Lundsbjerggaard er ejet af Mie & Otto Pedersen og består af en konventionel mælkeproduktion, og
+        <p>Lundsbjerggaard er ejet af Mie & Otto Pedersen og består af en konventionel mælkeproduktion, og
           planteavlsejendom. <br>
           Gården har været i familens eje siden 1928, og Otto er 3. generation.
-          I mange år har vi på Lundsbjerggard søgt andre veje end den traditionelle produktionsform
+          I mange år har vi på Lundsbjerggard søgt andre veje end den traditionelle produktionsform.
           Vi vil rigtig gerne tættere på forbrugerne, og vise hvad dansk landbrug rent faktisk kan præstere.
           Derfor har vi valgt at opdrætte noget af det - der efter vores mening, er det bedste oksekød af renracede
-          Jersey tyre. <br>
+          Jersey tyre. <br><br>
           Jersey tyre har en naturlig og flot fedtmarmorering som giver ekstra saft og smag til kødet.
           Den gode smag kommer også fordi dyret krogmodner i 3 uger hos vores lokale slagter inden det bliver skåret op
           og pakket. <br>
-          Så kig forbi vores gårdbutik, og smag forskellen .
-          "</p>
-      </div>
-      <div class="about-us-img">
-        <img src="/img/cheferne.jpg" alt="De to landmænd">
-      </div>
+          Så kig forbi vores gårdbutik, og smag forskellen.
+        </p>
+      </article>
+      <div class="img_box"><img src="/img/cheferne.jpg" alt="De to landmænd"></div>
     </div>
 
     <section class="visitnordfyn">
@@ -274,18 +277,32 @@
       </div>
       <div class="visitnordfyn-text">
         <h2>VisitNordfyn skriver</h2>
-        <p>“Lundsbjerggard sælger lækkert kød fra jerseykalve. Du kan købe mange forskellige udskæringer lige fra
+        <p>Lundsbjerggard sælger lækkert kød fra jerseykalve. Du kan købe mange forskellige udskæringer lige fra
           grillkød til osso buco, gammeldags oksesteg, steaks og altid hakket oksekød. Det varierer fra uge til uge, om
           der er fersk eller frosset kød, og hvilke specifikke udskæringer man kan købe. I kan også købe god vin i
-          gårdbutikken, så I har noget der passer til kødet.
+          gårdbutikken, så I har noget der passer til kødet.<br><br>
 
           Kalvene opdrættes lokalt, og de får lokalt produceret grovfoder uden tilsætningsstoffer. Der er kort vej til
           slagteren og kort vej tilbage til gårdbutikken, så der er ikke lang transport. Dyrene har det godt i stalden,
-          hvor der er store båse til dem, hvor de kan gå frit.
+          hvor der er store båse til dem, hvor de kan gå frit.<br><br>
 
-          Kalvene er tyrekalve, der ikke kan bruges i mælkeproduktionen på gården.”</p>
+          Kalvene er tyrekalve, der ikke kan bruges i mælkeproduktionen på gården.</p>
       </div>
     </section>
+
+    <div class="forslag-header margin-top">
+      <h2>Følg os på facebook og få de seneste nyheder</h2>
+      <div class="linje margin-bottom"></div>
+
+      <div class="fb-page" data-href="https://www.facebook.com/Lundsbjerggaard" data-tabs="timeline" data-width="500"
+        data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/Lundsbjerggaard" class="fb-xfbml-parse-ignore"><a
+            href="https://www.facebook.com/Lundsbjerggaard">Lundsbjerggaard</a></blockquote>
+      </div>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19722.630626049813!2d10.172300717409529!3d55.48503554342718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464ce63930a6d4c9%3A0x3c2b225579a9df4a!2sStormarken%2047%2C%205471%20S%C3%B8nders%C3%B8!5e0!3m2!1sen!2sdk!4v1639138691088!5m2!1sen!2sdk"
+        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
   </section>
 
 
