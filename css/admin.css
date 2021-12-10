@@ -252,7 +252,7 @@ form {
   box-shadow: none !important;
 }
 
-.btn-update-user, #btn-create, #btn-update, .btn-delete-user, .btn-delete-nyhed, .add-nyhed {
+.btn-update-produkt, #btn-create, #btn-update, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed {
   font-weight: 300;
   text-align: center;
   cursor: pointer;
@@ -262,22 +262,22 @@ form {
   text-transform: uppercase;
 }
 
-.btn-update-user, .btn-delete-user, .btn-delete-nyhed, .add-nyhed {
+.btn-update-produkt, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed {
   padding: 0.5em 1em;
   font-size: 0.8em;
   margin-top: 1em;
 }
 
-.btn-update-user:hover, .btn-delete-user:hover, .btn-delete-nyhed:hover, .add-nyhed:hover {
+.btn-update-produkt:hover, .btn-delete-produkt:hover, .btn-delete-nyhed:hover, .add-nyhed:hover {
   box-shadow: 0 8px 16px 0 var(--green-opacity);
 }
 
-.btn-update-user, .add-nyhed {
+.btn-update-produkt, .add-nyhed {
   color: var(--text-color-light);
   background-color: var(--orange);
 }
 
-.btn-delete-user, .btn-delete-nyhed {
+.btn-delete-produkt, .btn-delete-nyhed {
   color: var(--text-color-light);
   background-color: #D72828;
 }
