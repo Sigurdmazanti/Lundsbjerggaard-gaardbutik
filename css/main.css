@@ -464,6 +464,10 @@ img {
 #imagemapping-sektion {
   margin-top: 50px;
 }
+#imagemapping-sektion h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
 
 #jersey img {
   max-width: 1000px;
