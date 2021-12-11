@@ -170,10 +170,10 @@ function appendProdukter(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-    }</div>
+      }</div>
           <button onclick="showUser('${
-            user.id
-          }')"><img src="./img/arrow-right-solid_1.svg"></button>
+      user.id
+      }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -201,10 +201,10 @@ function appendProdukterForside(users) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
         user.stock
-      }</div>
+        }</div>
           <button onclick="showUser('${
-            user.id
-          }')"><img src="./img/arrow-right-solid_1.svg"></button>
+        user.id
+        }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -263,9 +263,10 @@ function showUser(id) {
           <p class="specifik-info-bottom">${user.price} kr,-</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-            user
-          )} ${user.stock}
-    </div></div>
+    user
+  )} ${user.stock}
+    </div>
+    </div>
           </div>
         </div>
         </div>
@@ -331,10 +332,10 @@ function appendCuts(users, containerId) {
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(user)} ${
       user.stock
-    }</div>
+      }</div>
           <button onclick="showUser('${
-            user.id
-          }')"><img src="./img/arrow-right-solid_1.svg"></button>
+      user.id
+      }')"><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
         </div>
@@ -344,6 +345,7 @@ function appendCuts(users, containerId) {
 
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
+
 
 document.querySelector("#neck").addEventListener("click", function (e) {
   e.preventDefault();
@@ -433,3 +435,6 @@ document.querySelector("#round").addEventListener("click", function (e) {
 //   `
 // });
 // document.getElementById("myBtn").addEventListener("click", displayDate);
+
+
+onMount(() => window.scrollTo(0, 0));
