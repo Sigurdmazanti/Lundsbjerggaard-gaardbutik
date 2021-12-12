@@ -510,7 +510,7 @@ align-items: center;
 .top-box {
   width: 100%;
   height: 360px;
-  background-image: url("/img/kategori1.jpg");
+  background-image: url("../img/kategori1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 46%;
@@ -535,7 +535,7 @@ align-items: center;
   width: 49%;
   min-width: 360px;
   height: 360px;
-  background-image: url("/img/jersey.jpg");
+  background-image: url("../img/jersey.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 46%;
@@ -549,7 +549,7 @@ align-items: center;
   width: 49%;
   min-width: 360px;
   height: 360px;
-  background-image: url("/img/omgarden.jpg");
+  background-image: url("../img/omgarden.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 46%;
@@ -1279,6 +1279,7 @@ footer a {
     width: 100%;
     background-color: white;
     z-index: 777;
+    padding: 1em 0;
   }
 
   .mobile-nav-container ul {
@@ -1296,6 +1297,12 @@ footer a {
     padding-right: 10vh;
   }
 
+ .mobile-nav-container::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-nav-container ul li {
+    padding: 12px 0;
+  }
   .mobile-nav-container ul li a {
     text-decoration: none;
     list-style-type: none;
