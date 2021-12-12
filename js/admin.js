@@ -18,9 +18,9 @@ import {
 
 // Import auth + login
 import {
-	getAuth,
-	signInWithEmailAndPassword,
-	onAuthStateChanged,
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
 
 // Firebase config
@@ -49,6 +49,8 @@ let _nyheder = [];
 let _valgteProduktId = "";
 let _valgteImgFil = "";
 
+
+window.search = (value) => search(value);
 // ==================== READ ====================
 
 // Til at hente produkter data fra firebase
@@ -78,7 +80,7 @@ onSnapshot(_nyhederRef, (snapshot) => {
   _produkter.sort((a, b) => a.name.localeCompare(b.name));
   // Append produkter ind i global variabel
   appendProdukter(_produkter);
- appendNyheder(_nyheder);
+  appendNyheder(_nyheder);
 });
 
 
@@ -296,27 +298,27 @@ function sletProdukt(id) {
     cancelButtonColor: '#D72828',
     confirmButtonText: 'Bekræft'
   })
-  // Kaldes når der foretages en action efter at have trykket på enten "annuller", "bekræft", kryds eller ude af modal box
-  .then((result) => {
-    // Kaldes når der trykkes "bekræft"
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Produktet er nu slettet.',
-        '',
-        'success'
-      ), 
-      // Sletter produktet med firebases indbyggede deleteDoc()
-      deleteDoc(docRef);
-    } 
-    // Produktet beholdes
-    else {
-      Swal.fire(
-        'Produktet blev beholdt.',
-        '',
-        'success',
-      )
-    }
-  })
+    // Kaldes når der foretages en action efter at have trykket på enten "annuller", "bekræft", kryds eller ude af modal box
+    .then((result) => {
+      // Kaldes når der trykkes "bekræft"
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Produktet er nu slettet.',
+          '',
+          'success'
+        ),
+          // Sletter produktet med firebases indbyggede deleteDoc()
+          deleteDoc(docRef);
+      }
+      // Produktet beholdes
+      else {
+        Swal.fire(
+          'Produktet blev beholdt.',
+          '',
+          'success',
+        )
+      }
+    })
 }
 
 // Sletter nyheden som er valgt med data-id. Funktionen er ens med ovenstående sletProdukt()
@@ -480,35 +482,35 @@ function previewImg(file, previewId) {
 
 // Lader admin der er logget ind komme direkte hen til products
 onAuthStateChanged(_auth, user => {
-	if (user) {
-		navigateTo("products");
-	}
+  if (user) {
+    navigateTo("products");
+  }
 
   // Henviser til login side, hvis der ikke er logget ind
-    else  {
-			navigateTo("login");
-		}
+  else {
+    navigateTo("login");
+  }
 });
 
 // Login gennem firebase auth
 function login() {
   // Tager værdi fra input fields
-	const mail = document.querySelector("#login-mail").value;
-	const password = document.querySelector("#login-password").value;
+  const mail = document.querySelector("#login-mail").value;
+  const password = document.querySelector("#login-password").value;
 
   // Indbygget firebase funktion der autentificerer ud fra match melelm input value og firebase database
-	signInWithEmailAndPassword(_auth, mail, password)
-		.then(userCredential => {
+  signInWithEmailAndPassword(_auth, mail, password)
+    .then(userCredential => {
       // Logger info om user
-			const user = userCredential.user;
+      const user = userCredential.user;
       console.log(user);
-		})
+    })
 
     // Hvis der skete en fejl med login, vises en error message
-		.catch(error => {
+    .catch(error => {
       error.message = "Fejl ved login. Prøv igen."
-			document.querySelector(".login-message").innerHTML = error.message;
-		});
+      document.querySelector(".login-message").innerHTML = error.message;
+    });
 }
 
 // =========== ATTACH EVENTS ===========
@@ -529,3 +531,17 @@ document.getElementById("ja-forside-update").addEventListener("click", godkendtF
 document.querySelector("#btn-login").onclick = () => login();
 // Viser vores img fil der er uploadet
 window.previewImg = (file, previewId) => previewImg(file, previewId);
+
+// Søg funktion
+function search(value) {
+  value = value.toLowerCase();
+  let filteredProdukter = [];
+  for (const produkt of _produkter) {
+    console.log(produkt);
+    let name = produkt.name.toLowerCase();
+    if (name.includes(value)) {
+      filteredProdukter.push(produkt);
+    }
+  }
+  appendProdukter(filteredProdukter);
+}
