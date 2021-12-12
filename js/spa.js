@@ -36,7 +36,7 @@ function navigateTo(pageId) {
 // function is called 'onhashchange'
 function pageChange() {
   let page = "home";
-  if (location.hash) {
+    if (location.hash) {
     page = location.hash.slice(1);
   }
   showPage(page);

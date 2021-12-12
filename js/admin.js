@@ -1,9 +1,11 @@
-// ========== GENERAL ==========
+// ==================== GENERAL ====================
 
 // Firebase import
 import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+
+// Import CRUD + database
 import {
   getFirestore,
   collection,
@@ -14,10 +16,18 @@ import {
   addDoc,
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
 
+// Import auth + login
+import {
+	getAuth,
+	signInWithEmailAndPassword,
+	onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBnpudAe8UD65KZ7IPm8UtZl72KTYMKzXg",
   authDomain: "advanced-frontend-e2d51.firebaseapp.com",
+  databaseURL: "advanced-frontend-e2d51.firebaseio.com",
   projectId: "advanced-frontend-e2d51",
   storageBucket: "advanced-frontend-e2d51.appspot.com",
   messagingSenderId: "407869533641",
@@ -27,6 +37,7 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const _db = getFirestore();
+const _auth = getAuth();
 
 // Reference til arrays i firebase database
 const _produkterRef = collection(_db, "produkter");
@@ -38,35 +49,296 @@ let _nyheder = [];
 let _valgteProduktId = "";
 let _valgteImgFil = "";
 
-// ========== READ ==========
+// ==================== READ ====================
 
 // Til at hente produkter data fra firebase
 onSnapshot(_produkterRef, (snapshot) => {
-  // mapping snapshot data from firebase in to user objects
+  // Snapshot data fra firebase til objects
   _produkter = snapshot.docs.map((doc) => {
     const produkt = doc.data();
     produkt.id = doc.id;
     return produkt;
   });
 
-  /* Sorterer array af objects alfabetisk */
+  // Sorterer array af objects alfabetisk
   _produkter.sort((a, b) => a.name.localeCompare(b.name));
+  // Append produkter ind i global variabel
   appendProdukter(_produkter);
+ appendNyheder(_nyheder);
 });
 
-// Til at hente nyhed data fra firebase
-onSnapshot(_nyhederRef, (snapshot) => {
-  // mapping snapshot data from firebase in to user objects
-  _nyheder = snapshot.docs.map((doc) => {
-    const nyhed = doc.data();
-    nyhed.id = doc.id;
-    return nyhed;
+// Appender produkterne 
+function appendProdukter(produkter) {
+  let htmlTemplate = "";
+  for (const produkt of produkter) {
+    htmlTemplate += /*html*/ `
+    <article class="dashboard_products">
+      <h3><span>${produkt.name}</span></h3>
+      <img src="${produkt.img}" class="dashboard_product_img">
+      <div class="dashboard_products_info">
+	  <p><span class="nyheder_span">Beskrivelse:</span> ${produkt.description}</p>
+	  <p><span class="nyheder_span">Kategori:</span> ${produkt.category}</p>
+	  <p><span class="nyheder_span">Pris:</span> ${produkt.price}</p>
+	  <p><span class="nyheder_span">Vægt:</span> ${produkt.weight}</p>
+    <p><span class="nyheder_span">Kilopris:</span> ${produkt.kgprice}</p>
+	  <p><span class="nyheder_span">Cut:</span> ${produkt.cut}</p>
+    <p><span class="nyheder_span">Vist på forsiden?</span> ${produkt.forsideForslag}${forsideAntal()}</p>
+    <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
+      produkt
+    )} ${produkt.stock}</div>
+    </div>
+
+    <!-- Opdater/slet knapper -->
+    <div class="dashboard_buttons">
+      <button class="btn-update-produkt" data-id="${produkt.id}">Opdater</button>
+      <button class="btn-delete-produkt" data-id="${produkt.id}">Fjern</button>
+    </div>
+    </article>
+    `;
+  }
+  document.querySelector("#content").innerHTML = htmlTemplate;
+
+  //Bruger det enkelte produkts id til at vælge produkt der skal opdateres ved at kalde valgtProdukt()
+  document.querySelectorAll(".btn-update-produkt").forEach((btn) => {
+    btn.onclick = () => valgtProdukt(btn.getAttribute("data-id"));
   });
-  appendNyheder(_nyheder);
-});
 
+  //Bruger det enkelte produkts id til at vælge produkt der skal slettes ved at kalde sletProdukt()
+  document.querySelectorAll(".btn-delete-produkt").forEach((btn) => {
+    btn.onclick = () => sletProdukt(btn.getAttribute("data-id"));
+  });
+}
 
-// ========== READ ==========
+// Appender nyhed(er)
+function appendNyheder(nyhed) {
+  let nyhedTemplate = "";
+  for (let nyheden of nyhed) {
+    nyhedTemplate += /*html*/ `
+    <article>
+    <p>${nyheden.nyNyhed}</p>
+    <div class="dashboard_buttons">
+    <button class="btn-delete-nyhed" data-id="${nyheden.id}">Fjern denne nyhed</button>
+    </div>
+    </article>
+    `;
+  }
+  document.querySelector("#lavet-nyheder").innerHTML = nyhedTemplate;
+
+  //Bruger den enkelte nyheds id til at slette nyheden ved at kalde fjernNyhed()
+  document.querySelectorAll(".btn-delete-nyhed").forEach((btn) => {
+    btn.onclick = () => fjernNyhed(btn.getAttribute("data-id"));
+  });
+}
+
+// ==================== CREATE ====================
+// Tilføjer et nyt produkt til firebase databasen
+function nytProdukt() {
+  // Får data fra input fields
+  let nameInput = document.querySelector("#name");
+  let descriptionInput = document.querySelector("#description");
+  let cutInput = document.querySelector("#cut");
+  let categoryInput = document.querySelector("#category");
+  let priceInput = document.querySelector("#price");
+  let weightInput = document.querySelector("#weight");
+  let imageInput = document.querySelector("#imagePreview");
+  let stockInput = document.querySelector("#lagerstatus");
+  let kgpriceInput = document.querySelector("#kgprice");
+  let forsideInput = document.querySelector('input[name="forslag"]:checked');
+
+  // Variabel der indeholder data fra input fields til at lave et object, der tilføjes firebase databasen
+  const nytProdukt = {
+    // Gør det første bogstav i sætningen stort
+    name: nameInput.value[0].toUpperCase() + nameInput.value.slice(1),
+    // Gør det første bogstav i sætningen stort
+    description: descriptionInput.value[0].toUpperCase() + descriptionInput.value.slice(1),
+    cut: cutInput.value,
+    category: categoryInput.value,
+    price: priceInput.value,
+    weight: weightInput.value,
+    img: imageInput.src,
+    stock: stockInput.value,
+    kgprice: kgpriceInput.value,
+    forsideForslag: forsideInput.value
+  };
+
+  // Indbygget firebase funktion addDoc der tilføjer dataene til databasen
+  addDoc(_produkterRef, nytProdukt);
+
+  // Reset af input fields
+  nameInput.value = "";
+  descriptionInput.value = "";
+  cutInput.value = "";
+  categoryInput.value = "";
+  priceInput.value = "";
+  weightInput.value = "";
+  imageInput.src = "";
+  stockInput.value = "";
+  kgpriceInput.value = "";
+  forsideInput.value = "";
+}
+
+// Finder værdien fra vores <textarea>, fylder vores tomme <div> #showText med den værdi, og tillader samtidig at skrive mere
+function textAreaNyhed() {
+  let textContent = document.getElementById("textContent");
+  let textContentPreset = document.getElementById("textContent").value;
+
+  // Hvert tast der skrives i textContent opdateres i showText i realtime
+  document.getElementById("showText").innerHTML = textContentPreset;
+  textContent.onkeyup = textContent.onkeydown = function () {
+    document.getElementById("showText").innerHTML = this.value;
+  };
+}
+textAreaNyhed();
+
+// Tilføjer en nyhed til firebase databasen, fungerer præcis som ovenstående, bortset fra <textarea> ikke har et reset
+function lavNyhed() {
+  let nyhedInput = document.querySelector("#textContent");
+  const nyNyheder = {
+    nyNyhed: nyhedInput.value,
+  };
+
+  addDoc(_nyhederRef, nyNyheder);
+}
+
+// ==================== UPDATE ====================
+// Vælger et produkt ud fra dets id
+function valgtProdukt(id) {
+  // Global tom variabel som allerede er declared
+  _valgteProduktId = id;
+  // Finder produktets id
+  const produkt = _produkter.find((produkt) => produkt.id == _valgteProduktId);
+  // Udfylder input fields med dataene fre firebase
+  document.querySelector("#nameUpdate").value = produkt.name;
+  document.querySelector("#descriptionUpdate").value = produkt.description;
+  document.querySelector("#cut-update").value = produkt.cut;
+  document.querySelector("#category-update").value = produkt.category;
+  document.querySelector("#price-update").value = produkt.price;
+  document.querySelector("#weight-update").value = produkt.weight;
+  document.querySelector("#imagePreviewUpdate").src = produkt.img;
+  document.querySelector("#lagerstatus-update").value = produkt.stock;
+  document.querySelector("#kgprice-update").value = produkt.kgprice;
+  // Scroller hen til form-update hvor input fields ligger
+  document.querySelector("#form-update").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// Opdaterer produktet som er valgt med valgtProdukt()
+function opdaterProdukt() {
+
+  // Variabel der indeholder data fra input fields til at opdatere object der ligger i firebase databasen
+  const produktOpdater = {
+    // Gør det første bogstav i hvert ord stort
+    name: document.querySelector("#nameUpdate").value[0].toUpperCase() + nameUpdate.value.slice(1),
+    // Gør det første bogstav i sætningen stort
+    description: document.querySelector("#descriptionUpdate").value[0].toUpperCase() + descriptionUpdate.value.slice(1),
+    cut: document.querySelector("#cut-update").value,
+    category: document.querySelector("#category-update").value,
+    price: document.querySelector("#price-update").value,
+    weight: document.querySelector("#weight-update").value,
+    img: document.querySelector("#imagePreviewUpdate").src,
+    stock: document.querySelector("#lagerstatus-update").value,
+    kgprice: document.querySelector("#kgprice-update").value,
+    forsideForslag: document.querySelector('input[name="forslag-update"]:checked').value,
+  };
+  const produktRef = doc(_produkterRef, _valgteProduktId);
+  // Indbygget firebase funktion updateDoc der opdaterer dataene til databasen
+  updateDoc(produktRef, produktOpdater);
+
+  // Reset af input fields
+  document.querySelector("#nameUpdate").value = "";
+  document.querySelector("#descriptionUpdate").value = "";
+  document.querySelector("#cut-update").value = "";
+  document.querySelector("#category-update").value = "";
+  document.querySelector("#price-update").value = "";
+  document.querySelector("#weight-update").value = "";
+  document.querySelector("#imagePreviewUpdate").src = "";
+  document.querySelector("#lagerstatus-update").value = "";
+  document.querySelector("#kgprice-update").value = "";
+}
+
+// ==================== DELETE ====================
+// Sletter produktet som er valgt med valgtProdukt()
+function sletProdukt(id) {
+  // Matcher med id
+  const docRef = doc(_produkterRef, id);
+
+  // Indbygget SweetAlert properties til at customize en alert, når sletProdukt() kaldes
+  Swal.fire({
+    title: 'Er du sikker på at du vil slette dette produkt?',
+    text: "Produktet kan ikke genoprettes.",
+    icon: 'warning',
+    iconColor: 'red',
+    showCancelButton: true,
+    showCloseButton: true,
+    returnFocus: false,
+    focusConfirm: false,
+    allowEnterKey: false,
+    cancelButtonText: 'Annuller',
+    confirmButtonColor: 'green',
+    cancelButtonColor: '#D72828',
+    confirmButtonText: 'Bekræft'
+  })
+  // Kaldes når der foretages en action efter at have trykket på enten "annuller", "bekræft", kryds eller ude af modal box
+  .then((result) => {
+    // Kaldes når der trykkes "bekræft"
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Produktet er nu slettet.',
+        '',
+        'success'
+      ), 
+      // Sletter produktet med firebases indbyggede deleteDoc()
+      deleteDoc(docRef);
+    } 
+    // Produktet beholdes
+    else {
+      Swal.fire(
+        'Produktet blev beholdt.',
+        '',
+        'success',
+      )
+    }
+  })
+}
+
+// Sletter nyheden som er valgt med data-id. Funktionen er ens med ovenstående sletProdukt()
+function fjernNyhed(id) {
+  let nyhedRef = doc(_nyhederRef, id);
+  Swal.fire({
+    title: 'Er du sikker på at du vil fjerne nyheden?',
+    text: "Nyheden kan ikke genoprettes.",
+    icon: 'warning',
+    iconColor: 'red',
+    showCancelButton: true,
+    showCloseButton: true,
+    returnFocus: false,
+    focusConfirm: false,
+    allowEnterKey: false,
+    cancelButtonText: 'Annuller',
+    confirmButtonColor: 'green',
+    cancelButtonColor: '#D72828',
+    confirmButtonText: 'Bekræft'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Nyheden er nu slettet.',
+        '',
+        'success'
+      ), deleteDoc(nyhedRef);
+
+    } else {
+      Swal.fire(
+        'Nyheden blev beholdt.',
+        '',
+        'success',
+      )
+    }
+  })
+}
+
+// ==================== CUSTOM SCRIPTS ====================
+// Funktion der anvendes i appendProdukter() til at vise hvor mange objects der vises på forsiden i index.html
 function forsideAntal() {
   // Finder antal af objects der har property "forsideForslag" med værdien "Ja"
   let count = _produkter.filter(x => x.forsideForslag == "Ja").length;
@@ -94,7 +366,7 @@ function forsideAntal() {
     <span class="forside_vist">(${count}/3 vist)</span>
     `;
   }
-  // Bruger vores formular countDifference hvis count er over 3
+  // Bruger vores formular countDifference hvis count er over 3, med et indbygget advarselstegn
   else {
     htmlCount += `
     <span class="forside_vist for_mange">(${count}/3 vist)</span><span data-tooltip="Der er lige nu sat ${count}/3 produkter på forsiden. Fjern ${countDifference}." data-flow="top"><img src="img/erroricon.svg"></span>
@@ -153,10 +425,6 @@ function godkendtForside() {
   }
 }
 
-/* Kalder godkendtForside() når der trykkes */
-document.getElementById("ja_forside").addEventListener("click", godkendtForside);
-document.getElementById("ja-forside-update").addEventListener("click", godkendtForside);
-
 // Funktion der viser en prik der repræsenterer lagerstatus, som bruges i appendProdukter()
 function optionalList(lager) {
   let htmlOptional = "";
@@ -178,178 +446,10 @@ function optionalList(lager) {
   return htmlOptional;
 }
 
-// Appender produkterne 
-function appendProdukter(produkter) {
-  let htmlTemplate = "";
-  for (const produkt of produkter) {
-    htmlTemplate += /*html*/ `
-    <article class="dashboard_products">
-      <h3><span>${produkt.name}</span></h3>
-      <img src="${produkt.img}" class="dashboard_product_img">
-      <div class="dashboard_products_info">
-	  <p><span class="nyheder_span">Beskrivelse:</span> ${produkt.description}</p>
-	  <p><span class="nyheder_span">Kategori:</span> ${produkt.category}</p>
-	  <p><span class="nyheder_span">Pris:</span> ${produkt.price}</p>
-	  <p><span class="nyheder_span">Vægt:</span> ${produkt.weight}</p>
-    <p><span class="nyheder_span">Kilopris:</span> ${produkt.kgprice}</p>
-	  <p><span class="nyheder_span">Cut:</span> ${produkt.cut}</p>
-    <p><span class="nyheder_span">Vist på forsiden?</span> ${produkt.forsideForslag}${forsideAntal()}</p>
-    <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
-      produkt
-    )} ${produkt.stock}</div>
-    </div>
-
-    <!-- Opdater/slet knapper -->
-    <div class="dashboard_buttons">
-      <button class="btn-update-produkt" data-id="${produkt.id}">Opdater</button>
-      <button class="btn-delete-produkt" data-id="${produkt.id}">Fjern</button>
-    </div>
-    </article>
-    `;
-  }
-
-  document.querySelector("#content").innerHTML = htmlTemplate;
-
-  //Bruger det enkelte produkts id til at kalde d
-  document.querySelectorAll(".btn-update-produkt").forEach((btn) => {
-    btn.onclick = () => valgtProdukt(btn.getAttribute("data-id"));
-  });
-
-  document.querySelectorAll(".btn-delete-produkt").forEach((btn) => {
-    btn.onclick = () => sletProdukt(btn.getAttribute("data-id"));
-  });
-}
-
-
-// ========== CREATE ==========
-// add a new user to firestore (database)
-function nytProdukt() {
-  // references to the input fields
-  let nameInput = document.querySelector("#name");
-  let descriptionInput = document.querySelector("#description");
-  let cutInput = document.querySelector("#cut");
-  let categoryInput = document.querySelector("#category");
-  let priceInput = document.querySelector("#price");
-  let weightInput = document.querySelector("#weight");
-  let imageInput = document.querySelector("#imagePreview");
-  let stockInput = document.querySelector("#lagerstatus");
-  let kgpriceInput = document.querySelector("#kgprice");
-  let forsideInput = document.querySelector('input[name="forslag"]:checked');
-  const nytProdukt = {
-    // Gør det første bogstav i sætningen stort
-    name: nameInput.value[0].toUpperCase() + nameInput.value.slice(1),
-    description: descriptionInput.value[0].toUpperCase() + descriptionInput.value.slice(1),
-    cut: cutInput.value,
-    category: categoryInput.value,
-    price: priceInput.value,
-    weight: weightInput.value,
-    img: imageInput.src,
-    stock: stockInput.value,
-    kgprice: kgpriceInput.value,
-    forsideForslag: forsideInput.value
-  };
-
-  addDoc(_produkterRef, nytProdukt);
-
-  //reset
-  nameInput.value = "";
-  descriptionInput.value = "";
-  cutInput.value = "";
-  categoryInput.value = "";
-  priceInput.value = "";
-  weightInput.value = "";
-  imageInput.src = "";
-  stockInput.value = "";
-  kgpriceInput.value = "";
-  forsideInput.value = "";
-}
-
-// ========== UPDATE ==========
-function valgtProdukt(id) {
-  _valgteProduktId = id;
-  const produkt = _produkter.find((produkt) => produkt.id == _valgteProduktId);
-  // references to the input fields
-  document.querySelector("#nameUpdate").value = produkt.name;
-  document.querySelector("#descriptionUpdate").value = produkt.description;
-  document.querySelector("#cut-update").value = produkt.cut;
-  document.querySelector("#category-update").value = produkt.category;
-  document.querySelector("#price-update").value = produkt.price;
-  document.querySelector("#weight-update").value = produkt.weight;
-  document.querySelector("#imagePreviewUpdate").src = produkt.img;
-  document.querySelector("#lagerstatus-update").value = produkt.stock;
-  document.querySelector("#kgprice-update").value = produkt.kgprice;
-  //scroll to update form
-  document.querySelector("#form-update").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
-function opdaterProdukt() {
-  const produktOpdater = {
-    // Gør det første bogstav i hvert ord stort
-    name: document.querySelector("#nameUpdate").value[0].toUpperCase() + nameUpdate.value.slice(1),
-    // Gør det første bogstav i sætningen stort
-    description: document.querySelector("#descriptionUpdate").value[0].toUpperCase() + descriptionUpdate.value.slice(1),
-    cut: document.querySelector("#cut-update").value,
-    category: document.querySelector("#category-update").value,
-    price: document.querySelector("#price-update").value,
-    weight: document.querySelector("#weight-update").value,
-    img: document.querySelector("#imagePreviewUpdate").src,
-    stock: document.querySelector("#lagerstatus-update").value,
-    kgprice: document.querySelector("#kgprice-update").value,
-    forsideForslag: document.querySelector('input[name="forslag-update"]:checked').value,
-  };
-  const produktRef = doc(_produkterRef, _valgteProduktId);
-  updateDoc(produktRef, produktOpdater);
-
-  // reset
-  document.querySelector("#nameUpdate").value = "";
-  document.querySelector("#descriptionUpdate").value = "";
-  document.querySelector("#cut-update").value = "";
-  document.querySelector("#category-update").value = "";
-  document.querySelector("#price-update").value = "";
-  document.querySelector("#weight-update").value = "";
-  document.querySelector("#imagePreviewUpdate").src = "";
-  document.querySelector("#lagerstatus-update").value = "";
-  document.querySelector("#kgprice-update").value = "";
-}
-
-// ========== DELETE ==========
-function sletProdukt(id) {
-  const docRef = doc(_produkterRef, id);
-  Swal.fire({
-    title: 'Er du sikker på at du vil slette dette produkt?',
-    text: "Produktet kan ikke genoprettes.",
-    icon: 'warning',
-    iconColor: 'red',
-    showCancelButton: true,
-    showCloseButton: true,
-    returnFocus: false,
-    focusConfirm: false,
-    allowEnterKey: false,
-    cancelButtonText: 'Annuller',
-    confirmButtonColor: 'green',
-    cancelButtonColor: '#D72828',
-    confirmButtonText: 'Bekræft'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Produktet er nu slettet.',
-        '',
-        'success'
-      ), deleteDoc(docRef);
-    } else {
-      Swal.fire(
-        'Produktet blev beholdt.',
-        '',
-        'success',
-      )
-    }
-  })
-}
-
+// Funktion der displayer et preview af den valgte img fil
 function previewImg(file, previewId) {
   if (file) {
+    // Den tomme globale variabel _valgteImgFil anvendes
     _valgteImgFil = file;
     let reader = new FileReader();
     reader.onload = (event) => {
@@ -361,85 +461,54 @@ function previewImg(file, previewId) {
   }
 }
 
-// ========== TEXTAREA / NYHEDSEKSEMPEL + GUIDE ==========
-/* Finder værdien fra voes <textarea>, fylder vores tomme <div> #showText med den værdi, og tillader samtidig at skrive mere */
-function textAreaNyhed() {
-  let textContent = document.getElementById("textContent");
-  let textContentPreset = document.getElementById("textContent").value;
+// Lader admin der er logget ind komme direkte hen til products
+onAuthStateChanged(_auth, user => {
+	if (user) {
+		navigateTo("products");
+	}
 
-  /* Hvert tast der skrives i textContent opdateres i showText i realtime */
-  document.getElementById("showText").innerHTML = textContentPreset;
-  textContent.onkeyup = textContent.onkeydown = function () {
-    document.getElementById("showText").innerHTML = this.value;
-  };
-}
-textAreaNyhed();
+  // Henviser til login side, hvis der ikke er logget ind
+    else  {
+			navigateTo("login");
+		}
+});
 
-function appendNyheder(nyhed) {
-  let nyhedTemplate = "";
-  for (let nyheden of nyhed) {
-    nyhedTemplate += /*html*/ `
-    <article>
-    <p>${nyheden.nyNyhed}</p>
-    <div class="dashboard_buttons">
-    <button class="btn-delete-nyhed" data-id="${nyheden.id}">Fjern denne nyhed</button>
-    </div>
-    </article>
-    `;
-  }
-  document.querySelector("#lavet-nyheder").innerHTML = nyhedTemplate;
+// Login gennem firebase auth
+function login() {
+  // Tager værdi fra input fields
+	const mail = document.querySelector("#login-mail").value;
+	const password = document.querySelector("#login-password").value;
 
-  document.querySelectorAll(".btn-delete-nyhed").forEach((btn) => {
-    btn.onclick = () => fjernNyhed(btn.getAttribute("data-id"));
-  });
-}
+  // Indbygget firebase funktion der autentificerer ud fra match melelm input value og firebase database
+	signInWithEmailAndPassword(_auth, mail, password)
+		.then(userCredential => {
+      // Logger info om user
+			const user = userCredential.user;
+      console.log(user);
+		})
 
-function lavNyhed() {
-  let nyhedInput = document.querySelector("#textContent");
-  const nyNyheder = {
-    nyNyhed: nyhedInput.value,
-  };
-
-  addDoc(_nyhederRef, nyNyheder);
+    // Hvis der skete en fejl med login, vises en error message
+		.catch(error => {
+      error.message = "Fejl ved login. Prøv igen."
+			document.querySelector(".login-message").innerHTML = error.message;
+		});
 }
 
-function fjernNyhed(id) {
-  let nyhedRef = doc(_nyhederRef, id);
-  Swal.fire({
-    title: 'Er du sikker på at du vil fjerne nyheden?',
-    text: "Nyheden kan ikke genoprettes.",
-    icon: 'warning',
-    iconColor: 'red',
-    showCancelButton: true,
-    showCloseButton: true,
-    returnFocus: false,
-    focusConfirm: false,
-    allowEnterKey: false,
-    cancelButtonText: 'Annuller',
-    confirmButtonColor: 'green',
-    cancelButtonColor: '#D72828',
-    confirmButtonText: 'Bekræft'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Nyheden er nu slettet.',
-        '',
-        'success'
-      ), deleteDoc(nyhedRef);
-
-    } else {
-      Swal.fire(
-        'Nyheden blev beholdt.',
-        '',
-        'success',
-      )
-    }
-  })
-  console.log(_nyheder);
-}
-
-// =========== attach events =========== //
+// =========== ATTACH EVENTS ===========
+// Kalder opdaterProdukt() når der trykkes på button
 document.querySelector("#btn-update").onclick = () => opdaterProdukt();
+
+// Kalder nytProdukt() når der trykkes på button
 document.querySelector("#btn-create").onclick = () => nytProdukt();
+
+// Kalder lavNyhed() når der trykkes på button
 document.querySelector("#lav-nyhed").onclick = () => lavNyhed();
+
+// Kalder godkendtForside() når der trykkes
+document.getElementById("ja_forside").addEventListener("click", godkendtForside);
+document.getElementById("ja-forside-update").addEventListener("click", godkendtForside);
+
+// Kalder login() når der trykkes
+document.querySelector("#btn-login").onclick = () => login();
+// Viser vores img fil der er uploadet
 window.previewImg = (file, previewId) => previewImg(file, previewId);

@@ -9,17 +9,19 @@
 </head>
 
 <body onhashchange="pageChange()">
-  <nav class="tabbar">
-    <a href="#home">Home</a>
-    <a href="#products">Produkter</a>
-    <a href="#login">Login</a>
-  </nav>
   <main id="appRoot">
-    <section id="home" class="page"></section>
-
-    <section id="products" class="page"></section>
-
     <section id="login" class="page">
+      <p class="login-message"></p>
+      <form>
+        <input id="login-mail" type="email" placeholder="E-mail">
+        <input id="login-password" type="password" placeholder="Adgangskode">
+        <button type="button" id="btn-login">Login</button>
+      </form>
+    </section>
+
+    <!-- login page -->
+
+    <section id="products" class="page">
       <article id="content" class="grid-container"></article>
       <div class="form_dashboard">
         <form id="userForm">

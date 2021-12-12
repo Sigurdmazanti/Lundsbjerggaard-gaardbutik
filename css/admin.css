@@ -1,4 +1,4 @@
-/* ---------- root variables ---------- */
+/* ---------- Root variables ---------- */
 :root {
   --orange: rgb(77, 109, 255);
   --green-opacity: rgba(38, 76, 89, 0.2);
@@ -14,7 +14,7 @@
   --orange-border:  rgb(221, 232, 255);
 }
 
-/* ---------- general styling ---------- */
+/* ---------- Global styling ---------- */
 html {
   color: var(--text-color-dark);
   font-family: var(--font-family);
@@ -38,73 +38,7 @@ img {
   height: auto;
 }
 
-/* ---------- topbar styling ---------- */
-.topbar {
-  background-color: var(--orange);
-  color: var(--text-color-light);
-  padding: 13.5px;
-  text-transform: uppercase;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
-.topbar h2 {
-  margin: 0;
-  font-weight: 300;
-}
-
-.topbar a {
-  text-decoration: none;
-  color: var(--text-color-light);
-  position: absolute;
-  top: 20px;
-}
-
-.topbar a.left {
-  left: 20px;
-}
-
-.topbar a.right {
-  right: 20px;
-}
-
-/* ---------- tabbar styling ---------- */
-.tabbar {
-  background-color: var(--orange);
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
-/* Style the links inside the navigation bar */
-.tabbar a {
-  display: inline-block;
-  color: var(--text-color-light);
-  text-align: center;
-  padding: 20px 16px;
-  text-decoration: none;
-  font-size: 0.8em;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* Change the color of links on hover */
-.tabbar a:hover {
-  background-color: var(--light-grey);
-  color: var(--text-color-dark);
-}
-
-/* Add a color to the active/current link */
-.tabbar a.active {
-  background-color: var(--light-green);
-  color: var(--text-color-light);
-}
-
-/* ---------- animations ---------- */
+/* ---------- Animationer ---------- */
 /* fade in */
 @keyframes fadeIn {
   from {
@@ -252,7 +186,7 @@ form {
   box-shadow: none !important;
 }
 
-.btn-update-produkt, #btn-create, #btn-update, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed {
+.btn-update-produkt, #btn-create, #btn-update, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed, #btn-login {
   font-weight: 300;
   text-align: center;
   cursor: pointer;
@@ -262,17 +196,17 @@ form {
   text-transform: uppercase;
 }
 
-.btn-update-produkt, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed {
+.btn-update-produkt, .btn-delete-produkt, .btn-delete-nyhed, .add-nyhed, #btn-login {
   padding: 0.5em 1em;
   font-size: 0.8em;
   margin-top: 1em;
 }
 
-.btn-update-produkt:hover, .btn-delete-produkt:hover, .btn-delete-nyhed:hover, .add-nyhed:hover {
+.btn-update-produkt:hover, .btn-delete-produkt:hover, .btn-delete-nyhed:hover, .add-nyhed:hover, #btn-login:hover {
   box-shadow: 0 8px 16px 0 var(--green-opacity);
 }
 
-.btn-update-produkt, .add-nyhed {
+.btn-update-produkt, .add-nyhed, #btn-login {
   color: var(--text-color-light);
   background-color: var(--orange);
 }
@@ -300,7 +234,7 @@ form {
   color: black !important;
 }
 
-#btn-create:hover, #btn-update:hover, .swal2-styled.swal2-cancel:hover, .swal2-styled.swal2-confirm:hover, .swal2-confirm.swal2-styled:hover  {
+#btn-create:hover, #btn-update:hover, .swal2-styled.swal2-cancel:hover, .swal2-styled.swal2-confirm:hover, .swal2-confirm.swal2-styled:hover {
   box-shadow: 0 8px 16px 0 var(--green-opacity) !important;
 }
 
@@ -468,7 +402,7 @@ form select {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  margin-right: 2px;
+  margin-right: 5px;
 }
 
 .greendot {
