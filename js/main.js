@@ -66,10 +66,10 @@ const burger = document.getElementById("burger");
 const tabbar = document.getElementById("tabbar");
 
 burger.addEventListener("click", () => {
-tabbar.classList.toggle("display");
+  tabbar.classList.toggle("display");
 });
 
-tabbar.addEventListener("click",() => {
+tabbar.addEventListener("click", () => {
   tabbar.classList.remove("display");
 })
 
@@ -166,7 +166,7 @@ function appendProdukter(users, containerId) {
     htmlTemplate += /*html*/ `
     <article class="kort" onclick="showUser('${
       user.id
-}')">
+      }')">
     <div class="kort-img">
       <img src="${user.img}">
       </div>
@@ -177,8 +177,8 @@ function appendProdukter(users, containerId) {
         <p class="pris">Fra ${user.price} kr,-</p>
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(user)} ${
-    user.stock
-    }</div>
+      user.stock
+      }</div>
     <button><img src="./img/arrow-right-solid_1.svg"></button>
         </div>
         </div>
@@ -195,9 +195,7 @@ function appendProdukterForside(users) {
   for (let user of users) {
     if (user.forsideForslag === "Ja") {
       htmlTemplate += /*html*/ `
-      <article class="kort" onclick="showUser('${
-        user.id
-        }')">
+      <article class="kort" onclick="showUser('${user.id}')">
       <div class="kort-img"></div>
         <img src="${user.img}">
         </div>
@@ -347,11 +345,11 @@ document.querySelector("#neck").addEventListener("click", function () {
   html += `
   <h1>Neck</h1>
   <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-  `; 
+  `;
   document.querySelector("#image-beskrivelse").innerHTML = html;
 });
 
-document.querySelector("#chuck").addEventListener("click", function() {
+document.querySelector("#chuck").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Chuck</h1>
@@ -406,7 +404,7 @@ document.querySelector("#flank").addEventListener("click", function () {
   <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
   <br><h3>Fra denne del kan vi tilbyde</h3>
   `;
-  document.querySelector(`#chuck-product`).style.display = "flex";
+  document.querySelector(`#flank-product`).style.display = "flex";
 });
 
 document.querySelector("#top-sirloin").addEventListener("click", function () {
@@ -424,7 +422,7 @@ document.querySelector("#bottom-sirloin").addEventListener("click", function () 
   <h1>Bottom Sirloin</h1>
   <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
   `;
-  });
+});
 
 document.querySelector("#round").addEventListener("click", function () {
   clearArray();
@@ -437,7 +435,7 @@ document.querySelector("#round").addEventListener("click", function () {
 });
 
 // Sætter alle appendede produkter på jersey side til display none, som en nulstilling af funktionen
-function clearArray(){
+function clearArray() {
   document.querySelector(`#chuck-product`).style.display = "none";
   document.querySelector(`#topsirloin-product`).style.display = "none";
   document.querySelector(`#chuck-product`).style.display = "none";
