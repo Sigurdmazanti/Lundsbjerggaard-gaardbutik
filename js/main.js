@@ -31,7 +31,6 @@ let _nyhed = [];
 window.showProduct = (id) => showProduct(id);
 window.goBack = (id) => goBack(id);
 window.appendProdukterForside = (products) => appendProdukterForside(products);
-window.scrollToTop = () => scrollToTop();
 window.resetVaerdier = () => resetVaerdier();
 window.vaerdier = (value) => vaerdier(value);
 
@@ -69,17 +68,7 @@ burger.addEventListener("click", () => {
 
 tabbar.addEventListener("click", () => {
   tabbar.classList.remove("display");
-})
-
-
-
-// Scroll til top når siden åbnes
-function scrollToTop() {
-  window.scroll({
-    top: 0,
-    behavior: "smooth"
-  });
-}
+});
 
 // ========== READ ==========
 
@@ -162,9 +151,7 @@ function appendProdukter(products, containerId) {
   let htmlTemplate = "";
   for (let product of products) {
     htmlTemplate += /*html*/ `
-    <article class="kort" onclick="showProduct('${
-      product.id
-      }')">
+    <article class="kort" onclick="showProduct('${product.id}')">
     <div class="kort-img">
       <img src="${product.img}">
       </div>
@@ -175,8 +162,8 @@ function appendProdukter(products, containerId) {
         <p class="pris">Fra ${product.price} kr,-</p>
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
-          product.stock
-      }</div>
+      product.stock
+    }</div>
     <button><img src="./img/arrow-right-solid_1.svg"></button>
         </div>
         </div>
@@ -204,8 +191,8 @@ function appendProdukterForside(products) {
           <p class="pris">Fra ${product.price} kr,-</p>
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(product)} ${
-            product.stock
-        }</div>
+        product.stock
+      }</div>
           <button><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
           </div>
@@ -267,7 +254,7 @@ function showProduct(id) {
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
             product
-  )} ${product.stock}
+          )} ${product.stock}
     </div>
     </div>
           </div>
@@ -276,7 +263,6 @@ function showProduct(id) {
   </article>
     `;
   navigateTo("specific-product");
-  scrollToTop();
 }
 
 function goBack() {
@@ -319,7 +305,6 @@ function filterCuts(products) {
   appendCuts(topsirloin, "topsirloin-product");
   appendCuts(round, "round-product");
 }
-
 
 //Appender til jerseyko udskæringen
 function appendCuts(products, containerId) {
@@ -414,13 +399,15 @@ document.querySelector("#top-sirloin").addEventListener("click", function () {
   document.querySelector(`#topsirloin-product`).style.display = "flex";
 });
 
-document.querySelector("#bottom-sirloin").addEventListener("click", function () {
-  clearArray();
-  document.querySelector("#image-beskrivelse").innerHTML = `
+document
+  .querySelector("#bottom-sirloin")
+  .addEventListener("click", function () {
+    clearArray();
+    document.querySelector("#image-beskrivelse").innerHTML = `
   <h1>Bottom Sirloin</h1>
   <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
   `;
-});
+  });
 
 document.querySelector("#round").addEventListener("click", function () {
   clearArray();
@@ -445,13 +432,13 @@ function clearArray() {
 
 // Luk alle værdier
 function resetVaerdier() {
-  document.getElementById('vaerdi-1').style.display = 'none';
-  document.getElementById('vaerdi-2').style.display = 'none';
-  document.getElementById('vaerdi-3').style.display = 'none';
+  document.getElementById("vaerdi-1").style.display = "none";
+  document.getElementById("vaerdi-2").style.display = "none";
+  document.getElementById("vaerdi-3").style.display = "none";
 }
 
 // Åbner værdi ved onclick
 function vaerdier(value) {
-  resetVaerdier()
-  document.getElementById(value).style.display = 'block';
+  resetVaerdier();
+  document.getElementById(value).style.display = "block";
 }

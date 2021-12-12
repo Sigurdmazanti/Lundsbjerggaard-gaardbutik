@@ -32,14 +32,25 @@ function navigateTo(pageId) {
   location.href = `#${pageId}`;
 }
 
+// Scroll til top når siden åbnes
+function scrollToTop() {
+  window.scroll({
+    top: 0,
+    behavior: "auto",
+  });
+}
+
 // set default page or given page by the hash url
 // function is called 'onhashchange'
 function pageChange() {
   let page = "home";
-    if (location.hash) {
+  if (location.hash) {
     page = location.hash.slice(1);
   }
   showPage(page);
+  if (location.hash !== "#products") {
+    scrollToTop();
+  }
 }
 
 pageChange(); // called by default when the app is loaded for the first time
