@@ -12,7 +12,7 @@
   <main id="appRoot">
     <section id="login" class="page">
       <p class="login-message"></p>
-      <form>
+      <form class="login_form">
         <input id="login-mail" type="email" placeholder="E-mail">
         <input id="login-password" type="password" placeholder="Adgangskode">
         <button type="button" id="btn-login">Login</button>
@@ -80,7 +80,7 @@
             <label for="nej_forside">Nej</label>
           </div>
 
-          <input type="file" id="img" accept="image/*" onchange="previewImage(this.files[0], 'imagePreview')" />
+          <input type="file" id="img" accept="image/*" onchange="previewImg(this.files[0], 'imagePreview')" />
           <img id="imagePreview" class="image-preview" />
           <button type="button" name="button" id="btn-create">Tilføj produkt</button>
         </form>
@@ -140,7 +140,7 @@
             <input type="radio" id="nej-forside_update" name="forslag-update" value="Nej" checked>
             <label for="nej-forside-update">Nej</label>
           </div>
-          <input type="file" id="img" accept="image/*" onchange="previewImage(this.files[0], 'imagePreviewUpdate')" />
+          <input type="file" id="img" accept="image/*" onchange="previewImg(this.files[0], 'imagePreviewUpdate')" />
           <img id="imagePreviewUpdate" class="image-preview" />
           <button type="button" name="button" id="btn-update">Opdater produkt</button>
       </div>

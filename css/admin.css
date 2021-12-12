@@ -1,17 +1,13 @@
 /* ---------- Root variables ---------- */
 :root {
-  --orange: rgb(77, 109, 255);
+  --blue: #4d6dff;
   --green-opacity: rgba(38, 76, 89, 0.2);
-  --light-orange: rgb(191, 192, 255);
   --light-grey: #f1f1f4;
   --text-color-light: #ffffff;
   --text-color-dark: #333;
   --white: #fff;
-  --font-family: "Montserrat", sans-serif;
-    --font-family: "Montserrat", sans-serif;
-  --text-color-out-of-stock: rgb(89, 38, 38);
-  --text-color-in-stock: rgb(172, 198, 201);
-  --orange-border:  rgb(221, 232, 255);
+  --font-family: sans-serif;
+  --blue-border:  rgb(221, 232, 255);
 }
 
 /* ---------- Global styling ---------- */
@@ -114,7 +110,6 @@ img {
 }
 
 .dashboard_products p {
-  word-break: break-all;
   text-align: left;
 }
 
@@ -172,13 +167,17 @@ form {
   width: 45%;
 }
 
+.login_form {
+  width: auto;
+}
+
 #btn-create, #btn-update {
   padding: 12px 15px;
   font-size: 1em;
   width: 100%;
   max-width: 350px;
   color: var(--text-color-light);
-  background-color: var(--orange);
+  background-color: var(--blue);
 }
 
 .swal2-styled.swal2-cancel:focus, .swal2-confirm.swal2-styled:focus {
@@ -208,7 +207,7 @@ form {
 
 .btn-update-produkt, .add-nyhed, #btn-login {
   color: var(--text-color-light);
-  background-color: var(--orange);
+  background-color: var(--blue);
 }
 
 .btn-delete-produkt, .btn-delete-nyhed {
@@ -378,7 +377,7 @@ select {
   box-sizing: border-box;
   display: block;
   background: var(--white);
-  border: solid 1px var(--orange-border);
+  border: solid 1px var(--blue-border);
 }
 
 form textarea {
@@ -389,7 +388,7 @@ form textarea {
   box-sizing: border-box;
   display: block;
   background: var(--white);
-  border: solid 1px var(--orange);
+  border: solid 1px var(--blue);
 }
 
 form select {
@@ -419,7 +418,7 @@ form select {
 
 .admin_lang_linje {
   min-width: 100%;
-  border-bottom: 5px solid var(--orange);
+  border-bottom: 5px solid var(--blue);
 }
 
 /* ---------- Nyheder ---------- */
@@ -433,7 +432,6 @@ form select {
 }
 
 #showText {
-  word-break: break-all;
   width: 500px;
 }
 
@@ -499,6 +497,7 @@ form select {
 
   #textContent {
     display: block;
+    max-width: 300px;
     margin: 0 auto;
   }
 

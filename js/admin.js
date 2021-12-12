@@ -64,8 +64,23 @@ onSnapshot(_produkterRef, (snapshot) => {
   _produkter.sort((a, b) => a.name.localeCompare(b.name));
   // Append produkter ind i global variabel
   appendProdukter(_produkter);
+});
+
+onSnapshot(_nyhederRef, (snapshot) => {
+  // Snapshot data fra firebase til objects
+  _nyheder = snapshot.docs.map((doc) => {
+    const nyhed = doc.data();
+    nyhed.id = doc.id;
+    return nyhed;
+  });
+
+  // Sorterer array af objects alfabetisk
+  _produkter.sort((a, b) => a.name.localeCompare(b.name));
+  // Append produkter ind i global variabel
+  appendProdukter(_produkter);
  appendNyheder(_nyheder);
 });
+
 
 // Appender produkterne 
 function appendProdukter(produkter) {
@@ -121,6 +136,8 @@ function appendNyheder(nyhed) {
     </div>
     </article>
     `;
+    console.log(nyheden);
+    console.log(nyhed);
   }
   document.querySelector("#lavet-nyheder").innerHTML = nyhedTemplate;
 
