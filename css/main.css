@@ -859,7 +859,7 @@ align-items: center;
 
 .fb-page {
   margin-bottom: 100px;
-  max-width: 95%!important;
+  width: 90%;
 }
 
 .googlemaps {
