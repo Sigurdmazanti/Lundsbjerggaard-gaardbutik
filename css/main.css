@@ -143,9 +143,8 @@ img {
 .hero {
   background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
     url(../img/hero.jpg);
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center bottom;
-  background-repeat: no-repeat;
   background-size: cover;
   right: 0;
   bottom: 0;
@@ -201,7 +200,7 @@ img {
 .hero-produkter {
   background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
   url(../img/hero_test.jpeg);
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -601,9 +600,8 @@ align-items: center;
 #hero-jersey {
   background-image: linear-gradient(rgba(0, 0, 0, 8%), rgba(0, 0, 0, 8%)),
   url(../img/jersey.jpg);
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: 50% 50%;
-  background-repeat: no-repeat;
   background-size: cover;
   right: 0;
   bottom: 0;
@@ -829,7 +827,7 @@ align-items: center;
 }
 
 .gaardejerne_img {
-  background-image: url(../img/newviby.png);
+  background-image: url(../img/cheferne.jpg);
 }
 
 .visitnordfyn_img {
