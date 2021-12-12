@@ -20,19 +20,17 @@ initializeApp(firebaseConfig);
 // reference to database
 const _db = getFirestore();
 
-// reference to users collection in database
-const _usersRef = collection(_db, "produkter");
+// reference to products collection in database
+const _productsRef = collection(_db, "produkter");
 const _nyhedRef = collection(_db, "nyheder");
-// global variable: users array & selectedUserId
-let _users = [];
+// global variable: product & news arrays
+let _products = [];
 let _nyhed = [];
-let _selectedUserId = "";
-let _selectedImgFile = "";
 
 // impoterer funktioner til modulet
-window.showUser = (id) => showUser(id);
+window.showProduct = (id) => showProduct(id);
 window.goBack = (id) => goBack(id);
-window.appendProdukterForside = (users) => appendProdukterForside(users);
+window.appendProdukterForside = (products) => appendProdukterForside(products);
 window.scrollToTop = () => scrollToTop();
 window.resetVaerdier = () => resetVaerdier();
 window.vaerdier = (value) => vaerdier(value);
@@ -86,23 +84,23 @@ function scrollToTop() {
 // ========== READ ==========
 
 // onSnapshot: listen for realtime updates
-onSnapshot(_usersRef, (snapshot) => {
-  // mapping snapshot data from firebase in to user objects
-  _users = snapshot.docs.map((doc) => {
-    const user = doc.data();
-    user.id = doc.id;
-    return user;
+onSnapshot(_productsRef, (snapshot) => {
+  // mapping snapshot data from firebase in to product objects
+  _products = snapshot.docs.map((doc) => {
+    const product = doc.data();
+    product.id = doc.id;
+    return product;
   });
 
-  filterProdukter(_users);
-  filterCuts(_users);
-  appendProdukterForside(_users);
+  filterProdukter(_products);
+  filterCuts(_products);
+  appendProdukterForside(_products);
 
   // showLoader(false);
 });
 
 onSnapshot(_nyhedRef, (snapshot) => {
-  // mapping snapshot data from firebase in to user objects
+  // mapping snapshot data from firebase in to product objects
   _nyhed = snapshot.docs.map((doc) => {
     const nyhed = doc.data();
     nyhed.id = doc.id;
@@ -133,23 +131,23 @@ function optionalList(lager) {
   return htmlOptional;
 }
 // Filtrer de forskellige produkter som du ser på produkt siden, så de ryger ind i den passende sektion
-function filterProdukter(users) {
+function filterProdukter(products) {
   let bofferSteaks = [];
   let stege = [];
   let hakketOkse = [];
   let spegePolse = [];
   let vin = [];
-  for (const user of users) {
-    if (user.category === "Bøffer/Steaks") {
-      bofferSteaks.push(user);
-    } else if (user.category === "Hele stege") {
-      stege.push(user);
-    } else if (user.category === "Hakket oksekød") {
-      hakketOkse.push(user);
-    } else if (user.category === "Spegepølse") {
-      spegePolse.push(user);
-    } else if (user.category === "Vin") {
-      vin.push(user);
+  for (const product of products) {
+    if (product.category === "Bøffer/Steaks") {
+      bofferSteaks.push(product);
+    } else if (product.category === "Hele stege") {
+      stege.push(product);
+    } else if (product.category === "Hakket oksekød") {
+      hakketOkse.push(product);
+    } else if (product.category === "Spegepølse") {
+      spegePolse.push(product);
+    } else if (product.category === "Vin") {
+      vin.push(product);
     }
   }
   appendProdukter(bofferSteaks, "all-bofferSteaks");
@@ -160,24 +158,24 @@ function filterProdukter(users) {
 }
 
 // Her appendes appendes produkterne til produkt siden
-function appendProdukter(users, containerId) {
+function appendProdukter(products, containerId) {
   let htmlTemplate = "";
-  for (let user of users) {
+  for (let product of products) {
     htmlTemplate += /*html*/ `
-    <article class="kort" onclick="showUser('${
-      user.id
+    <article class="kort" onclick="showProduct('${
+      product.id
       }')">
     <div class="kort-img">
-      <img src="${user.img}">
+      <img src="${product.img}">
       </div>
       <div class="kort-indhold">
-        <h3>${user.name}</h3>
-        <p class="kgpris">${user.kgprice} kr/kg</p>
-        <p class="vaegt">Ca. ${user.weight} g</p>
-        <p class="pris">Fra ${user.price} kr,-</p>
+        <h3>${product.name}</h3>
+        <p class="kgpris">${product.kgprice} kr/kg</p>
+        <p class="vaegt">Ca. ${product.weight} g</p>
+        <p class="pris">Fra ${product.price} kr,-</p>
         <div class="justify-content">
-        <div class="dashboard_lagerstatus">${optionalList(user)} ${
-      user.stock
+        <div class="dashboard_lagerstatus">${optionalList(product)} ${
+          product.stock
       }</div>
     <button><img src="./img/arrow-right-solid_1.svg"></button>
         </div>
@@ -190,23 +188,23 @@ function appendProdukter(users, containerId) {
 }
 
 //Produkter append til forsiden
-function appendProdukterForside(users) {
+function appendProdukterForside(products) {
   let htmlTemplate = "";
-  for (let user of users) {
-    if (user.forsideForslag === "Ja") {
+  for (let product of products) {
+    if (product.forsideForslag === "Ja") {
       htmlTemplate += /*html*/ `
-      <article class="kort" onclick="showUser('${user.id}')">
+      <article class="kort" onclick="showProduct('${product.id}')">
       <div class="kort-img"></div>
-        <img src="${user.img}">
+        <img src="${product.img}">
         </div>
         <div class="kort-indhold">
-          <h3>${user.name}</h3>
-          <p class="kgpris">${user.kgprice} kr/kg</p>
-          <p class="vaegt">Ca. ${user.weight} g</p>
-          <p class="pris">Fra ${user.price} kr,-</p>
+          <h3>${product.name}</h3>
+          <p class="kgpris">${product.kgprice} kr/kg</p>
+          <p class="vaegt">Ca. ${product.weight} g</p>
+          <p class="pris">Fra ${product.price} kr,-</p>
           <div class="justify-content">
-          <div class="dashboard_lagerstatus">${optionalList(user)} ${
-        user.stock
+          <div class="dashboard_lagerstatus">${optionalList(product)} ${
+            product.stock
         }</div>
           <button><img src="./img/arrow-right-solid_1.svg"></button>
           </div>
@@ -232,44 +230,44 @@ function appendNyhed(nyheder) {
   }
   document.querySelector("#nyheder").innerHTML = htmlTemplate;
 }
-//Ala detail view, så gør showUser meget det samme, hvor du appender informationer for en af objekterne i dit arratý til en produkt side
-function showUser(id) {
-  const user = _users.find((user) => user.id == id);
+//Ala detail view, så gør showProduct meget det samme, hvor du appender informationer for en af objekterne i dit arratý til en produkt side
+function showProduct(id) {
+  const product = _products.find((product) => product.id == id);
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
-  <article class="product-card ${user.name}-color">
+  <article class="product-card ${product.name}-color">
   <div class="produkt-navigation mobile-produkt">
   <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
-  <h2>${user.category}</h2>
+  <h2>${product.category}</h2>
   </div>
         <div class="produkt-img">
-          <img src="${user.img}">
+          <img src="${product.img}">
         </div>
         <div class="produkt-indhold">
         <div class="produkt-navigation desktop-produkt">
         <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
-        <h2>${user.category}</h2>
+        <h2>${product.category}</h2>
         </div>
 
         <div class="produkt-names">
-          <h3>${user.name}</h3>
-          <p class="description">${user.description}</p>
+          <h3>${product.name}</h3>
+          <p class="description">${product.description}</p>
           </div>
 <div class="produkt-information">
 <div class="specifik-info">
 <p class="specifik-info-top">Kilopris</p>
-          <p class="specifik-info-bottom">${user.kgprice} kr/kg</p>
+          <p class="specifik-info-bottom">${product.kgprice} kr/kg</p>
           </div>
           <div class="specifik-info">
           <p class="specifik-info-top">Generel vægt</p>
-          <p class="specifik-info-bottom">Ca. ${user.weight} g</p>
+          <p class="specifik-info-bottom">Ca. ${product.weight} g</p>
           </div>
           <div class="specifik-info">
           <p class="specifik-info-top">Fra</p>
-          <p class="specifik-info-bottom">${user.price} kr,-</p>
+          <p class="specifik-info-bottom">${product.price} kr,-</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-    user
-  )} ${user.stock}
+            product
+  )} ${product.stock}
     </div>
     </div>
           </div>
@@ -287,7 +285,7 @@ function goBack() {
 
 // Image mapping
 //Her genbruger vi vores filtrerings metode, her tager vi fat i Udskæringer
-function filterCuts(users) {
+function filterCuts(products) {
   let chuck = [];
   let brisket = [];
   let plate = [];
@@ -296,21 +294,21 @@ function filterCuts(users) {
   let topsirloin = [];
   let round = [];
 
-  for (const user of users) {
-    if (user.cut === "Højreb") {
-      rib.push(user);
-    } else if (user.cut === "Bryst") {
-      plate.push(user);
-    } else if (user.cut === "Bov") {
-      brisket.push(user);
-    } else if (user.cut === "Skank") {
-      flank.push(user);
-    } else if (user.cut === "Tyksteg") {
-      round.push(user);
-    } else if (user.cut === "Tyndsteg") {
-      topsirloin.push(user);
-    } else if (user.cut === "Tykkam") {
-      chuck.push(user);
+  for (const product of products) {
+    if (product.cut === "Højreb") {
+      rib.push(product);
+    } else if (product.cut === "Bryst") {
+      plate.push(product);
+    } else if (product.cut === "Bov") {
+      brisket.push(product);
+    } else if (product.cut === "Skank") {
+      flank.push(product);
+    } else if (product.cut === "Tyksteg") {
+      round.push(product);
+    } else if (product.cut === "Tyndsteg") {
+      topsirloin.push(product);
+    } else if (product.cut === "Tykkam") {
+      chuck.push(product);
     }
   }
   appendCuts(rib, "rib-product");
@@ -324,13 +322,13 @@ function filterCuts(users) {
 
 
 //Appender til jerseyko udskæringen
-function appendCuts(users, containerId) {
+function appendCuts(products, containerId) {
   let htmlTemplate = "";
-  for (let user of users) {
+  for (let product of products) {
     htmlTemplate += /*html*/ `
-      <article class="kort cutkort" onclick="showUser('${user.id}')">
-      <h3>${user.name}</h3>
-      <p>${user.description}<br><br><span class="bold">Klik for at læse mere!</span></p>
+      <article class="kort cutkort" onclick="showProduct('${product.id}')">
+      <h3>${product.name}</h3>
+      <p>${product.description}<br><br><span class="bold">Klik for at læse mere!</span></p>
       </article>
       `;
   }
