@@ -434,7 +434,7 @@ img {
 }
 
 .kort-indhold h3 {
-  /* font-size: 32px; */
+  text-align: start;
   font-size: clamp(1.5rem, 2.2vw, 2rem);
 }
 

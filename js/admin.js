@@ -97,16 +97,16 @@ function appendProdukter(produkter) {
 	  <p><span class="nyheder_span">Cut:</span> ${produkt.cut}</p>
     <p><span class="nyheder_span">Vist på forsiden?</span> ${
       produkt.forsideForslag
-    }${forsideAntal()}</p>
+      }${forsideAntal()}</p>
     <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
-      produkt
-    )} ${produkt.stock}</div>
+        produkt
+      )} ${produkt.stock}</div>
     </div>
 
     <!-- Opdater/slet knapper -->
     <div class="dashboard_buttons">
       <button class="btn-update-produkt" data-id="${
-        produkt.id
+      produkt.id
       }">Opdater</button>
       <button class="btn-delete-produkt" data-id="${produkt.id}">Fjern</button>
     </div>
@@ -476,11 +476,13 @@ function previewImg(file, previewId) {
 onAuthStateChanged(_auth, (user) => {
   if (user) {
     navigateTo("products");
+    console.log(user);
   }
 
   // Henviser til login side, hvis der ikke er logget ind
   else {
     navigateTo("login");
+    console.log(user);
   }
 });
 
