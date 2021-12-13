@@ -543,3 +543,13 @@ function search(value) {
   }
   appendProdukter(filteredProdukter);
 }
+
+// Hvis brugeren ikke er logget ind, sendes de tilbage til login siden
+function locationHashChanged() {
+  if (location.hash === "#products" && _auth.currentUser === null) {
+    navigateTo("login");
+  }
+  document.location.reload();
+}
+
+window.onhashchange = locationHashChanged;
