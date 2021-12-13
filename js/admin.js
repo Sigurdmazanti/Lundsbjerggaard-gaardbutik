@@ -237,7 +237,17 @@ function valgtProdukt(id) {
   document.querySelector("#imagePreviewUpdate").src = produkt.img;
   document.querySelector("#lagerstatus-update").value = produkt.stock;
   document.querySelector("#kgprice-update").value = produkt.kgprice;
-  // Scroller hen til form-update hvor input fields ligger
+
+  // Checker den radio button som matcher værdien fra forsideForslag property
+  if (document.querySelector("#ja-forside-update").value === produkt.forsideForslag) {
+    document.querySelector("#ja-forside-update").checked = true;
+  }
+
+  if (document.querySelector("#nej-forside-update").value === produkt.forsideForslag) {
+    document.querySelector("#nej-forside-update").checked = true;
+  }
+
+  // Scroller ned til <form>
   document.querySelector("#form-update").scrollIntoView({
     behavior: "smooth",
   });
