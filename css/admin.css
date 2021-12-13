@@ -56,6 +56,21 @@ img {
   }
 }
 
+/* -------- Tabbar -------- */
+.tabbar {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+}
+
+.tabbar img {
+  height: 50px;
+  align-items: center;
+  margin-top: 5px;
+}
+
 /* ---------- grid container styling ---------- */
 .grid-container {
   display: grid;
