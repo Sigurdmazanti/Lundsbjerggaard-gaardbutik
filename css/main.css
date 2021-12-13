@@ -14,6 +14,7 @@
   --font-family-header: "Playball", sans-serif;
   --text-color-out-of-stock: rgb(89, 38, 38);
   --text-color-in-stock: rgb(172, 198, 201);
+  --orange: #d38b24;
 }
 
 *,
@@ -105,7 +106,7 @@ img {
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: orange;
+  background-color: var(--orange);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -122,7 +123,7 @@ img {
 /* ---------- Call to action btn ---------- */
 .cta-btn {
   color: white;
-  background-color: #ffa500;
+  background-color: var(--orange);
   border: none;
   border-radius: 3px;
   padding: 10px 25px;
@@ -132,7 +133,7 @@ img {
 }
 
 .cta-btn:hover {
-  background-color: #ec9a00;
+  background-color: var(--orange);
 }
 
 /* ---------- Hero styling ---------- */
@@ -316,7 +317,7 @@ img {
 }
 
 .linje {
-  background-color: orange;
+  background-color: var(--orange);
   width: 40px;
   height: 2.5px;
   margin: 0 auto 2.5vh auto;
@@ -361,7 +362,7 @@ img {
 }
 
 .orangedot {
-  background-color: orange;
+  background-color: var(--orange);
 }
 
 /* -------- Produkt kort -------- */
@@ -698,7 +699,7 @@ img {
 .vaerdi button {
   border: none;
   background-color: transparent;
-  color: orange;
+  color: var(--orange);
   cursor: pointer;
 }
 
@@ -880,7 +881,7 @@ footer {
 
 footer h2 {
   font-size: 16px;
-  color: orange;
+  color: var(--orange);
   padding: 10px 0;
 }
 
@@ -904,7 +905,7 @@ footer a {
 }
 
 .fa-facebook {
-  color: orange;
+  color: var(--orange);
 }
 
 .contact-info {

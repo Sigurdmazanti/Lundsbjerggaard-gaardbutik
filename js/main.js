@@ -164,7 +164,7 @@ function appendProdukter(products, containerId) {
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
       product.stock
     }</div>
-    <button><img src="./img/arrow-right-solid_1.svg"></button>
+    <button><img src="./img/pil.png"></button>
         </div>
         </div>
       </div>
@@ -193,7 +193,7 @@ function appendProdukterForside(products) {
           <div class="dashboard_lagerstatus">${optionalList(product)} ${
         product.stock
       }</div>
-          <button><img src="./img/arrow-right-solid_1.svg"></button>
+          <button><img src="./img/pil.png"></button>
           </div>
           </div>
         </div>
@@ -223,7 +223,7 @@ function showProduct(id) {
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
   <article class="product-card ${product.name}-color">
   <div onclick="goBack()" class="produkt-navigation mobile-produkt">
-  <img src="./img/arrow-right-solid_1.svg">
+  <img src="./img/pil.png">
   <h2>Tilbage</h2>
   </div>
         <div class="produkt-img">
@@ -231,7 +231,7 @@ function showProduct(id) {
         </div>
         <div class="produkt-indhold">
         <div onclick="goBack()" class="produkt-navigation desktop-produkt">
-        <img src="./img/arrow-right-solid_1.svg">
+        <img src="./img/pil.png">
         <h2>Tilbage</h2>
         </div>
 
