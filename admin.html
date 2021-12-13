@@ -70,7 +70,8 @@
           <input type="text" id="price" placeholder="Pris" />
           <input type="text" id="weight" placeholder="Vægt" />
           <input type="number" id="kgprice" placeholder="Kilopris" />
-          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "Må vi anbefale?"? (maks. 3 produkter på
+            forside)
           </p>
           <div class="radio_forside">
             <input type="radio" id="ja_forside" name="forslag" value="Ja">
@@ -131,16 +132,17 @@
           <input type="text" id="price-update" placeholder="Pris" />
           <input type="text" id="weight-update" placeholder="Vægt" />
           <input type="number" id="kgprice-update" placeholder="Kilopris" />
-          <p class="radio_forside_p">Skal produktet vises på forsiden under "forslag"? (maks. 3 produkter på forside)
+          <p class="radio_forside_p">Skal produktet vises på forsiden under "Må vi anbefale?"? (maks. 3 produkter på
+            forside)
           </p>
           <div class="radio_forside">
             <input type="radio" id="ja-forside-update" name="forslag-update" value="Ja">
             <label for="ja-forside-update">Ja</label>
 
-            <input type="radio" id="nej-forside_update" name="forslag-update" value="Nej" checked>
+            <input type="radio" id="nej-forside-update" name="forslag-update" value="Nej" checked>
             <label for="nej-forside-update">Nej</label>
           </div>
-          <input type="file" id="img" accept="image/*" onchange="previewImg(this.files[0], 'imagePreviewUpdate')" />
+          <input type="file" id="imgU" accept="image/*" onchange="previewImg(this.files[0], 'imagePreviewUpdate')" />
           <img id="imagePreviewUpdate" class="image-preview" />
           <button type="button" name="button" id="btn-update">Opdater produkt</button>
       </div>
