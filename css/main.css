@@ -673,7 +673,6 @@ img {
 }
 
 .vores-vaerdier h2 {
-  margin: 5vh 0vh 0vh 0vh;
   font-size: clamp(1.5rem, 2.2vw, 2.5rem);
   font-family: var(--font-family-header);
 }
