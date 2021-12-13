@@ -499,7 +499,7 @@ img {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0 5%;
+  margin: 0 5% 5vh 5%;
   color: white;
   text-align: center;
 }
