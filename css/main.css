@@ -1010,6 +1010,13 @@ footer a {
     min-width: 310px;
     max-width: 90%;
   }
+
+  /* Om gården */
+
+  .vores-vaerdier {
+    margin: 15vh 0;
+  }
+
   /* Footer */
   footer {
     flex-direction: column;
