@@ -205,7 +205,7 @@ function appendProdukterForside(products) {
   document.querySelector(".produkt-kort").innerHTML = htmlTemplate;
 }
 
-// En kort funktion som appender alle nyheds sektioner
+// Appender alle nyheds sektioner
 function appendNyhed(nyheder) {
   let htmlTemplate = "";
   for (let nyhed of nyheder) {
@@ -222,17 +222,17 @@ function showProduct(id) {
   const product = _products.find((product) => product.id == id);
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
   <article class="product-card ${product.name}-color">
-  <div class="produkt-navigation mobile-produkt">
-  <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
-  <h2>${product.category}</h2>
+  <div onclick="goBack()" class="produkt-navigation mobile-produkt">
+  <img src="./img/arrow-right-solid_1.svg">
+  <h2>Tilbage</h2>
   </div>
         <div class="produkt-img">
           <img src="${product.img}">
         </div>
         <div class="produkt-indhold">
-        <div class="produkt-navigation desktop-produkt">
-        <img onclick="goBack()" src="./img/arrow-right-solid_1.svg">
-        <h2>${product.category}</h2>
+        <div onclick="goBack()" class="produkt-navigation desktop-produkt">
+        <img src="./img/arrow-right-solid_1.svg">
+        <h2>Tilbage</h2>
         </div>
 
         <div class="produkt-names">

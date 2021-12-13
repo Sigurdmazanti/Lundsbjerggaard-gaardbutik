@@ -32,7 +32,7 @@ function navigateTo(pageId) {
   location.href = `#${pageId}`;
 }
 
-// Scroll til top når siden åbnes
+// Scroll til top når siden åbnes (denne funktion kaldes på alle sider undtagen "#products" i pageChange())
 function scrollToTop() {
   window.scroll({
     top: 0,
