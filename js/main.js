@@ -33,6 +33,7 @@ window.goBack = (id) => goBack(id);
 window.appendProdukterForside = (products) => appendProdukterForside(products);
 window.resetVaerdier = () => resetVaerdier();
 window.vaerdier = (value) => vaerdier(value);
+window.tilTopBtn = () => tilTopBtn();
 
 // lave en ny scroll funktion, der tager brugeren ned på den sektion der klikkes på
 function scrollToProductSection(id) {
@@ -428,6 +429,7 @@ function clearArray() {
   document.querySelector(`#plate-product`).style.display = "none";
   document.querySelector(`#brisket-product`).style.display = "none";
   document.querySelector(`#round-product`).style.display = "none";
+  document.querySelector(`#flank-product`).style.display = "none";
 }
 
 // Luk alle værdier

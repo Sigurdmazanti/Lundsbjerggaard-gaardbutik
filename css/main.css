@@ -14,7 +14,7 @@
   --font-family-header: "Playball", sans-serif;
   --text-color-out-of-stock: rgb(89, 38, 38);
   --text-color-in-stock: rgb(172, 198, 201);
-  --orange: #F9B865;
+  --orange: #f9b865;
 }
 
 *,
@@ -231,7 +231,7 @@ img {
 
 .content-all-forside h1 {
   font-family: var(--font-family-header);
-  font-size: clamp(1.5rem, 10vw, 5rem);
+  font-size: clamp(1.5rem, 10vw, 4rem);
   text-shadow: 1px 0px 50px #000;
 }
 
@@ -264,13 +264,11 @@ img {
 }
 
 .info-kort-bg {
-  background-color: #ffeede;
   margin: 0 5%;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: right;
-  box-shadow: 25px 25px 0px rgb(255, 238, 222, 0.6);
   position: relative;
   padding: 50px 0px 0px 0px;
 }
@@ -278,11 +276,14 @@ img {
 .info-kort-img {
   min-width: 300px;
   max-width: 400px;
-  position: absolute;
+  /*
+  position: absolute; */
   top: -10%;
   transform: translateY(-50%);
   left: 4%;
   transform: translateX(0%);
+  width: 50%;
+  margin: auto;
 }
 
 .info-kort-text {
@@ -561,7 +562,7 @@ img {
 }
 
 #imagemapping-sektion h1 {
-  font-size: 2em;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
@@ -679,6 +680,27 @@ img {
   cursor: pointer;
 }
 
+/*
+.fa-hands,
+.fa-handshake,
+.fa-map-marked-alt {
+  padding: 25px;
+  margin: auto;
+  border: 1px solid transparent;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.fa-hands:hover {
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25);
+}
+*/
+
+.vaerdi p:hover {
+  text-decoration: underline;
+}
+
 .alle-vaerdier {
   width: 100%;
   display: flex;
@@ -727,6 +749,10 @@ img {
   margin: 0 auto;
 }
 
+#tilTopBtn {
+  display: none;
+}
+
 @media screen and (max-width: 1040px) {
   /* Forside */
   .info-kort-bg {
@@ -766,6 +792,22 @@ img {
   .kategori {
     padding-left: 0;
   }
+
+  #tilTopBtn {
+    display: block;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    border: none;
+    height: 45px;
+    width: 45px;
+    padding: auto;
+    background-color: var(--orange);
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+  }
 }
 
 /* --------- Om gården -------- */
@@ -780,7 +822,7 @@ img {
   font-family: var(--font-family-header);
   font-size: 2rem;
   font-weight: 400;
-  color: var(--text-color-light);
+  color: var(--light-grey);
   text-shadow: 0px 0px 50px #000;
 }
 
@@ -807,10 +849,6 @@ img {
   justify-content: right;
   flex-direction: column;
 }
-
-/* .about-us:last-of-type {
-  margin-top: 250px;
-} */
 
 .about-us-text.about_gaarden {
   margin-right: 50px;

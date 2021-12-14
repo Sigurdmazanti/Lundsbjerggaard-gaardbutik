@@ -48,6 +48,7 @@ let _valgteProduktId = "";
 let _valgteImgFil = "";
 
 window.search = (value) => search(value);
+window.visOpdater = (value) => visOpdater(value);
 // ==================== READ ====================
 
 // Til at hente produkter data fra firebase
@@ -97,16 +98,16 @@ function appendProdukter(produkter) {
 	  <p><span class="nyheder_span">Cut:</span> ${produkt.cut}</p>
     <p><span class="nyheder_span">Vist på forsiden?</span> ${
       produkt.forsideForslag
-      }${forsideAntal()}</p>
+    }${forsideAntal()}</p>
     <div class="dashboard_lagerstatus"><p>Lagerstatus:</p>${optionalList(
-        produkt
-      )} ${produkt.stock}</div>
+      produkt
+    )} ${produkt.stock}</div>
     </div>
 
     <!-- Opdater/slet knapper -->
     <div class="dashboard_buttons">
       <button class="btn-update-produkt" data-id="${
-      produkt.id
+        produkt.id
       }">Opdater</button>
       <button class="btn-delete-produkt" data-id="${produkt.id}">Fjern</button>
     </div>
@@ -239,11 +240,17 @@ function valgtProdukt(id) {
   document.querySelector("#kgprice-update").value = produkt.kgprice;
 
   // Checker den radio button som matcher værdien fra forsideForslag property
-  if (document.querySelector("#ja-forside-update").value === produkt.forsideForslag) {
+  if (
+    document.querySelector("#ja-forside-update").value ===
+    produkt.forsideForslag
+  ) {
     document.querySelector("#ja-forside-update").checked = true;
   }
 
-  if (document.querySelector("#nej-forside-update").value === produkt.forsideForslag) {
+  if (
+    document.querySelector("#nej-forside-update").value ===
+    produkt.forsideForslag
+  ) {
     document.querySelector("#nej-forside-update").checked = true;
   }
 
