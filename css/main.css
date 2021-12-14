@@ -218,7 +218,7 @@ img {
   height: 100vh;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: flex-start;
   margin-left: 5%;
 }
 
@@ -801,7 +801,6 @@ img {
     border: none;
     height: 45px;
     width: 45px;
-    padding: auto;
     background-color: var(--orange);
     color: white;
     border-radius: 50%;
@@ -880,7 +879,6 @@ img {
   font-family: var(--font-family-header);
   font-size: 2rem;
   display: flex;
-  align-items: top;
 }
 
 .about-us-text blockquote p::before {
@@ -1425,6 +1423,10 @@ footer a {
     margin-right: 0px;
     margin-left: 0px;
     margin-bottom: 50px;
+  }
+
+  .about_visitnordfyn p {
+    font-style: italic;
   }
 
   .alle-vaerdier {

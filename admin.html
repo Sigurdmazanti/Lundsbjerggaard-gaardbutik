@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 
 <head>
   <meta charset="utf-8" />
@@ -23,14 +23,14 @@
     <section id="products" class="page">
       <div class="tabbar">
         <input type="search" placeholder="Søg" onkeyup="search(this.value)">
-        <a href="/index.html"><img src="./img/Logo.svg" /></a>
+        <a href="/index.html"><img src="./img/Logo.svg" alt="Lundsbjerggaard Logo" /></a>
       </div>
       <article id="content" class="grid-container"></article>
       <div class="form_dashboard">
         <form id="userForm">
           <h2>Tilføj nyt produkt</h2>
           <input type="text" id="name" placeholder="Navn på produkt" />
-          <textarea type="text" id="description" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
+          <textarea id="description" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
 
           <label for="cut">
             <select id="cut">
@@ -85,14 +85,14 @@
           </div>
 
           <input type="file" id="img" accept="image/*" onchange="previewImg(this.files[0], 'imagePreview')" />
-          <img id="imagePreview" class="image-preview" />
+          <img id="imagePreview" class="image-preview" alt="" />
           <button type="button" name="button" id="btn-create">Tilføj produkt</button>
         </form>
 
         <form id="form-update">
           <h2>Opdater produkt</h2>
           <input type="text" id="nameUpdate" placeholder="Navn på produkt" />
-          <textarea type="text" id="descriptionUpdate" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
+          <textarea id="descriptionUpdate" placeholder="Beskriv produktet (ca. 5 linjer).."></textarea>
 
           <label for="cut-update">
             <select id="cut-update">
@@ -146,9 +146,11 @@
             <label for="nej-forside-update">Nej</label>
           </div>
           <input type="file" id="imgU" accept="image/*" onchange="previewImg(this.files[0], 'imagePreviewUpdate')" />
-          <img id="imagePreviewUpdate" class="image-preview" />
+          <img id="imagePreviewUpdate" class="image-preview" alt="" />
           <button type="button" name="button" id="btn-update">Opdater produkt</button>
+        </form>
       </div>
+
       <div class="admin_lang_linje"></div>
       <section class="nyheder">
         <h2>Nyhed til produktside</h2>
@@ -170,7 +172,7 @@ Vi har også fået nye vin!</p></textarea>
           <button id="lav-nyhed" class="add-nyhed">Tilføj nyhed</button>
         </div>
         <h2 class="nuvaerende">Nuværende nyhed</h2>
-        <div id="lavet-nyheder" class="grid-container news_grid">
+        <div id="lavet-nyheder" class="grid-container news_grid"></div>
       </section>
     </section>
   </main>
