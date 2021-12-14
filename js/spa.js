@@ -1,5 +1,5 @@
 "use strict";
-
+// Alle
 // hide all pages
 function hideAllPages() {
   let pages = document.querySelectorAll(".page");

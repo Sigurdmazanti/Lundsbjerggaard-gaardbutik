@@ -1,3 +1,4 @@
+// Alle
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
 import {
   getFirestore,
@@ -27,6 +28,7 @@ const _nyhedRef = collection(_db, "nyheder");
 let _products = [];
 let _nyhed = [];
 
+// Alle
 // impoterer funktioner til modulet
 window.showProduct = (id) => showProduct(id);
 window.goBack = (id) => goBack(id);
@@ -35,6 +37,7 @@ window.resetVaerdier = () => resetVaerdier();
 window.vaerdier = (value) => vaerdier(value);
 window.tilTopBtn = () => tilTopBtn();
 
+// Thomas
 // lave en ny scroll funktion, der tager brugeren ned på den sektion der klikkes på
 function scrollToProductSection(id) {
   const productContainer = document.querySelector(id);
@@ -59,6 +62,7 @@ document
     };
   });
 
+// Thomas & Rune
 // Burger menu åben og luk
 const burger = document.getElementById("burger");
 const tabbar = document.getElementById("tabbar");
@@ -72,7 +76,7 @@ tabbar.addEventListener("click", () => {
 });
 
 // ========== READ ==========
-
+// Alle
 // onSnapshot: listen for realtime updates
 onSnapshot(_productsRef, (snapshot) => {
   // mapping snapshot data from firebase in to product objects
@@ -100,6 +104,7 @@ onSnapshot(_nyhedRef, (snapshot) => {
   // showLoader(false);
 });
 
+// Sigurd
 //En funktion som giver forskellige output alt afhængig af lagerstatus
 function optionalList(lager) {
   let htmlOptional = "";
@@ -120,6 +125,8 @@ function optionalList(lager) {
   }
   return htmlOptional;
 }
+
+// Thomas & Rune
 // Filtrer de forskellige produkter som du ser på produkt siden, så de ryger ind i den passende sektion
 function filterProdukter(products) {
   let bofferSteaks = [];
@@ -147,6 +154,7 @@ function filterProdukter(products) {
   appendProdukter(vin, "all-vin");
 }
 
+// Thomas & Rune
 // Her appendes appendes produkterne til produkt siden
 function appendProdukter(products, containerId) {
   let htmlTemplate = "";
@@ -175,6 +183,7 @@ function appendProdukter(products, containerId) {
   document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
 }
 
+//Thomas
 //Produkter append til forsiden
 function appendProdukterForside(products) {
   let htmlTemplate = "";
@@ -206,6 +215,7 @@ function appendProdukterForside(products) {
   document.querySelector(".produkt-kort").innerHTML = htmlTemplate;
 }
 
+// Sigurd
 // Appender alle nyheds sektioner
 function appendNyhed(nyheder) {
   let htmlTemplate = "";
@@ -218,6 +228,8 @@ function appendNyhed(nyheder) {
   }
   document.querySelector("#nyheder").innerHTML = htmlTemplate;
 }
+
+// Thomas & Rune
 //Ala detail view, så gør showProduct meget det samme, hvor du appender informationer for en af objekterne i dit arratý til en produkt side
 function showProduct(id) {
   const product = _products.find((product) => product.id == id);
@@ -270,6 +282,7 @@ function goBack() {
   window.history.back();
 }
 
+// Alexander
 // Image mapping
 //Her genbruger vi vores filtrerings metode, her tager vi fat i Udskæringer
 function filterCuts(products) {
@@ -307,6 +320,7 @@ function filterCuts(products) {
   appendCuts(round, "round-product");
 }
 
+// Alexander
 //Appender til jerseyko udskæringen
 function appendCuts(products, containerId) {
   let htmlTemplate = "";
@@ -322,6 +336,7 @@ function appendCuts(products, containerId) {
   document.querySelector(`#${containerId}`).style.display = "none";
 }
 
+// Alexander
 // Hver funktion tager fat i en del af image mapping, hvor de appender de passende informationer
 document.querySelector("#neck").addEventListener("click", function () {
   clearArray();
@@ -333,6 +348,7 @@ document.querySelector("#neck").addEventListener("click", function () {
   document.querySelector("#image-beskrivelse").innerHTML = html;
 });
 
+// Alexander
 document.querySelector("#chuck").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -343,6 +359,7 @@ document.querySelector("#chuck").addEventListener("click", function () {
   document.querySelector(`#chuck-product`).style.display = "flex";
 });
 
+// Alexander
 document.querySelector("#brisket").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -353,6 +370,7 @@ document.querySelector("#brisket").addEventListener("click", function () {
   document.querySelector(`#brisket-product`).style.display = "flex";
 });
 
+// Alexander
 document.querySelector("#plate").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -363,6 +381,7 @@ document.querySelector("#plate").addEventListener("click", function () {
   document.querySelector(`#plate-product`).style.display = "flex";
 });
 
+// Alexander
 document.querySelector("#rib").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -373,6 +392,7 @@ document.querySelector("#rib").addEventListener("click", function () {
   document.querySelector(`#rib-product`).style.display = "flex";
 });
 
+// Alexander
 document.querySelector("#shortloin").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -381,6 +401,7 @@ document.querySelector("#shortloin").addEventListener("click", function () {
   `;
 });
 
+// Alexander
 document.querySelector("#flank").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -391,6 +412,7 @@ document.querySelector("#flank").addEventListener("click", function () {
   document.querySelector(`#flank-product`).style.display = "flex";
 });
 
+// Alexander
 document.querySelector("#top-sirloin").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -400,6 +422,7 @@ document.querySelector("#top-sirloin").addEventListener("click", function () {
   document.querySelector(`#topsirloin-product`).style.display = "flex";
 });
 
+// Alexander
 document
   .querySelector("#bottom-sirloin")
   .addEventListener("click", function () {
@@ -410,6 +433,7 @@ document
   `;
   });
 
+// Alexander
 document.querySelector("#round").addEventListener("click", function () {
   clearArray();
   document.querySelector("#image-beskrivelse").innerHTML = `
@@ -420,6 +444,7 @@ document.querySelector("#round").addEventListener("click", function () {
   document.querySelector(`#round-product`).style.display = "flex";
 });
 
+// Alexander
 // Sætter alle appendede produkter på jersey side til display none, som en nulstilling af funktionen
 function clearArray() {
   document.querySelector(`#chuck-product`).style.display = "none";
@@ -432,6 +457,7 @@ function clearArray() {
   document.querySelector(`#flank-product`).style.display = "none";
 }
 
+// Thomas
 // Luk alle værdier
 function resetVaerdier() {
   document.getElementById("vaerdi-1").style.display = "none";
@@ -439,6 +465,7 @@ function resetVaerdier() {
   document.getElementById("vaerdi-3").style.display = "none";
 }
 
+// Thomas
 // Åbner værdi ved onclick
 function vaerdier(value) {
   resetVaerdier();
