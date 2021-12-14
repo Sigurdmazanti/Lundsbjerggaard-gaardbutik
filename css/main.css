@@ -14,7 +14,7 @@
   --font-family-header: "Playball", sans-serif;
   --text-color-out-of-stock: rgb(89, 38, 38);
   --text-color-in-stock: rgb(172, 198, 201);
-  --orange: #f9b865;
+  --orange: #f9b965;
 }
 
 *,
@@ -129,11 +129,13 @@ img {
   padding: 10px 25px;
   font-family: var(--font-family);
   font-size: clamp(0.9rem, 2vw, 1.1rem);
+  box-shadow: 0px 2px 4px rgba(22, 22, 22, 0.2);
   cursor: pointer;
 }
 
 .cta-btn:hover {
-  background-color: var(--orange);
+  background-color: rgb(255, 166, 0);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* ---------- Hero styling ---------- */
