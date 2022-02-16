@@ -1194,6 +1194,20 @@ footer a {
   border-radius: 5px;
 }
 
+.mobile-nav-container ul li.active {
+  background-color: #e28f47;
+  transition: 1s ease;
+  border-radius: 5px;
+}
+
+.mobile-nav-container ul li.active a {
+  color: white;
+}
+
+.nav-container ul li.active a {
+  color: white;
+}
+
 .nav-container ul li a {
   list-style-type: none;
   text-decoration: none;
@@ -1354,7 +1368,7 @@ footer a {
     display: none;
   }
   .mobile-nav-container ul li {
-    padding: 12px 0;
+    padding: 15px 20px;
   }
   .mobile-nav-container ul li a {
     text-decoration: none;
@@ -1364,7 +1378,7 @@ footer a {
   }
 
   .mobile-nav-container ul li:not(:first-child) {
-    padding-left: 40px;
+    margin-left: 20px;
   }
 
   .mobile-produkt-nav {

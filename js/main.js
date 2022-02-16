@@ -471,3 +471,23 @@ function vaerdier(value) {
   resetVaerdier();
   document.getElementById(value).style.display = "block";
 }
+
+var nav = $(".nav-container");
+var navMobile = $(".mobile-nav-container");
+var sections = $(".kategori");
+
+$(window).on("scroll", function () {
+  var cur_pos = $(this).scrollTop();
+
+  sections.each(function () {
+    var top = $(this).offset().top - 250,
+      bottom = top + $(this).outerHeight();
+    console.log($(this)[0].id, top, bottom, cur_pos);
+    if (cur_pos >= top && cur_pos <= bottom) {
+      nav.find(".boffer").removeClass("active");
+      nav.find("." + $(this)[0].id).addClass("active");
+      navMobile.find(".boffer").removeClass("active");
+      navMobile.find("." + $(this)[0].id).addClass("active");
+    }
+  });
+});
