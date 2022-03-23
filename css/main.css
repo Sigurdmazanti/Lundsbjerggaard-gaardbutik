@@ -1195,13 +1195,13 @@ footer a {
 }
 
 .mobile-nav-container ul li.active {
-  background-color: #e28f47;
+  color: #e28f47;
   transition: 1s ease;
   border-radius: 5px;
 }
 
 .mobile-nav-container ul li.active a {
-  color: white;
+  color: #e28f47;
 }
 
 .nav-container ul li.active a {
@@ -1367,18 +1367,26 @@ footer a {
   .mobile-nav-container::-webkit-scrollbar {
     display: none;
   }
-  .mobile-nav-container ul li {
-    padding: 15px 20px;
-  }
+
   .mobile-nav-container ul li a {
     text-decoration: none;
     list-style-type: none;
     font-size: 16px;
     color: black;
+    padding: 15px 0;
+  }
+
+  .mobile-nav-container ul li a:not(:first-child) {
+    padding: 0 20px;
   }
 
   .mobile-nav-container ul li:not(:first-child) {
     margin-left: 20px;
+    padding: 0 20px;
+  }
+
+  .mobile-nav-container ul li:first-child {
+    padding-right: 20px;
   }
 
   .mobile-produkt-nav {

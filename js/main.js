@@ -31,6 +31,7 @@ let _nyhed = [];
 // Alle
 // impoterer funktioner til modulet
 window.showProduct = (id) => showProduct(id);
+window.showVin = (id) => showVin(id);
 window.goBack = (id) => goBack(id);
 window.appendProdukterForside = (products) => appendProdukterForside(products);
 window.resetVaerdier = () => resetVaerdier();
@@ -151,7 +152,7 @@ function filterProdukter(products) {
   appendProdukter(stege, "all-stege");
   appendProdukter(hakketOkse, "all-hakket");
   appendProdukter(spegePolse, "all-spegepolse");
-  appendProdukter(vin, "all-vin");
+  appendVin(vin, "all-vin");
 }
 
 // Thomas & Rune
@@ -169,6 +170,33 @@ function appendProdukter(products, containerId) {
         <p class="kgpris">${product.kgprice} kr/kg</p>
         <p class="vaegt">Ca. ${product.weight} g</p>
         <p class="pris">Fra ${product.price} kr,-</p>
+        <div class="justify-content">
+        <div class="dashboard_lagerstatus">${optionalList(product)} ${
+      product.stock
+    }</div>
+    <button><img src="./img/pil.png"></button>
+        </div>
+        </div>
+      </div>
+    </article>
+    `;
+  }
+  document.querySelector(`#${containerId}`).innerHTML = htmlTemplate;
+}
+
+function appendVin(products, containerId) {
+  let htmlTemplate = "";
+  for (let product of products) {
+    htmlTemplate += /*html*/ `
+    <article class="kort" onclick="showVin('${product.id}')">
+    <div class="kort-img">
+      <img src="${product.img}">
+      </div>
+      <div class="kort-indhold">
+        <h3>${product.name}</h3>
+        <p class="kgpris">Årstal ${product.kgprice}</p>
+        <p class="vaegt">Oprindelse ${product.weight} g</p>
+        <p class="pris">Pris ${product.price} kr,-</p>
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
       product.stock
@@ -230,7 +258,7 @@ function appendNyhed(nyheder) {
 }
 
 // Thomas & Rune
-//Ala detail view, så gør showProduct meget det samme, hvor du appender informationer for en af objekterne i dit arratý til en produkt side
+//Ala detail view, så gør showProduct meget det samme, hvor du appender informationer for en af objekterne i dit array til en produkt side
 function showProduct(id) {
   const product = _products.find((product) => product.id == id);
   document.querySelector("#chosen-product").innerHTML = /*html*/ `
@@ -255,6 +283,53 @@ function showProduct(id) {
 <div class="produkt-information">
 <div class="specifik-info">
 <p class="specifik-info-top">Kilopris</p>
+          <p class="specifik-info-bottom">${product.kgprice} kr/kg</p>
+          </div>
+          <div class="specifik-info">
+          <p class="specifik-info-top">Generel vægt</p>
+          <p class="specifik-info-bottom">Ca. ${product.weight} g</p>
+          </div>
+          <div class="specifik-info">
+          <p class="specifik-info-top">Fra</p>
+          <p class="specifik-info-bottom">${product.price} kr,-</p>
+          </div>
+          <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
+            product
+          )} ${product.stock}
+    </div>
+    </div>
+          </div>
+        </div>
+        </div>
+  </article>
+    `;
+  navigateTo("specific-product");
+}
+
+function showVin(id) {
+  const product = _products.find((product) => product.id == id);
+  document.querySelector("#chosen-product").innerHTML = /*html*/ `
+  <article class="product-card ${product.name}-color">
+  <div onclick="goBack()" class="produkt-navigation mobile-produkt">
+  <img src="./img/pil.png">
+  <h2>Tilbage</h2>
+  </div>
+        <div class="produkt-img">
+          <img src="${product.img}">
+        </div>
+        <div class="produkt-indhold">
+        <div onclick="goBack()" class="produkt-navigation desktop-produkt">
+        <img src="./img/pil.png">
+        <h2>Tilbage</h2>
+        </div>
+
+        <div class="produkt-names">
+          <h3>${product.name}</h3>
+          <p class="description">${product.description}</p>
+          </div>
+<div class="produkt-information">
+<div class="specifik-info">
+<p class="specifik-info-top">Årstal</p>
           <p class="specifik-info-bottom">${product.kgprice} kr/kg</p>
           </div>
           <div class="specifik-info">
@@ -480,9 +555,8 @@ $(window).on("scroll", function () {
   var cur_pos = $(this).scrollTop();
 
   sections.each(function () {
-    var top = $(this).offset().top - 250,
+    var top = $(this).offset().top - 400,
       bottom = top + $(this).outerHeight();
-    console.log($(this)[0].id, top, bottom, cur_pos);
     if (cur_pos >= top && cur_pos <= bottom) {
       nav.find(".boffer").removeClass("active");
       nav.find("." + $(this)[0].id).addClass("active");
