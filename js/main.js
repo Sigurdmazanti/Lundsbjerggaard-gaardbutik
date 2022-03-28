@@ -194,9 +194,9 @@ function appendVin(products, containerId) {
       </div>
       <div class="kort-indhold">
         <h3>${product.name}</h3>
-        <p class="kgpris">Årstal ${product.kgprice}</p>
-        <p class="vaegt">Oprindelse ${product.weight} g</p>
-        <p class="pris">Pris ${product.price} kr,-</p>
+        <p class="kgpris">${product.kgprice}</p>
+        <p class="vaegt">${product.weight}</p>
+        <p class="pris">${product.price} kr,-</p>
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
       product.stock
@@ -224,9 +224,9 @@ function appendProdukterForside(products) {
         </div>
         <div class="kort-indhold">
           <h3>${product.name}</h3>
-          <p class="kgpris">${product.kgprice} kr/kg</p>
-          <p class="vaegt">Ca. ${product.weight} g</p>
-          <p class="pris">Fra ${product.price} kr,-</p>
+          <p class="kgpris">${product.kgprice}</p>
+          <p class="vaegt">${product.weight}</p>
+          <p class="pris">Fra ${product.price}</p>
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(product)} ${
         product.stock
@@ -330,15 +330,15 @@ function showVin(id) {
 <div class="produkt-information">
 <div class="specifik-info">
 <p class="specifik-info-top">Årstal</p>
-          <p class="specifik-info-bottom">${product.kgprice} kr/kg</p>
-          </div>
-          <div class="specifik-info">
-          <p class="specifik-info-top">Generel vægt</p>
-          <p class="specifik-info-bottom">Ca. ${product.weight} g</p>
+          <p class="specifik-info-bottom">${product.kgprice}</p>
           </div>
           <div class="specifik-info">
           <p class="specifik-info-top">Fra</p>
-          <p class="specifik-info-bottom">${product.price} kr,-</p>
+          <p class="specifik-info-bottom">${product.weight}</p>
+          </div>
+          <div class="specifik-info">
+          <p class="specifik-info-top">Alkoholprocent</p>
+          <p class="specifik-info-bottom">${product.price}%</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
             product
