@@ -173,7 +173,7 @@ function appendProdukter(products, containerId) {
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
       product.stock
-    }</div>
+      }</div>
     <button><img src="./img/pil.png"></button>
         </div>
         </div>
@@ -200,7 +200,7 @@ function appendVin(products, containerId) {
         <div class="justify-content">
         <div class="dashboard_lagerstatus">${optionalList(product)} ${
       product.stock
-    }</div>
+      }</div>
     <button><img src="./img/pil.png"></button>
         </div>
         </div>
@@ -224,13 +224,13 @@ function appendProdukterForside(products) {
         </div>
         <div class="kort-indhold">
           <h3>${product.name}</h3>
-          <p class="kgpris">${product.kgprice}</p>
-          <p class="vaegt">${product.weight}</p>
-          <p class="pris">Fra ${product.price}</p>
+          <p class="kgpris">${product.kgprice} kr/kg</p>
+          <p class="vaegt">Ca. ${product.weight} g</p>
+          <p class="pris">Fra ${product.price} kr,-</p>
           <div class="justify-content">
           <div class="dashboard_lagerstatus">${optionalList(product)} ${
         product.stock
-      }</div>
+        }</div>
           <button><img src="./img/pil.png"></button>
           </div>
           </div>
@@ -294,8 +294,8 @@ function showProduct(id) {
           <p class="specifik-info-bottom">${product.price} kr,-</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-            product
-          )} ${product.stock}
+    product
+  )} ${product.stock}
     </div>
     </div>
           </div>
@@ -341,8 +341,8 @@ function showVin(id) {
           <p class="specifik-info-bottom">${product.price}%</p>
           </div>
           <div class="dashboard_lagerstatus-specifik specifik-info-bottom">${optionalList(
-            product
-          )} ${product.stock}
+    product
+  )} ${product.stock}
     </div>
     </div>
           </div>
